@@ -16,14 +16,13 @@ public class MainMenu extends ParentMenu{
 	}
 	
 	public GameConfig gameConfig 	= new GameConfig();
-	private myGraphic buttons[]		= new myGraphic[6];
-	private Text name[] 			= new Text[6];
 	private Text menuName 			= null;
 	
-	public final Couple buttonSize 			= new Couple(150, 40);
+	public final int numButtons				= 5;
+	public final Couple buttonSize 			= new Couple(180, 40);
 	private StartMenu startMenu 			= new StartMenu(this);
-//	private HardLevelMenu hardLevelMenu 	= new HardLevelMenu(this);
-//	private HighScoreMenu highScoreMenu 	= new HighScoreMenu(this);
+	private HardLevelMenu hardLevelMenu 	= new HardLevelMenu(this);
+	private HighScoreMenu highScoreMenu 	= new HighScoreMenu(this);
 //	private SettingMenu settingMenu 		= new SettingMenu(this);
 	
 	public MainMenu() {
@@ -45,9 +44,10 @@ public class MainMenu extends ParentMenu{
 	
 	public void initButton()
 	{
+		buttons = new myGraphic[numButtons + 1];
 		double layout = buttonFrame.getX() + (buttonFrame.getFitWidth() - buttonSize.x)/2;
 		double distance = 5;
-		for (int i = 1; i <= 5; i++)
+		for (int i = 1; i <= numButtons; i++)
 		{
 			buttons[i] = new myGraphic("resource/frame/button2.png");
 			buttons[i].setSize(buttonSize.x, buttonSize.y);
@@ -59,22 +59,25 @@ public class MainMenu extends ParentMenu{
 			root.getChildren().add(buttons[i]);
 		}
 		// TEXT:
-		
-		for (int i = 1; i <= 5; i++)
-		{
-			name[i] = new Text();
-			name[i].setX(buttons[i].getX() + 45);
-			name[i].setY(buttons[i].getY() + 25);
-			root.getChildren().add(name[i]);
-			
-			Font font = new Font("Time New Roman", 16);
-			name[i].setFont(font);
-		}
+		name = new Text[numButtons + 1];
+		Font font = new Font("Time New Roman", 16);
+		for (int i = 1; i <= numButtons; i++) name[i] = new Text();
+		int hardLevel = gameConfig.hardLevel;
+		String hard = 	(hardLevel == GameConfig.EASY 	? "Dễ" : 
+						(hardLevel == GameConfig.NORMAL ? "Trung bình" : "Khó"));
 		name[1].setText("Bắt đầu");
-		name[2].setText("Độ khó");
+		name[2].setText("Độ khó: " + hard);
 		name[3].setText("Điểm cao");
 		name[4].setText("Cài đặt");
 		name[5].setText("Thoát");
+		for (int i = 1; i <= numButtons; i++)
+		{
+			name[i].setX(buttons[i].getX() + (buttons[i].getFitWidth() - name[i].getText().length() * 8)/2);
+			name[i].setY(buttons[i].getY() + 25);
+			root.getChildren().add(name[i]);
+			
+			name[i].setFont(font);
+		}
 	}
 	public void setEvent()
 	{
@@ -86,14 +89,14 @@ public class MainMenu extends ParentMenu{
 		};
 		EventHandler<MouseEvent> e2 = new EventHandler<MouseEvent>(){
 			@Override public void handle(MouseEvent e) {
-//				stage.hide();
-//				hardLevelMenu.run();
+				stage.hide();
+				hardLevelMenu.run();
 			}
 		};
 		EventHandler<MouseEvent> e3 = new EventHandler<MouseEvent>(){
 			@Override public void handle(MouseEvent e) {
-//				stage.hide();
-//				highScoreMenu.run();
+				stage.hide();
+				highScoreMenu.run();
 			}
 		};
 		EventHandler<MouseEvent> e4 = new EventHandler<MouseEvent>(){

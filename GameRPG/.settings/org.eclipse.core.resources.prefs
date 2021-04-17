@@ -1,4 +1,6 @@
 eclipse.preferences.version=1
+encoding//src/menu/HardLevelMenu.java=UTF-8
+encoding//src/menu/HighScoreMenu.java=UTF-8
 encoding//src/menu/MainMenu.java=UTF-8
 encoding//src/menu/MessageBox.java=UTF-8
 encoding//src/menu/ParentMenu.java=UTF-8

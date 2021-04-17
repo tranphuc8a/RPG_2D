@@ -5,6 +5,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import system.Couple;
 import system.myGraphic;
@@ -39,9 +40,11 @@ public class ParentMenu extends Application {
 	protected Scene scene = null;
 	protected Stage stage = null;
 	
-	protected myGraphic background = null;
-	protected myGraphic nameFrame = null;
+	protected myGraphic background 	= null;
+	protected myGraphic nameFrame 	= null;
 	protected myGraphic buttonFrame = null;
+	protected myGraphic buttons[]	= null;
+	protected Text name[] 			= null;
 	
 	protected myGraphic infor = null;
 	protected myGraphic tutor = null;
@@ -182,5 +185,11 @@ public class ParentMenu extends Application {
 	public void setPosition(double x, double y) {
 		stage.setX(x);
 		stage.setY(y);		
+	}
+	public Text[] getName() {
+		return name;
+	}
+	public myGraphic[] getButtons() {
+		return buttons;
 	}
 }
