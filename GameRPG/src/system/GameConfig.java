@@ -23,7 +23,8 @@ public class GameConfig {
 	public static int[] highScore = new int[6];
 	public static boolean sound = true;
 	public static boolean music = true;
-	public static int theme = FIRST_THEME;
+	public static int noTheme = FIRST_THEME;
+	public static Theme theme = Theme.FIRST_THEME();
 	
 	public GameConfig() {
 		for (int i = 1; i <= 5; i++)

@@ -69,16 +69,14 @@ public class StartMenu extends ParentMenu{
 		EventHandler<MouseEvent> e1 = new EventHandler<MouseEvent>() {
 			@Override public void handle(MouseEvent e) {
 				stage.hide();
-				GameConfig gmcfg = ((MainMenu) parent).gameConfig;
-				gmcfg.numberPlayer = 1;
+				GameConfig.numberPlayer = 1;
 //				gameFrame(gmcfg) run
 			}
 		};
 		EventHandler<MouseEvent> e2 = new EventHandler<MouseEvent>() {
 			@Override public void handle(MouseEvent e) {
 				stage.hide();
-				GameConfig gmcfg = ((MainMenu) parent).gameConfig;
-				gmcfg.numberPlayer = 2;
+				GameConfig.numberPlayer = 2;
 //				gameFrame(gmcfg) run
 			}
 		};

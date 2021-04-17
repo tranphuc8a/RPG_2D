@@ -8,6 +8,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import system.Couple;
+import system.GameConfig;
+import system.Theme;
 import system.myGraphic;
 import system.myImage;
 
@@ -24,10 +26,14 @@ public class ParentMenu extends Application {
 	{
 		stage.hide();
 		if (parent != null)
+		{
+			parent.loadGraphic(GameConfig.theme);
 			parent.stage.show();
+		}
 	}
 	public void run()
 	{
+		
 		this.start(stage);
 	}
 	public static void main(String[] args) {
@@ -80,7 +86,7 @@ public class ParentMenu extends Application {
 		this.setSize(stageSize.x + padFrame.x, stageSize.y + padFrame.y);
 		stage.setX(stagePosition.x);
 		stage.setY(stagePosition.y);
-		stage.setTitle("RPG_2D Nhóm 12 Lập trình hướng đối tượng");
+		stage.setTitle("RPG_2D Nhóm 18 Lập trình hướng đối tượng");
 		// init component:
 		initBackground();
 		initNameFrame();
@@ -95,17 +101,17 @@ public class ParentMenu extends Application {
 	public void initBackground()
 	{
 		background = new myGraphic();
-		setBackground("resource/background/beauty2.jpg");
+		setBackground(GameConfig.theme.backgroundPath);
 	}
 	public void initNameFrame()
 	{
-		nameFrame = new myGraphic("resource/frame/text.png");
+		nameFrame = new myGraphic(GameConfig.theme.nameFramePath);
 		nameFrame.setPosition(nameFramePosition.x, nameFramePosition.y);
 		nameFrame.setSize(nameFrameSize.x, nameFrameSize.y);
 	}
 	public void initButtonFrame()
 	{
-		buttonFrame = new myGraphic(new myImage("resource/frame/buttonFrame.png"));
+		buttonFrame = new myGraphic(GameConfig.theme.buttonFramePath);
 		buttonFrame.setPosition(buttonFramePosition.x, buttonFramePosition.y);
 		buttonFrame.setSize(buttonFrameSize.x, buttonFrameSize.y);
 	}
@@ -115,7 +121,7 @@ public class ParentMenu extends Application {
 		inforMess.setContent(MessageBox.INFORMATION);
 		inforMess.setTitle("Thông tin");
 		// set myGraphic
-		infor = new myGraphic("resource/symbol/infor.png");
+		infor = new myGraphic(GameConfig.theme.informationPath);
 		infor.setSize(50, 50);
 		infor.setPosition(600, 320);
 		// add Event
@@ -134,7 +140,7 @@ public class ParentMenu extends Application {
 		tutorMess.setContent(MessageBox.TUTORIAL);
 		tutorMess.setTitle("Hướng dẫn");
 		// set myGraphic
-		tutor = new myGraphic(new myImage("resource/symbol/help.png"));
+		tutor = new myGraphic(GameConfig.theme.tutorialPath);
 		tutor.setSize(50, 50);
 		tutor.setPosition(600, 400);
 		tutor.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
@@ -191,5 +197,16 @@ public class ParentMenu extends Application {
 	}
 	public myGraphic[] getButtons() {
 		return buttons;
+	}
+	public void loadGraphic(Theme newTheme) {
+		background.setImage(new myImage(newTheme.backgroundPath));
+		nameFrame.setImage(new myImage(newTheme.nameFramePath));
+		buttonFrame.setImage(new myImage(newTheme.buttonFramePath));
+		for (int i = 1; i < buttons.length; i++) {
+			buttons[i].setImage(new myImage(newTheme.buttonPath));
+			name[i].setFont(newTheme.nameButtonFont);
+		}
+		infor.setImage(new myImage(newTheme.informationPath));
+		tutor.setImage(new myImage(newTheme.tutorialPath));
 	}
 }

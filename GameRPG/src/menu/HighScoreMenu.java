@@ -70,10 +70,9 @@ public class HighScoreMenu extends ParentMenu {
 		menuName.setY(nameFrame.getY() + 60);
 		root.getChildren().add(menuName);
 		// HIGHSCORE
-		GameConfig gmcfg = ((MainMenu) parent).gameConfig;
 		StringBuffer Content = new StringBuffer("");
 		for (int i = 1; i <= 5; i++) {
-			Content.append(i + ". " + gmcfg.highScore[i] + "\n");
+			Content.append(i + ". " + GameConfig.highScore[i] + "\n");
 		}
 		content = new Text(Content.toString());
 		content.setFont(new Font("Courier", 20));
