@@ -1,8 +1,11 @@
 eclipse.preferences.version=1
+encoding//src/menu/GameFrame.java=UTF-8
+encoding//src/menu/GameOverMenu.java=UTF-8
 encoding//src/menu/HardLevelMenu.java=UTF-8
 encoding//src/menu/HighScoreMenu.java=UTF-8
 encoding//src/menu/MainMenu.java=UTF-8
 encoding//src/menu/MessageBox.java=UTF-8
 encoding//src/menu/ParentMenu.java=UTF-8
+encoding//src/menu/PauseMenu.java=UTF-8
 encoding//src/menu/SettingMenu.java=UTF-8
 encoding//src/menu/StartMenu.java=UTF-8

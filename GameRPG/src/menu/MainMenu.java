@@ -1,13 +1,12 @@
 package menu;
 
 import javafx.event.EventHandler;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.text.Font;
-//import javafx.scene.text.FontPosture;
-//import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import system.Couple;
 import system.GameConfig;
+import system.GameLoop;
 import system.myGraphic;
 
 public class MainMenu extends ParentMenu{
@@ -15,15 +14,14 @@ public class MainMenu extends ParentMenu{
 		launch(args);
 	}
 	
-//	public GameConfig gameConfig 	= new GameConfig();
 	private Text menuName 			= null;
 	
 	public final int numButtons				= 5;
 	public final Couple buttonSize 			= new Couple(180, 40);
-	private StartMenu startMenu 			= new StartMenu(this);
-	private HardLevelMenu hardLevelMenu 	= new HardLevelMenu(this);
-	private HighScoreMenu highScoreMenu 	= new HighScoreMenu(this);
-	private SettingMenu settingMenu 		= new SettingMenu(this);
+	public StartMenu startMenu 				= new StartMenu(this);
+	public HardLevelMenu hardLevelMenu 		= new HardLevelMenu(this);
+	public HighScoreMenu highScoreMenu 		= new HighScoreMenu(this);
+	public SettingMenu settingMenu 			= new SettingMenu(this);
 	
 	public MainMenu() {
 		super();
@@ -106,6 +104,18 @@ public class MainMenu extends ParentMenu{
 				stop();
 			}
 		};
+		EventHandler<MouseEvent> e6 = new EventHandler<MouseEvent>(){
+			@Override public void handle(MouseEvent e) {
+				myGraphic gr = (myGraphic) e.getTarget();
+				gr.setX(gr.getX() + 20);
+			}
+		};
+		EventHandler<MouseEvent> e7 = new EventHandler<MouseEvent>(){
+			@Override public void handle(MouseEvent e) {
+				myGraphic gr = (myGraphic) e.getTarget();
+				gr.setX(gr.getX() - 20);
+			}
+		};
 		
 		buttons[1].addEventHandler(MouseEvent.MOUSE_CLICKED, e1);
 		buttons[2].addEventHandler(MouseEvent.MOUSE_CLICKED, e2);
@@ -117,6 +127,10 @@ public class MainMenu extends ParentMenu{
 		name[3].addEventHandler(MouseEvent.MOUSE_CLICKED, e3);
 		name[4].addEventHandler(MouseEvent.MOUSE_CLICKED, e4);
 		name[5].addEventHandler(MouseEvent.MOUSE_CLICKED, e5);
+//		for (int i = 1; i <= 5; i++) {
+//			buttons[i].addEventHandler(MouseEvent.MOUSE_ENTERED, e6);
+//			buttons[i].addEventHandler(MouseEvent.MOUSE_EXITED, e7);
+//		}
 	}
 	
 	public void initText()

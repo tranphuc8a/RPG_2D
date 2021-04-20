@@ -10,13 +10,13 @@ package system;
 //import javafx.stage.Stage;
 
 public class GameConfig {
-	public static final int EASY = 0;
-	public static final int NORMAL = 1;
-	public static final int HARD = 2;
+	public static final int EASY = 1;
+	public static final int NORMAL = 2;
+	public static final int HARD = 3;
 	
-	public static final int FIRST_THEME = 3;
-	public static final int SECOND_THEME = 4;
-	public static final int THIRD_THEME = 5;
+	public static final int FIRST_THEME = 1;
+	public static final int SECOND_THEME = 2;
+	public static final int THIRD_THEME = 3;
 	
 	public static int numberPlayer = 1;
 	public static int hardLevel = EASY;

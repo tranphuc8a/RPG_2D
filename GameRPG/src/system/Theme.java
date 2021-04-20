@@ -31,7 +31,7 @@ public class Theme {
 	}
 	public static Theme SECOND_THEME() {
 		Theme temp = new Theme();
-		temp.buttonPath 		= "resource/frame/button.png";
+		temp.buttonPath 		= "resource/frame/button2.png";
 		temp.backgroundPath 	= "resource/background/beauty1.jpg";
 		temp.buttonFramePath 	= "resource/frame/buttonFrame1.jpg";
 		temp.nameFramePath 		= "resource/frame/text.png";

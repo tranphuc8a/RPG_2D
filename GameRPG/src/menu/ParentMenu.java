@@ -33,7 +33,6 @@ public class ParentMenu extends Application {
 	}
 	public void run()
 	{
-		
 		this.start(stage);
 	}
 	public static void main(String[] args) {
@@ -57,14 +56,14 @@ public class ParentMenu extends Application {
 	protected MessageBox inforMess = null;
 	protected MessageBox tutorMess = null;
 	
-	public final Couple stagePosition 		= new Couple(300, 100);
-	public final Couple padFrame			= new Couple(16, 37);
-	public final Couple stageSize 			= new Couple(700, 500);
-	public final Couple nameFramePosition 	= new Couple(30, 30);
-	public final Couple nameFrameSize 		= new Couple(630, 100);
-	public final Couple buttonSize 			= new Couple(150, 50);
-	public final Couple buttonFramePosition = new Couple(110, 140);
-	public final Couple buttonFrameSize 	= new Couple(400, 330);
+	public static final Couple stagePosition 		= new Couple(300, 100);
+	public static final Couple padFrame				= new Couple(16, 37);
+	public static final Couple stageSize 			= new Couple(700, 500);
+	public static final Couple nameFramePosition 	= new Couple(30, 30);
+	public static final Couple nameFrameSize 		= new Couple(630, 100);
+	public static final Couple buttonSize 			= new Couple(150, 50);
+	public static final Couple buttonFramePosition 	= new Couple(110, 140);
+	public static final Couple buttonFrameSize 		= new Couple(400, 330);
 
 	// constructor:
 	public ParentMenu() {
