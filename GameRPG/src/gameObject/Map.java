@@ -32,8 +32,8 @@ public class Map extends myGraphic {
 	public void initialize() {
 		// readMask
 		// loadGraphic
-		this.setImage(new myImage(GameConfig.theme.mapPath[0]));
-		row = col = 75;
+		this.setImage(new myImage(GameConfig.theme.mapPath[3]));
+		row = col = 20;
 		matrix = new int[row][col];
 		for (int i = 0; i < row; i++)
 		{
@@ -42,5 +42,7 @@ public class Map extends myGraphic {
 				matrix[i][j] = 0;
 			}
 		}
+		this.setSize(row * GameObject.BASE, col * GameObject.BASE);
+		this.setPosition(0, 0);
 	}
 }

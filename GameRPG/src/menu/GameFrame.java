@@ -8,6 +8,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import system.Camera;
 import system.Couple;
 import system.EventDistributor;
 import system.GameConfig;
@@ -22,7 +23,6 @@ public class GameFrame extends Application {
 		initialize();
 		primaryStage = this.stage;
 		primaryStage.show();
-		gameLoop.setFPS(50);
 		gameLoop.start();
 	}
 	public void run() {
@@ -40,13 +40,15 @@ public class GameFrame extends Application {
 	private Scene scene = null;
 	private Group root = null;
 	
-//	private Camera camera = new Camera(this);
 	private GameWorld gameWorld = new GameWorld(this);
+	private Camera camera = new Camera(this);
 	private GameLoop gameLoop = new GameLoop(this);
 	private EventDistributor eventDistributor = new EventDistributor(this);
 	
+	
 	public static final Couple stageSize = ParentMenu.stageSize;
 	public static final Couple stagePosition = ParentMenu.stagePosition;
+	public static final Couple stagePad = ParentMenu.padFrame;
 	
 	public GameFrame() {}
 	public GameFrame(ParentMenu parent) {
@@ -61,15 +63,17 @@ public class GameFrame extends Application {
 		stage.setScene(scene);
 		stage.setX(stagePosition.x);
 		stage.setY(stagePosition.y);
-		stage.setWidth(stageSize.x);
-		stage.setHeight(stageSize.y);
-		stage.setMinWidth(stageSize.x);
-		stage.setMinHeight(stageSize.y);
-		stage.setMaxWidth(stageSize.x);
-		stage.setMaxHeight(stageSize.y);
+		stage.setWidth(stageSize.x - stagePad.x);
+		stage.setHeight(stageSize.y - stagePad.y);
+		stage.setMinWidth(stageSize.x - stagePad.x);
+		stage.setMinHeight(stageSize.y - stagePad.y);
+		stage.setMaxWidth(stageSize.x - stagePad.x);
+		stage.setMaxHeight(stageSize.y - stagePad.y);
 		// load ConfigGame
 		// make Graph of list GameObject
 		gameWorld.initialize();
+		gameLoop.setFPS(50);
+		camera.initialize();
 		root.getChildren().addAll(gameWorld.getMap(), gameWorld.getCharacter());
 		distributeEvent();
 	}
@@ -102,5 +106,8 @@ public class GameFrame extends Application {
 	}
 	public GameWorld getGameWorld() {
 		return this.gameWorld;
+	}
+	public Camera getCamera() {
+		return this.camera;
 	}
 }
