@@ -59,8 +59,10 @@ public class Theme {
 			temp.charaterPath.right[i] = "resource/character/man/right/right" + (i + 1) + "-removebg-preview.png";
 		}
 		
-		temp.mapPath = new String[3];
-		temp.mapPath[0] = "resource/map/map1.jpg";
+		temp.mapPath = new String[4];
+		temp.mapPath[1] = "resource/map/map1.jpg";
+		temp.mapPath[2] = "resource/map/map2.png";
+		temp.mapPath[3] = "resource/map/map3.png";
 		
 		return temp;
 	}
@@ -88,8 +90,10 @@ public class Theme {
 			temp.charaterPath.right[i] = "resource/character/man/right/right" + (i + 1) + "-removebg-preview.png";
 		}
 		
-		temp.mapPath = new String[3];
-		temp.mapPath[0] = "resource/map/map1.jpg";
+		temp.mapPath = new String[4];
+		temp.mapPath[1] = "resource/map/map1.jpg";
+		temp.mapPath[2] = "resource/map/map2.png";
+		temp.mapPath[3] = "resource/map/map3.png";
 		
 		return temp;
 	}
@@ -117,8 +121,10 @@ public class Theme {
 			temp.charaterPath.right[i] 	= "resource/character/man/right/right" 	+ (i + 1) + "-removebg-preview.png";
 		}
 		
-		temp.mapPath = new String[3];
-		temp.mapPath[0] = "resource/map/map1.jpg";
+		temp.mapPath = new String[4];
+		temp.mapPath[1] = "resource/map/map1.jpg";
+		temp.mapPath[2] = "resource/map/map2.png";
+		temp.mapPath[3] = "resource/map/map3.png";
 		
 		return temp;
 	}

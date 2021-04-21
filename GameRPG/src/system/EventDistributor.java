@@ -33,6 +33,10 @@ public class EventDistributor {
 		ObjectState state = gameWorld.getCharacter().state;
 		if (code.equals(KeyCode.ESCAPE)) {
 			gameFrame.pauseGame();
+			state.isGoUp = false;
+			state.isGoDown = false;
+			state.isGoLeft = false;
+			state.isGoRight = false;
 		} else if (code.equals(KeyCode.UP)) {
 			state.direct = ObjectState.UP;
 			state.isGoUp = true;

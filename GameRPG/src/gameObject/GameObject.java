@@ -12,6 +12,7 @@ import system.myImage;
 public class GameObject extends myGraphic{
 	public GameWorld gameWorld = null;
 	public Map map 				= null;
+	public Couple positionMap	= new Couple(0, 0);
 	public Couple basePosition  = new Couple(0, 0);
 	public Couple centerPosition = new Couple(0, 0);
 	
@@ -49,7 +50,12 @@ public class GameObject extends myGraphic{
 		state.direct = ObjectState.UP;
 		state.speed = 5;
 	}
-	public void setBasePosition(int x, int y) {
+	public void setPositionMap(double x, double y) {
+		this.positionMap.x = x;
+		this.positionMap.y = y;
+		this.setPosition(this.positionMap.x + map.getX(), this.positionMap.y + map.getY());
+	}
+	public void setBasePosition(double x, double y) {
 		this.basePosition = new Couple(x, y);
 	}
 	public void loadImage(ObjectPath path) {
@@ -64,19 +70,23 @@ public class GameObject extends myGraphic{
 		if (state.isGoCross) speed /= Math.sqrt(2);
 		if (state.isGoUp && !impactMap(ObjectState.UP)) {
 			state.direct = ObjectState.UP;
-			this.setY(this.getY() - speed);
+//			this.setBasePosition(this.basePosition.x, this.basePosition.y - speed/GameObject.BASE);
+			this.setPositionMap(this.positionMap.x, this.positionMap.y - speed);
 		}
 		if (state.isGoDown && !impactMap(ObjectState.DOWN)) {
 			state.direct = ObjectState.DOWN;
-			this.setY(this.getY() + speed);
+//			this.setBasePosition(this.basePosition.x, this.basePosition.y + speed/GameObject.BASE);
+			this.setPositionMap(this.positionMap.x, this.positionMap.y + speed);
 		}
 		if (state.isGoLeft && !impactMap(ObjectState.LEFT)) {
 			state.direct = ObjectState.LEFT;
-			this.setX(this.getX() - speed);
+//			this.setBasePosition(this.basePosition.x - speed/BASE, this.basePosition.y);
+			this.setPositionMap(this.positionMap.x - speed, this.positionMap.y);
 		}
 		if (state.isGoRight && !impactMap(ObjectState.RIGHT)) {
 			state.direct = ObjectState.RIGHT;
-			this.setX(this.getX() + speed);
+//			this.setBasePosition(this.basePosition.x + speed/BASE, this.basePosition.y);
+			this.setPositionMap(this.positionMap.x + speed, this.positionMap.y);
 		}
 	}
 	public void update(long currentTime) {
@@ -100,7 +110,8 @@ public class GameObject extends myGraphic{
 		}
 	}
 	public boolean impactMap(int direct) {
-		centerPosition = new Couple(this.getX() + BASE/2, this.getY() + 3 * BASE / 2.0);
+		centerPosition = new Couple(this.positionMap.x + BASE/2, 
+									this.positionMap.y + 3 * BASE / 2.0);
 		double nextY = 0, nextX = 0;
 		switch(direct) {
 		case ObjectState.UP:
@@ -111,7 +122,7 @@ public class GameObject extends myGraphic{
 			break;
 		case ObjectState.DOWN:
 			nextY = centerPosition.y + state.speed;
-			if (nextY/BASE >= map.row) return true;
+			if (nextY/BASE > map.row - 1) return true;
 			if (map.matrix[(int)this.getX()/BASE][(int)nextY/BASE] == 1)
 				return true;
 			break;
@@ -123,7 +134,7 @@ public class GameObject extends myGraphic{
 			break;
 		case ObjectState.RIGHT:
 			nextX = centerPosition.x + state.speed;
-			if (nextX/BASE >= map.col) return true;
+			if (nextX/BASE > map.col - 1) return true;
 			if (map.matrix[(int)nextX/BASE][(int)this.getX()/BASE] == 1)
 				return true;
 			break;
