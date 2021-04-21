@@ -19,13 +19,15 @@ public class GameWorld {
 	}
 	
 	public void initialize() {
+		map = new Map();
+		map.initialize();
 		
+		character = new MainCharacter();
+		character.initialize();
+		character.setGameWorld(this);
 	}
-	public void render() {
-		
-	}
-	public void update() {
-		
+	public void update(long currentTime) {
+		character.update(currentTime);
 	}
 	
 	// GET_SET GameObject

@@ -50,7 +50,6 @@ public class SettingMenu extends ParentMenu{
 			root.getChildren().addAll(buttons[i], name[i]);
 		}
 		// NAME:
-		Font font = new Font("Time new roman", 17);
 		if (GameConfig.music) name[1].setText("Nhạc nền: Bật");
 		else name[1].setText("Nhạc nền: Tắt");
 		if (GameConfig.sound) name[2].setText("Âm thanh: Bật");
@@ -63,7 +62,7 @@ public class SettingMenu extends ParentMenu{
 		{
 			name[i].setX(buttons[i].getX() + (buttons[i].getFitWidth() - name[i].getText().length() * 8)/2);
 			name[i].setY(buttons[i].getY() + 30);
-			name[i].setFont(font);
+			name[i].setFont(GameConfig.theme.nameButtonFont);
 		}
 	}
 	public void setEvent()

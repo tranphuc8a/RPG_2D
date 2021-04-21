@@ -49,7 +49,6 @@ public class StartMenu extends ParentMenu{
 			root.getChildren().add(buttons[i]);
 		}
 		// TEXT:
-		Font font = new Font("Time new Roman", 18);
 		name = new Text[numButtons + 1];
 		for (int i = 1; i <= numButtons; i++) name[i] = new Text();
 		name[1].setText("Một người chơi");
@@ -59,7 +58,7 @@ public class StartMenu extends ParentMenu{
 		{
 			name[i].setX(buttons[i].getX() + (buttons[i].getFitWidth() - name[i].getText().length() * 8)/2);
 			name[i].setY(buttons[i].getY() + 35);
-			name[i].setFont(font);
+			name[i].setFont(GameConfig.theme.nameButtonFont);
 			root.getChildren().add(name[i]);
 		}
 		
