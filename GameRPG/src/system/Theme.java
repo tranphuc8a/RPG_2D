@@ -3,6 +3,13 @@ package system;
 import javafx.scene.text.Font;
 
 public class Theme {
+	public class ObjectPath{
+		public String[] front 	= null;
+		public String[] behind 	= null;
+		public String[] left 	= null;
+		public String[] right 	= null;
+	}
+	
 	public String buttonPath;
 	public String backgroundPath;
 	public String nameFramePath;
@@ -15,6 +22,19 @@ public class Theme {
 	public String musicPath;
 	public String soundPath;
 	
+	public String[] mapPath				= {};
+	public ObjectPath charaterPath		= new ObjectPath();
+	public ObjectPath batPath			= new ObjectPath();
+	public ObjectPath buffaloPath		= new ObjectPath();
+	public ObjectPath foxPath			= new ObjectPath();
+	public ObjectPath mousePath			= new ObjectPath();
+	public ObjectPath snakePath			= new ObjectPath();
+	public ObjectPath pigPath			= new ObjectPath();
+	public ObjectPath bulletPath		= new ObjectPath();
+	public ObjectPath knifePath			= new ObjectPath();
+	public ObjectPath hpPath			= new ObjectPath();
+	
+	
 	public static Theme FIRST_THEME() {
 		Theme temp = new Theme();
 		temp.buttonPath 		= "resource/frame/button2.png";
@@ -26,7 +46,22 @@ public class Theme {
 		temp.musicPath 			= "resource/deche.mp3";
 		temp.soundPath 			= "resource/deche.mp3";
 		temp.nameMenuFont 		= new Font("Consolas", 40);
-		temp.nameButtonFont 	= new Font("Time new roman", 16);
+		temp.nameButtonFont 	= new Font("Times New Roman", 20);
+		
+		temp.charaterPath.front = new String[9];
+		temp.charaterPath.behind = new String[9];
+		temp.charaterPath.left = new String[9];
+		temp.charaterPath.right = new String[9];
+		for (int i = 0; i < 9; i++) {
+			temp.charaterPath.front[i] = "resource/character/man/front/fr" + (i + 1) + "-removebg-preview.png";
+			temp.charaterPath.behind[i] = "resource/character/man/behind/bh" + (i + 1) + "-removebg-preview.png";
+			temp.charaterPath.left[i] = "resource/character/man/left/left" + (i + 1) + "-removebg-preview.png";
+			temp.charaterPath.right[i] = "resource/character/man/right/right" + (i + 1) + "-removebg-preview.png";
+		}
+		
+		temp.mapPath = new String[3];
+		temp.mapPath[0] = "resource/map/map1.jpg";
+		
 		return temp;
 	}
 	public static Theme SECOND_THEME() {
@@ -40,7 +75,22 @@ public class Theme {
 		temp.musicPath 			= "resource/deche.mp3";
 		temp.soundPath 			= "resource/deche.mp3";
 		temp.nameMenuFont 		= new Font("Consolas", 40);
-		temp.nameButtonFont 	= new Font("Time new roman", 16);
+		temp.nameButtonFont 	= new Font("Times New Roman", 20);
+		
+		temp.charaterPath.front = new String[9];
+		temp.charaterPath.behind = new String[9];
+		temp.charaterPath.left = new String[9];
+		temp.charaterPath.right = new String[9];
+		for (int i = 0; i < 9; i++) {
+			temp.charaterPath.front[i] = "resource/character/man/front/fr" + (i + 1) + "-removebg-preview.png";
+			temp.charaterPath.behind[i] = "resource/character/man/behind/bh" + (i + 1) + "-removebg-preview.png";
+			temp.charaterPath.left[i] = "resource/character/man/left/left" + (i + 1) + "-removebg-preview.png";
+			temp.charaterPath.right[i] = "resource/character/man/right/right" + (i + 1) + "-removebg-preview.png";
+		}
+		
+		temp.mapPath = new String[3];
+		temp.mapPath[0] = "resource/map/map1.jpg";
+		
 		return temp;
 	}
 	public static Theme THIRD_THEME() {
@@ -54,7 +104,22 @@ public class Theme {
 		temp.musicPath 			= "resource/deche.mp3";
 		temp.soundPath 			= "resource/deche.mp3";
 		temp.nameMenuFont 		= new Font("Consolas", 40);
-		temp.nameButtonFont 	= new Font("Time new roman", 16);
+		temp.nameButtonFont 	= new Font("Times New Roman", 20);
+		
+		temp.charaterPath.front = new String[9];
+		temp.charaterPath.behind = new String[9];
+		temp.charaterPath.left = new String[9];
+		temp.charaterPath.right = new String[9];
+		for (int i = 0; i < 9; i++) {
+			temp.charaterPath.front[i] 	= "resource/character/man/front/fr" 	+ (i + 1) + "-removebg-preview.png";
+			temp.charaterPath.behind[i] = "resource/character/man/behind/bh" 	+ (i + 1) + "-removebg-preview.png";
+			temp.charaterPath.left[i] 	= "resource/character/man/left/left" 	+ (i + 1) + "-removebg-preview.png";
+			temp.charaterPath.right[i] 	= "resource/character/man/right/right" 	+ (i + 1) + "-removebg-preview.png";
+		}
+		
+		temp.mapPath = new String[3];
+		temp.mapPath[0] = "resource/map/map1.jpg";
+		
 		return temp;
 	}
 }

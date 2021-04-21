@@ -42,12 +42,11 @@ public class HighScoreMenu extends ParentMenu {
 		root.getChildren().add(buttons[1]);
 		// TEXT:
 		name = new Text[numButtons + 1];
-		Font font = new Font("Time new Roman", 18);
 		for (int i = 1; i <= numButtons; i++) name[i] = new Text();
 		name[1].setText("Okay");
 		name[1].setX(buttons[1].getX() + (buttons[1].getFitWidth() - name[1].getText().length() * 8)/2);
 		name[1].setY(buttons[1].getY() + 37);
-		name[1].setFont(font);
+		name[1].setFont(GameConfig.theme.nameButtonFont);
 		root.getChildren().add(name[1]);
 	}
 	public void setEvent()

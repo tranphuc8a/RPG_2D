@@ -48,7 +48,6 @@ public class HardLevelMenu extends ParentMenu {
 		}
 		// TEXT:
 		name = new Text[numButtons + 1];
-		Font font = new Font("Time new Roman", 18);
 		for (int i = 1; i <= numButtons; i++) name[i] = new Text();
 		name[1].setText("Dễ");
 		name[2].setText("Trung bình");
@@ -57,7 +56,7 @@ public class HardLevelMenu extends ParentMenu {
 		{	
 			name[i].setX(buttons[i].getX() + (buttons[i].getFitWidth() - name[i].getText().length() * 8)/2);
 			name[i].setY(buttons[i].getY() + 37);
-			name[i].setFont(font);
+			name[i].setFont(GameConfig.theme.nameButtonFont);
 			root.getChildren().add(name[i]);
 		}
 	}

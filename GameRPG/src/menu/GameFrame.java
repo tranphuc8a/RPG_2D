@@ -8,6 +8,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import system.Couple;
 import system.EventDistributor;
 import system.GameConfig;
 import system.GameLoop;
@@ -21,7 +22,7 @@ public class GameFrame extends Application {
 		initialize();
 		primaryStage = this.stage;
 		primaryStage.show();
-		gameLoop.setFPS(0.25);;
+		gameLoop.setFPS(50);
 		gameLoop.start();
 	}
 	public void run() {
@@ -39,10 +40,13 @@ public class GameFrame extends Application {
 	private Scene scene = null;
 	private Group root = null;
 	
-	private EventDistributor eventDistributor = new EventDistributor(this);
-	private GameLoop gameLoop = new GameLoop(this);
 //	private Camera camera = new Camera(this);
 	private GameWorld gameWorld = new GameWorld(this);
+	private GameLoop gameLoop = new GameLoop(this);
+	private EventDistributor eventDistributor = new EventDistributor(this);
+	
+	public static final Couple stageSize = ParentMenu.stageSize;
+	public static final Couple stagePosition = ParentMenu.stagePosition;
 	
 	public GameFrame() {}
 	public GameFrame(ParentMenu parent) {
@@ -55,12 +59,18 @@ public class GameFrame extends Application {
 		scene = new Scene(root);
 		stage.setTitle("RPG_2D: " + GameConfig.hardLevel + ", " + GameConfig.numberPlayer + " người chơi.");
 		stage.setScene(scene);
-		stage.setWidth(ParentMenu.stageSize.x);
-		stage.setHeight(ParentMenu.stageSize.y);
+		stage.setX(stagePosition.x);
+		stage.setY(stagePosition.y);
+		stage.setWidth(stageSize.x);
+		stage.setHeight(stageSize.y);
+		stage.setMinWidth(stageSize.x);
+		stage.setMinHeight(stageSize.y);
+		stage.setMaxWidth(stageSize.x);
+		stage.setMaxHeight(stageSize.y);
 		// load ConfigGame
-		// make Graph of list GameObjec
+		// make Graph of list GameObject
 		gameWorld.initialize();
-		gameWorld.render();
+		root.getChildren().addAll(gameWorld.getMap(), gameWorld.getCharacter());
 		distributeEvent();
 	}
 	
@@ -86,6 +96,7 @@ public class GameFrame extends Application {
 		gameLoop.start();
 	}
 	public void endGame() {
+		stage.hide();
 		gameLoop.stop();
 		gameOverMenu.run();
 	}
