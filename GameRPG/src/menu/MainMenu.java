@@ -107,13 +107,13 @@ public class MainMenu extends ParentMenu{
 		EventHandler<MouseEvent> e6 = new EventHandler<MouseEvent>(){
 			@Override public void handle(MouseEvent e) {
 				myGraphic gr = (myGraphic) e.getTarget();
-				gr.setX(gr.getX() + 20);
+				gr.setX(gr.getX() + 3);
 			}
 		};
 		EventHandler<MouseEvent> e7 = new EventHandler<MouseEvent>(){
 			@Override public void handle(MouseEvent e) {
 				myGraphic gr = (myGraphic) e.getTarget();
-				gr.setX(gr.getX() - 20);
+				gr.setX(gr.getX() - 3);
 			}
 		};
 		
@@ -127,10 +127,10 @@ public class MainMenu extends ParentMenu{
 		name[3].addEventHandler(MouseEvent.MOUSE_CLICKED, e3);
 		name[4].addEventHandler(MouseEvent.MOUSE_CLICKED, e4);
 		name[5].addEventHandler(MouseEvent.MOUSE_CLICKED, e5);
-//		for (int i = 1; i <= 5; i++) {
-//			buttons[i].addEventHandler(MouseEvent.MOUSE_ENTERED, e6);
-//			buttons[i].addEventHandler(MouseEvent.MOUSE_EXITED, e7);
-//		}
+	//	for (int i = 1; i <= 5; i++) {
+	//		buttons[i].addEventHandler(MouseEvent.MOUSE_ENTERED, e6);
+	//		buttons[i].addEventHandler(MouseEvent.MOUSE_EXITED, e7);
+	//	}
 	}
 	
 	public void initText()
