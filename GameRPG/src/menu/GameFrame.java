@@ -8,6 +8,8 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import system.Camera;
+import system.Couple;
 import system.EventDistributor;
 import system.GameConfig;
 import system.GameLoop;
@@ -21,7 +23,6 @@ public class GameFrame extends Application {
 		initialize();
 		primaryStage = this.stage;
 		primaryStage.show();
-		gameLoop.setFPS(0.25);;
 		gameLoop.start();
 	}
 	public void run() {
@@ -39,10 +40,15 @@ public class GameFrame extends Application {
 	private Scene scene = null;
 	private Group root = null;
 	
-	private EventDistributor eventDistributor = new EventDistributor(this);
-	private GameLoop gameLoop = new GameLoop(this);
-//	private Camera camera = new Camera(this);
 	private GameWorld gameWorld = new GameWorld(this);
+	private Camera camera = new Camera(this);
+	private GameLoop gameLoop = new GameLoop(this);
+	private EventDistributor eventDistributor = new EventDistributor(this);
+	
+	
+	public static final Couple stageSize = ParentMenu.stageSize;
+	public static final Couple stagePosition = ParentMenu.stagePosition;
+	public static final Couple stagePad = ParentMenu.padFrame;
 	
 	public GameFrame() {}
 	public GameFrame(ParentMenu parent) {
@@ -55,12 +61,20 @@ public class GameFrame extends Application {
 		scene = new Scene(root);
 		stage.setTitle("RPG_2D: " + GameConfig.hardLevel + ", " + GameConfig.numberPlayer + " người chơi.");
 		stage.setScene(scene);
-		stage.setWidth(ParentMenu.stageSize.x);
-		stage.setHeight(ParentMenu.stageSize.y);
+		stage.setX(stagePosition.x);
+		stage.setY(stagePosition.y);
+		stage.setWidth(stageSize.x - stagePad.x);
+		stage.setHeight(stageSize.y - stagePad.y);
+		stage.setMinWidth(stageSize.x - stagePad.x);
+		stage.setMinHeight(stageSize.y - stagePad.y);
+		stage.setMaxWidth(stageSize.x - stagePad.x);
+		stage.setMaxHeight(stageSize.y - stagePad.y);
 		// load ConfigGame
-		// make Graph of list GameObjec
+		// make Graph of list GameObject
 		gameWorld.initialize();
-		gameWorld.render();
+		gameLoop.setFPS(50);
+		camera.initialize();
+		root.getChildren().addAll(gameWorld.getMap(), gameWorld.getCharacter());
 		distributeEvent();
 	}
 	
@@ -86,10 +100,14 @@ public class GameFrame extends Application {
 		gameLoop.start();
 	}
 	public void endGame() {
+		stage.hide();
 		gameLoop.stop();
 		gameOverMenu.run();
 	}
 	public GameWorld getGameWorld() {
 		return this.gameWorld;
+	}
+	public Camera getCamera() {
+		return this.camera;
 	}
 }

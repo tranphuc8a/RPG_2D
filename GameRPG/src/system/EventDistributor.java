@@ -1,5 +1,7 @@
 package system;
 
+import gameObject.MainCharacter;
+import gameObject.ObjectState;
 import javafx.event.EventType;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -28,37 +30,59 @@ public class EventDistributor {
 		}
 	}
 	public void SolvePressKey(KeyCode code) {
+		ObjectState state = gameWorld.getCharacter().state;
 		if (code.equals(KeyCode.ESCAPE)) {
 			gameFrame.pauseGame();
+			state.isGoUp = false;
+			state.isGoDown = false;
+			state.isGoLeft = false;
+			state.isGoRight = false;
 		} else if (code.equals(KeyCode.UP)) {
-//			GameWorld.character.state.isGoUp = true;
+			state.direct = ObjectState.UP;
+			state.isGoUp = true;
+			if (state.isGoDown) state.isGoDown = false;			
+			if (state.isGoLeft || state.isGoRight) state.isGoCross = true;			
 		} else if (code.equals(KeyCode.DOWN)) {
-//			GameWorld.character.state.isGoDown = true;
+			state.direct = ObjectState.DOWN;
+			state.isGoDown = true;
+			if (state.isGoUp) state.isGoUp = false;			
+			if (state.isGoLeft || state.isGoRight) state.isGoCross = true;
 		} else if (code.equals(KeyCode.LEFT)) {
-//			GameWorld.character.state.isGoLeft = true;			
+			state.direct = ObjectState.LEFT;
+			state.isGoLeft = true;
+			if (state.isGoRight) state.isGoRight = false;			
+			if (state.isGoUp || state.isGoDown) state.isGoCross = true;
 		} else if (code.equals(KeyCode.RIGHT)) {
-//			GameWorld.character.state.isGoRight = true;			
+			state.direct = ObjectState.RIGHT;
+			state.isGoRight = true;
+			if (state.isGoLeft) state.isGoLeft = false;			
+			if (state.isGoUp || state.isGoDown) state.isGoCross = true;
 		} else if (code.equals(KeyCode.SPACE)) {
-//			GameWorld.character.state.isUseKnife = true;			
+			gameWorld.getCharacter().state.isUseKnife = true;			
 		} else if (code.equals(KeyCode.ENTER)) {
-//			GameWorld.character.state.isUseGun = true;			
+			gameWorld.getCharacter().state.isUseGun = true;			
 		}
 	}
 	public void SolveReleaseKey(KeyCode code) {
+		ObjectState state = gameWorld.getCharacter().state;
 		if (code.equals(KeyCode.ESCAPE)) {
 //			gameFrame.pauseGame();
 		} else if (code.equals(KeyCode.UP)) {
-//			GameWorld.character.state.isGoUp = false;	
+			state.isGoUp = false;
+			state.isGoCross = false;
 		} else if (code.equals(KeyCode.DOWN)) {
-//			GameWorld.character.state.isGoDown = false;	
+			state.isGoDown = false;
+			state.isGoCross = false;
 		} else if (code.equals(KeyCode.LEFT)) {
-//			GameWorld.character.state.isGoLeft = false;				
+			state.isGoLeft = false;	
+			state.isGoCross = false;
 		} else if (code.equals(KeyCode.RIGHT)) {
-//			GameWorld.character.state.isGoRight = false;				
+			state.isGoRight = false;
+			state.isGoCross = false;
 		} else if (code.equals(KeyCode.SPACE)) {
-//			GameWorld.character.state.isUseKnife = false;				
+			state.isUseKnife = false;				
 		} else if (code.equals(KeyCode.ENTER)) {
-//			GameWorld.character.state.isUseGun = false;				
+			state.isUseGun = false;		
 		}
 	}
 }
