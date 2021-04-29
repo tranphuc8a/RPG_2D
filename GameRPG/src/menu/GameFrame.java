@@ -63,18 +63,19 @@ public class GameFrame extends Application {
 		stage.setScene(scene);
 		stage.setX(stagePosition.x);
 		stage.setY(stagePosition.y);
-		stage.setWidth(stageSize.x - stagePad.x);
-		stage.setHeight(stageSize.y - stagePad.y);
-		stage.setMinWidth(stageSize.x - stagePad.x);
-		stage.setMinHeight(stageSize.y - stagePad.y);
-		stage.setMaxWidth(stageSize.x - stagePad.x);
-		stage.setMaxHeight(stageSize.y - stagePad.y);
+		stage.setWidth(stageSize.x + stagePad.x);
+		stage.setHeight(stageSize.y + stagePad.y);
+//		stage.setMinWidth(stageSize.x - stagePad.x);
+//		stage.setMinHeight(stageSize.y - stagePad.y);
+//		stage.setMaxWidth(stageSize.x - stagePad.x);
+//		stage.setMaxHeight(stageSize.y - stagePad.y);
 		// load ConfigGame
 		// make Graph of list GameObject
 		gameWorld.initialize();
 		gameLoop.setFPS(50);
 		camera.initialize();
 		root.getChildren().addAll(gameWorld.getMap(), gameWorld.getCharacter());
+		gameWorld.loadGraphic();
 		distributeEvent();
 	}
 	
@@ -96,6 +97,7 @@ public class GameFrame extends Application {
 		pauseMenu.run();
 	}
 	public void continueGame() {
+		gameWorld.loadGraphic();
 		stage.show();
 		gameLoop.start();
 	}

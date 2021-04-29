@@ -17,14 +17,17 @@ public class GameWorld {
 	public GameWorld(GameFrame gameFrame) {
 		this.gameFrame = gameFrame;
 	}
-	
+	public void loadGraphic() {
+		character.loadImage(GameConfig.theme.charaterPath);
+		
+	}
 	public void initialize() {
 		map = new Map();
 		map.initialize();
 		
 		character = new MainCharacter();
-		character.initialize();
 		character.setGameWorld(this);
+		character.initialize();
 	}
 	public void update(long currentTime) {
 		character.update(currentTime);

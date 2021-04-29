@@ -23,25 +23,28 @@ public class Map extends myGraphic {
 		matrix = new int[row][col];
 		for (int i = 0; i < row; i++) {
 			for (int j = 0; j < col; j++) {
-				matrix[i][j] = fscan.nextInt();
+				matrix[j][i] = fscan.nextInt();
+//				matrix[i][j] = 0;
 			}
 		}
 		fscan.close();
+		System.out.println(row + ", " + col);
+		for (int i = 0; i < row; i++) {
+			for (int j = 0; j < col; j++) {
+				System.out.print(matrix[j][i]);
+			}
+			System.out.println();
+		}
 	}
 	
 	public void initialize() {
 		// readMask
 		// loadGraphic
-		this.setImage(new myImage(GameConfig.theme.mapPath[3]));
-		row = col = 20;
-		matrix = new int[row][col];
-		for (int i = 0; i < row; i++)
-		{
-			for (int j = 0; j < col; j++)
-			{
-				matrix[i][j] = 0;
-			}
-		}
+		this.setImage(new myImage(GameConfig.theme.mapImagePath[2]));
+		try{this.readMask(GameConfig.theme.mapTextPath[2]);}
+		catch (Exception e) {
+			System.out.println("Cannot read file!");
+		};
 		this.setSize(row * GameObject.BASE, col * GameObject.BASE);
 		this.setPosition(0, 0);
 	}

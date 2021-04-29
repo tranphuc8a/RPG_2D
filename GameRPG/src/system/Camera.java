@@ -7,13 +7,13 @@ import gameObject.Monster;
 import menu.GameFrame;
 
 public class Camera {
-	private GameFrame gameFrame = null;
-	private Couple centerPosition = new Couple(0, 0);
-	private Couple cameraSize = new Couple(0, 0);
+	private GameFrame gameFrame 	= null;
+	private Couple centerPosition 	= new Couple(0, 0);
+	private Couple cameraSize 		= new Couple(0, 0);
 	private Map map = null;
 	private MainCharacter character = null;
 	private Monster[] monsters = null;
-	private Couple[] safeArea = new Couple[3];
+	private Couple[] safeArea 		= new Couple[3];
 	
 	public Camera() {}
 	public Camera(GameFrame gameFrame) {
@@ -24,29 +24,31 @@ public class Camera {
 		this.map = gameFrame.getGameWorld().getMap();
 		this.character = gameFrame.getGameWorld().getCharacter();
 		this.monsters = gameFrame.getGameWorld().getMonsters();
+		for (int i = 1; i <= 2; i++) safeArea[i] = new Couple(0, 0);
 		this.setCameraSize(gameFrame.stageSize.x, gameFrame.stageSize.y);
 		update();
 	}
 	
 	public void update() {
-		if (character.positionMap.x < safeArea[1].x) {
+		Couple center = character.getWeightPoint();
+		if (center.x < safeArea[1].x) {
 			map.setX(0);
 		}
-		else if (character.positionMap.x > safeArea[2].x) {
+		else if (center.x > safeArea[2].x) {
 			map.setX(this.cameraSize.x - map.getFitWidth());
 		}
 		else{
-			map.setX(this.centerPosition.x - character.positionMap.x);
+			map.setX(this.centerPosition.x - center.x);
 		}
 		
-		if (character.positionMap.y < safeArea[1].y) {
+		if (center.y < safeArea[1].y) {
 			map.setY(0);
 		}
-		else if (character.positionMap.y > safeArea[2].y) {
+		else if (center.y > safeArea[2].y) {
 			map.setY(this.cameraSize.y - map.getFitHeight());
 		}
 		else{
-			map.setY(this.centerPosition.y - character.positionMap.y);
+			map.setY(this.centerPosition.y - center.y);
 		}
 		
 //		character.setPosition(character.positionMap.x + map.getX(), character.positionMap.y + map.getY());
@@ -69,10 +71,9 @@ public class Camera {
 		return cameraSize;
 	}
 	public void setCameraSize(double x, double y) {
-		this.cameraSize = new Couple(x, y);
-		this.safeArea[1] = new Couple(this.cameraSize.x/2, this.cameraSize.y/2);
-		this.safeArea[2] = new Couple(this.map.col * GameObject.BASE - this.cameraSize.x/2,
-									  this.map.row * GameObject.BASE - this.cameraSize.y/2);
+		this.cameraSize.set(x, y);
+		this.safeArea[1].set(this.cameraSize.x/2, this.cameraSize.y/2);
+		this.safeArea[2].set(map.getFitWidth() - cameraSize.x/2, map.getFitHeight() - cameraSize.y/2);
 		setCenterPosition(cameraSize.x/2, cameraSize.y/2);
 	}
 }
