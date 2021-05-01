@@ -1,6 +1,7 @@
 package gameObject;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import system.GameConfig;
@@ -8,44 +9,119 @@ import system.myGraphic;
 import system.myImage;
 
 public class Map extends myGraphic {
-	public int[][] matrix = null;
-	public int row, col;
+	private String imagePath;
+	private String textPath;
+	
+	private int[][] matrix = null;
+	private int row, col;
+	
+	private GameWorld gameWorld = null;
+	private ArrayList<Monster> monsters = new ArrayList<Monster>();
 	
 	public Map() {}
-	public Map(String path) {
-		super(path);
+	public Map(String imagePath, String textPath) {
+		super(imagePath);
+		setImagePath(imagePath);
+		setTextPath(textPath);
+		readMask(textPath);
 	}
-	public void readMask(String path) throws Exception {
+	public Map(GameWorld gameWorld) {
+		this.gameWorld = gameWorld;
+	}
+	
+	public void readMask(String path){
 		File file = new File(path);
-		Scanner fscan = new Scanner(file);	
-		row = fscan.nextInt();
-		col = fscan.nextInt();
-		matrix = new int[row][col];
-		for (int i = 0; i < row; i++) {
-			for (int j = 0; j < col; j++) {
-				matrix[j][i] = fscan.nextInt();
-//				matrix[i][j] = 0;
+		try {
+			Scanner fscan = new Scanner(file);
+			row = col = 2;
+			row = fscan.nextInt();
+			col = fscan.nextInt();
+			matrix = new int[row][col];
+			for (int i = 0; i < row; i++) {
+				for (int j = 0; j < col; j++) {
+					matrix[i][j] = fscan.nextInt();
+				}
 			}
+			fscan.close();
 		}
-		fscan.close();
-		System.out.println(row + ", " + col);
-		for (int i = 0; i < row; i++) {
-			for (int j = 0; j < col; j++) {
-				System.out.print(matrix[j][i]);
+		catch(Exception e) {
+			System.out.println("readMask of Map error: " + e.getMessage());
+		}
+	}
+	public void loadGraphic(String path) {
+		this.setImage(new myImage(path));
+//		for (int i = 0; i < monsters.size(); i++) {
+//			monsters.get(i).loadGraphic();
+//		}
+		readMask(this.textPath);
+	}
+	public void initialize() {
+		this.readMask(textPath);
+		this.setSize(col * GameObject.BASE, row * GameObject.BASE);
+		this.setPosition(0, 0);
+	}
+	public void update(long currentTime) {
+		for (int i = 0; i < monsters.size(); i++) {
+			while (i < monsters.size() && monsters.get(i).state.isDie) {
+				monsters.remove(i);
 			}
-			System.out.println();
+			if (i < monsters.size()) {
+				monsters.get(i).update(currentTime);
+			}
 		}
 	}
 	
-	public void initialize() {
-		// readMask
-		// loadGraphic
-		this.setImage(new myImage(GameConfig.theme.mapImagePath[2]));
-		try{this.readMask(GameConfig.theme.mapTextPath[2]);}
-		catch (Exception e) {
-			System.out.println("Cannot read file!");
-		};
-		this.setSize(row * GameObject.BASE, col * GameObject.BASE);
-		this.setPosition(0, 0);
+	
+	// Getter and setter
+	public void setGameWorld(GameWorld gameWorld) {
+		this.gameWorld = gameWorld;
+	}
+	public String getImagePath() {
+		return imagePath;
+	}
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
+//		this.loadGraphic(imagePath);
+	}
+	public String getTextPath() {
+		return textPath;
+	}
+	public void setTextPath(String textPath) {
+		this.textPath = textPath;
+//		this.readMask(textPath);
+	}
+	public void set(String imagePath, String textPath) {
+		this.setImagePath(imagePath);
+		this.setTextPath(textPath);
+	}
+	public int[][] getMatrix() {
+		return matrix;
+	}
+	public void setMatrix(int[][] matrix) {
+		this.matrix = matrix;
+	}
+	public int getRow() {
+		return row;
+	}
+	public void setRow(int row) {
+		this.row = row;
+	}
+	public int getCol() {
+		return col;
+	}
+	public void setCol(int col) {
+		this.col = col;
+	}
+	public ArrayList<Monster> getMonsters() {
+		return monsters;
+	}
+	public void setMonsters(ArrayList<Monster> monsters) {
+		this.monsters = monsters;
+	}
+	public GameWorld getGameWorld() {
+		return gameWorld;
+	}
+	public void addMonster(Monster monster) {
+		monsters.add(monster);
 	}
 }

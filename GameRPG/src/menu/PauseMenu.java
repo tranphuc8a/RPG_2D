@@ -83,6 +83,7 @@ public class PauseMenu extends ParentMenu {
 			@Override public void handle(MouseEvent e) {
 				stop();
 				gameFrame.stop();
+				GameConfig.writeData();
 				mainMenu.run();
 			}
 		};

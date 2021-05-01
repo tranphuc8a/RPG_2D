@@ -1,11 +1,14 @@
-HARDLEVEL: 1
-MUSIC: true
-SOUNDS: true
-THEME: 1
-HighScore:
-Unknown 0
-Unknown 0
-Unknown 0
-Unknown 0
-Unknown 0
-__END__
+1
+0
+0
+1
+null
+0
+null
+0
+null
+0
+null
+0
+null
+0

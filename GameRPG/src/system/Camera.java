@@ -21,15 +21,15 @@ public class Camera {
 	}
 	
 	public void initialize() {
-		this.map = gameFrame.getGameWorld().getMap();
+		this.map = gameFrame.getGameWorld().getCurrentMap();
 		this.character = gameFrame.getGameWorld().getCharacter();
-		this.monsters = gameFrame.getGameWorld().getMonsters();
 		for (int i = 1; i <= 2; i++) safeArea[i] = new Couple(0, 0);
-		this.setCameraSize(gameFrame.stageSize.x, gameFrame.stageSize.y);
 		update();
 	}
 	
 	public void update() {
+		map = gameFrame.getGameWorld().getCurrentMap();
+		this.setCameraSize(gameFrame.stageSize.x, gameFrame.stageSize.y);
 		Couple center = character.getWeightPoint();
 		if (center.x < safeArea[1].x) {
 			map.setX(0);
@@ -51,7 +51,7 @@ public class Camera {
 			map.setY(this.centerPosition.y - center.y);
 		}
 		
-//		character.setPosition(character.positionMap.x + map.getX(), character.positionMap.y + map.getY());
+		character.setPosition(character.getPosition().x + map.getX(), character.getPosition().y + map.getY());
 	}
 	
 	// GET/SET:

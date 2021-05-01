@@ -1,5 +1,6 @@
 package system;
 
+import gameObject.GameWorld;
 import javafx.animation.AnimationTimer;
 import menu.GameFrame;
 

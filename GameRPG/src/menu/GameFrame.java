@@ -1,5 +1,6 @@
 package menu;
 
+import gameObject.GameWorld;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -13,7 +14,6 @@ import system.Couple;
 import system.EventDistributor;
 import system.GameConfig;
 import system.GameLoop;
-import system.GameWorld;
 
 public class GameFrame extends Application {
 	public static void main(String[] args) {
@@ -65,16 +65,17 @@ public class GameFrame extends Application {
 		stage.setY(stagePosition.y);
 		stage.setWidth(stageSize.x + stagePad.x);
 		stage.setHeight(stageSize.y + stagePad.y);
-//		stage.setMinWidth(stageSize.x - stagePad.x);
-//		stage.setMinHeight(stageSize.y - stagePad.y);
-//		stage.setMaxWidth(stageSize.x - stagePad.x);
-//		stage.setMaxHeight(stageSize.y - stagePad.y);
+		stage.setMinWidth(stageSize.x + stagePad.x);
+		stage.setMinHeight(stageSize.y + stagePad.y);
+		stage.setMaxWidth(stageSize.x + stagePad.x);
+		stage.setMaxHeight(stageSize.y + stagePad.y);
 		// load ConfigGame
 		// make Graph of list GameObject
+		
 		gameWorld.initialize();
+		root.getChildren().addAll(gameWorld.getCurrentMap(), gameWorld.getCharacter());
 		gameLoop.setFPS(50);
 		camera.initialize();
-		root.getChildren().addAll(gameWorld.getMap(), gameWorld.getCharacter());
 		gameWorld.loadGraphic();
 		distributeEvent();
 	}
@@ -111,5 +112,8 @@ public class GameFrame extends Application {
 	}
 	public Camera getCamera() {
 		return this.camera;
+	}
+	public Group getRoot() {
+		return this.root;
 	}
 }

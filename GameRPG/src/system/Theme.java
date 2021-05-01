@@ -35,112 +35,120 @@ public class Theme {
 	public ObjectPath knifePath			= new ObjectPath();
 	public ObjectPath hpPath			= new ObjectPath();
 	
+	public static Theme firstTheme = new Theme();
+	public static Theme secondTheme = new Theme();
+	public static Theme thirdTheme = new Theme();
+	
+	public static void setData() {
+		FIRST_THEME();
+		SECOND_THEME();
+		THIRD_THEME();
+	}
 	
 	public static Theme FIRST_THEME() {
-		Theme temp = new Theme();
-		temp.buttonPath 		= "resource/frame/button2.png";
-		temp.backgroundPath 	= "resource/background/beauty2.jpg";
-		temp.buttonFramePath 	= "resource/frame/buttonFrame.png";
-		temp.nameFramePath 		= "resource/frame/text.png";
-		temp.informationPath 	= "resource/symbol/infor.png";
-		temp.tutorialPath 		= "resource/symbol/help.png";
-		temp.musicPath 			= "resource/deche.mp3";
-		temp.soundPath 			= "resource/deche.mp3";
-		temp.nameMenuFont 		= new Font("Consolas", 40);
-		temp.nameButtonFont 	= new Font("Times New Roman", 20);
+		firstTheme.buttonPath 		= "resource/frame/button2.png";
+		firstTheme.backgroundPath 	= "resource/background/beauty2.jpg";
+		firstTheme.buttonFramePath 	= "resource/frame/buttonFrame.png";
+		firstTheme.nameFramePath 		= "resource/frame/text.png";
+		firstTheme.informationPath 	= "resource/symbol/infor.png";
+		firstTheme.tutorialPath 		= "resource/symbol/help.png";
+		firstTheme.musicPath 			= "resource/deche.mp3";
+		firstTheme.soundPath 			= "resource/deche.mp3";
+		firstTheme.nameMenuFont 		= new Font("Consolas", 40);
+		firstTheme.nameButtonFont 	= new Font("Times New Roman", 20);
 		
-		temp.charaterPath.front = new String[9];
-		temp.charaterPath.behind = new String[9];
-		temp.charaterPath.left = new String[9];
-		temp.charaterPath.right = new String[9];
+		firstTheme.charaterPath.front = new String[9];
+		firstTheme.charaterPath.behind = new String[9];
+		firstTheme.charaterPath.left = new String[9];
+		firstTheme.charaterPath.right = new String[9];
 		for (int i = 0; i < 9; i++) {
-			temp.charaterPath.front[i] = "resource/character/man/front/fr" + (i + 1) + "-removebg-preview.png";
-			temp.charaterPath.behind[i] = "resource/character/man/behind/bh" + (i + 1) + "-removebg-preview.png";
-			temp.charaterPath.left[i] = "resource/character/man/left/left" + (i + 1) + "-removebg-preview.png";
-			temp.charaterPath.right[i] = "resource/character/man/right/right" + (i + 1) + "-removebg-preview.png";
+			firstTheme.charaterPath.front[i] = "resource/character/man/front/fr" + (i + 1) + "-removebg-preview.png";
+			firstTheme.charaterPath.behind[i] = "resource/character/man/behind/bh" + (i + 1) + "-removebg-preview.png";
+			firstTheme.charaterPath.left[i] = "resource/character/man/left/left" + (i + 1) + "-removebg-preview.png";
+			firstTheme.charaterPath.right[i] = "resource/character/man/right/right" + (i + 1) + "-removebg-preview.png";
 		}
 		
-		temp.mapImagePath = new String[4];
-		temp.mapTextPath = new String[4];
-		temp.mapImagePath[1] = "resource/map/myHao.png";
-		temp.mapImagePath[2] = "resource/map/xuanTruong.jpg";
-		temp.mapImagePath[3] = "resource/map/tuSon.png";
+		firstTheme.mapImagePath = new String[4];
+		firstTheme.mapTextPath = new String[4];
+		firstTheme.mapImagePath[1] = "resource/map/myHao.png";
+		firstTheme.mapImagePath[2] = "resource/map/xuanTruong.png";
+		firstTheme.mapImagePath[3] = "resource/map/tuSon.png";
 		
-		temp.mapTextPath[1] = "resource/map01/myHao.txt";
-		temp.mapTextPath[3] = "resource/map01/mapXuanTruong.txt";
-		temp.mapTextPath[2] = "resource/map01/tuSon.txt";
+		firstTheme.mapTextPath[1] = "resource/map/myHao.txt";
+		firstTheme.mapTextPath[2] = "resource/map/XuanTruong.txt";
+		firstTheme.mapTextPath[3] = "resource/map/tuSon.txt";
 		
 		
-		return temp;
+		return firstTheme;
 	}
 	public static Theme SECOND_THEME() {
-		Theme temp = new Theme();
-		temp.buttonPath 		= "resource/frame/button2.png";
-		temp.backgroundPath 	= "resource/background/beauty1.jpg";
-		temp.buttonFramePath 	= "resource/frame/buttonFrame1.jpg";
-		temp.nameFramePath 		= "resource/frame/text.png";
-		temp.informationPath 	= "resource/symbol/infor.png";
-		temp.tutorialPath 		= "resource/symbol/help.png";
-		temp.musicPath 			= "resource/deche.mp3";
-		temp.soundPath 			= "resource/deche.mp3";
-		temp.nameMenuFont 		= new Font("Consolas", 40);
-		temp.nameButtonFont 	= new Font("Times New Roman", 20);
+		secondTheme.buttonPath 		= "resource/frame/button2.png";
+		secondTheme.backgroundPath 	= "resource/background/beauty1.jpg";
+		secondTheme.buttonFramePath 	= "resource/frame/buttonFrame1.jpg";
+		secondTheme.nameFramePath 		= "resource/frame/text.png";
+		secondTheme.informationPath 	= "resource/symbol/infor.png";
+		secondTheme.tutorialPath 		= "resource/symbol/help.png";
+		secondTheme.musicPath 			= "resource/deche.mp3";
+		secondTheme.soundPath 			= "resource/deche.mp3";
+		secondTheme.nameMenuFont 		= new Font("Consolas", 40);
+		secondTheme.nameButtonFont 	= new Font("Times New Roman", 20);
 		
-		temp.charaterPath.front = new String[9];
-		temp.charaterPath.behind = new String[9];
-		temp.charaterPath.left = new String[9];
-		temp.charaterPath.right = new String[9];
+		secondTheme.charaterPath.front = new String[9];
+		secondTheme.charaterPath.behind = new String[9];
+		secondTheme.charaterPath.left = new String[9];
+		secondTheme.charaterPath.right = new String[9];
 		for (int i = 0; i < 9; i++) {
-			temp.charaterPath.front[i] = "resource/character/woman/front/" + (i + 1) + "-removebg-preview.png";
-			temp.charaterPath.behind[i] = "resource/character/woman/behind/" + (i + 1) + "-removebg-preview.png";
-			temp.charaterPath.left[i] = "resource/character/woman/left/" + (i + 1) + "-removebg-preview.png";
-			temp.charaterPath.right[i] = "resource/character/woman/right/" + (i + 1) + "-removebg-preview.png";
+			secondTheme.charaterPath.front[i] = "resource/character/woman/front/" + (i + 1) + "-removebg-preview.png";
+			secondTheme.charaterPath.behind[i] = "resource/character/woman/behind/" + (i + 1) + "-removebg-preview.png";
+			secondTheme.charaterPath.left[i] = "resource/character/woman/left/" + (i + 1) + "-removebg-preview.png";
+			secondTheme.charaterPath.right[i] = "resource/character/woman/right/" + (i + 1) + "-removebg-preview.png";
 		}
 		
-		temp.mapImagePath = new String[4];
-		temp.mapTextPath = new String[4];
-		temp.mapImagePath[1] = "resource/map/myHao.png";
-		temp.mapImagePath[2] = "resource/map/xuanTruong.png";
-		temp.mapImagePath[3] = "resource/map/tuSon.png";
-		temp.mapTextPath[1] = "resource/map01/myHao.txt";
-		temp.mapTextPath[2] = "resource/map01/xuanTruong.txt";
-		temp.mapTextPath[3] = "resource/map01/tuSon.txt";
+		secondTheme.mapImagePath = new String[4];
+		secondTheme.mapTextPath = new String[4];
+		secondTheme.mapImagePath[1] = "resource/map/myHao.png";
+		secondTheme.mapImagePath[2] = "resource/map/xuanTruong.png";
+		secondTheme.mapImagePath[3] = "resource/map/tuSon.png";
 		
-		return temp;
+		secondTheme.mapTextPath[1] = "resource/map/myHao.txt";
+		secondTheme.mapTextPath[2] = "resource/map/xuanTruong.txt";
+		secondTheme.mapTextPath[3] = "resource/map/tuSon.txt";
+		
+		return secondTheme;
 	}
 	public static Theme THIRD_THEME() {
-		Theme temp = new Theme();
-		temp.buttonPath 		= "resource/frame/button2.png";
-		temp.backgroundPath 	= "resource/background/mountainWinter.jpg";
-		temp.buttonFramePath 	= "resource/frame/buttonFrame.png";
-		temp.nameFramePath 		= "resource/frame/text.png";
-		temp.informationPath 	= "resource/symbol/infor.png";
-		temp.tutorialPath 		= "resource/symbol/help.png";
-		temp.musicPath 			= "resource/deche.mp3";
-		temp.soundPath 			= "resource/deche.mp3";
-		temp.nameMenuFont 		= new Font("Consolas", 40);
-		temp.nameButtonFont 	= new Font("Times New Roman", 20);
+		thirdTheme.buttonPath 		= "resource/frame/button2.png";
+		thirdTheme.backgroundPath 	= "resource/background/mountainWinter.jpg";
+		thirdTheme.buttonFramePath 	= "resource/frame/buttonFrame.png";
+		thirdTheme.nameFramePath 		= "resource/frame/text.png";
+		thirdTheme.informationPath 	= "resource/symbol/infor.png";
+		thirdTheme.tutorialPath 		= "resource/symbol/help.png";
+		thirdTheme.musicPath 			= "resource/deche.mp3";
+		thirdTheme.soundPath 			= "resource/deche.mp3";
+		thirdTheme.nameMenuFont 		= new Font("Consolas", 40);
+		thirdTheme.nameButtonFont 	= new Font("Times New Roman", 20);
 		
-		temp.charaterPath.front = new String[9];
-		temp.charaterPath.behind = new String[9];
-		temp.charaterPath.left = new String[9];
-		temp.charaterPath.right = new String[9];
+		thirdTheme.charaterPath.front = new String[9];
+		thirdTheme.charaterPath.behind = new String[9];
+		thirdTheme.charaterPath.left = new String[9];
+		thirdTheme.charaterPath.right = new String[9];
 		for (int i = 0; i < 9; i++) {
-			temp.charaterPath.front[i] 	= "resource/character/man/front/fr" 	+ (i + 1) + "-removebg-preview.png";
-			temp.charaterPath.behind[i] = "resource/character/man/behind/bh" 	+ (i + 1) + "-removebg-preview.png";
-			temp.charaterPath.left[i] 	= "resource/character/man/left/left" 	+ (i + 1) + "-removebg-preview.png";
-			temp.charaterPath.right[i] 	= "resource/character/man/right/right" 	+ (i + 1) + "-removebg-preview.png";
+			thirdTheme.charaterPath.front[i] 	= "resource/character/man/front/fr" 	+ (i + 1) + "-removebg-preview.png";
+			thirdTheme.charaterPath.behind[i] = "resource/character/man/behind/bh" 	+ (i + 1) + "-removebg-preview.png";
+			thirdTheme.charaterPath.left[i] 	= "resource/character/man/left/left" 	+ (i + 1) + "-removebg-preview.png";
+			thirdTheme.charaterPath.right[i] 	= "resource/character/man/right/right" 	+ (i + 1) + "-removebg-preview.png";
 		}
 		
-		temp.mapImagePath = new String[4];
-		temp.mapTextPath = new String[4];
-		temp.mapImagePath[1] = "resource/map/myHao.png";
-		temp.mapImagePath[2] = "resource/map/xuanTruong.png";
-		temp.mapImagePath[3] = "resource/map/tuSon.png";
-		temp.mapTextPath[1] = "resource/map01/myHao.txt";
-		temp.mapTextPath[2] = "resource/map01/xuanTruong.txt";
-		temp.mapTextPath[3] = "resource/map01/tuSon.txt";
+		thirdTheme.mapImagePath = new String[4];
+		thirdTheme.mapTextPath = new String[4];
+		thirdTheme.mapImagePath[1] = "resource/map/myHao.png";
+		thirdTheme.mapImagePath[2] = "resource/map/xuanTruong.png";
+		thirdTheme.mapImagePath[3] = "resource/map/tuSon.png";
 		
-		return temp;
+		thirdTheme.mapTextPath[1] = "resource/map/myHao.txt";
+		thirdTheme.mapTextPath[2] = "resource/map/xuanTruong.txt";
+		thirdTheme.mapTextPath[3] = "resource/map/tuSon.txt";
+		
+		return thirdTheme;
 	}
 }

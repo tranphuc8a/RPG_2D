@@ -1,5 +1,6 @@
 package system;
 
+import gameObject.GameWorld;
 import gameObject.MainCharacter;
 import gameObject.ObjectState;
 import javafx.event.EventType;
@@ -30,7 +31,7 @@ public class EventDistributor {
 		}
 	}
 	public void SolvePressKey(KeyCode code) {
-		ObjectState state = gameWorld.getCharacter().state;
+		ObjectState state = gameWorld.getCharacter().getState();
 		if (code.equals(KeyCode.ESCAPE)) {
 			gameFrame.pauseGame();
 			state.isGoUp = false;
@@ -58,13 +59,13 @@ public class EventDistributor {
 			if (state.isGoLeft) state.isGoLeft = false;			
 			if (state.isGoUp || state.isGoDown) state.isGoCross = true;
 		} else if (code.equals(KeyCode.SPACE)) {
-			gameWorld.getCharacter().state.isUseKnife = true;			
+			gameWorld.getCharacter().getState().isUseKnife = true;			
 		} else if (code.equals(KeyCode.ENTER)) {
-			gameWorld.getCharacter().state.isUseGun = true;			
+			gameWorld.getCharacter().getState().isUseGun = true;			
 		}
 	}
 	public void SolveReleaseKey(KeyCode code) {
-		ObjectState state = gameWorld.getCharacter().state;
+		ObjectState state = gameWorld.getCharacter().getState();
 		if (code.equals(KeyCode.ESCAPE)) {
 //			gameFrame.pauseGame();
 		} else if (code.equals(KeyCode.UP)) {

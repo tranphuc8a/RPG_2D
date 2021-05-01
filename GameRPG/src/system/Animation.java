@@ -27,8 +27,8 @@ public class Animation {
 	}
 	
 	public void update() {
-		if (	parent.state.isGoUp 	|| parent.state.isGoDown || 	
-				parent.state.isGoLeft 	|| parent.state.isGoRight		)
+		if (	parent.getState().isGoUp 	|| parent.getState().isGoDown || 	
+				parent.getState().isGoLeft 	|| parent.getState().isGoRight		)
 			currentFrame = (currentFrame + 1) % numFrame;
 		else currentFrame = 0;
 		parent.setImage(images[currentFrame]);
