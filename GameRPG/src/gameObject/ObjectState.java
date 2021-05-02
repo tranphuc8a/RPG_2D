@@ -2,7 +2,7 @@ package gameObject;
 
 public class ObjectState {
 	public int heartPower 		= 1000;
-	public double speed			= 3; // pixels per move
+	public double speed			= 0.3 * GameObject.BASE; // pixels per move
 			
 	public boolean isGoUp 		= false;
 	public boolean isGoDown 	= false;

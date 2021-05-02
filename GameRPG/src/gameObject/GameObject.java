@@ -2,6 +2,7 @@ package gameObject;
 
 import java.util.Random;
 
+import javafx.scene.Group;
 import menu.GameFrame;
 import system.Theme.ObjectPath;
 
@@ -11,10 +12,9 @@ import system.myGraphic;
 import system.myImage;
 
 public class GameObject extends myGraphic{
-	public static final double BASE = GameFrame.stageSize.x / 50; // 1 base
+	public static final double BASE = GameFrame.stageSize.x / 60; // 1 base
 	
 	protected GameWorld gameWorld  	= null;
-	protected Map map 				= null;
 	
 	protected Couple position 		= new Couple(0, 0);
 	protected Couple weightPoint 	= new Couple(0, 0);
@@ -44,11 +44,14 @@ public class GameObject extends myGraphic{
 		right.loadImage(path.right);
 		this.setImage(new myImage(path.front[0]));
 	}
+	public void loadGraphic() {
+		// do nothing
+	}
 	public void initialize() {
-		this.map = gameWorld.getCurrentMap();
+		Map map = gameWorld.getCurrentMap();
 		// init state
 		state.direct = ObjectState.UP;
-		state.speed = 5;
+		state.speed = 0.5 * BASE;
 		
 		int x = 0, y = 0;
 		Random rand = new Random();
@@ -60,6 +63,11 @@ public class GameObject extends myGraphic{
 				 (0 <= y) && (y < map.getRow()) && 
 				 (map.getMatrix()[y][x] == 0)));
 		setWeightPoint(x * BASE, y * BASE);
+	}
+	public void insert(Group root) {
+		if (!root.getChildren().contains(this)) {
+			root.getChildren().add(this);
+		}
 	}
 	public void update() {
 		double speed = state.speed;
@@ -82,7 +90,7 @@ public class GameObject extends myGraphic{
 		}
 	}
 	public void update(long currentTime) {
-		map = gameWorld.getCurrentMap();
+		Map map = gameWorld.getCurrentMap();
 		if (!state.isDie && currentTime/1e9 - lastTime >= timeSleep) {
 			update();
 			switch (state.direct) {
@@ -103,7 +111,7 @@ public class GameObject extends myGraphic{
 		}
 	}
 	public boolean impactMap(int direct) {
-		map = gameWorld.getCurrentMap();
+		Map map = gameWorld.getCurrentMap();
 		Couple center = this.getWeightPoint();
 		System.out.println(	center.x/BASE + ", " + center.y/BASE + ", " + 
 							map.getMatrix()[(int)(center.y/BASE)][(int)(center.x/BASE)]);
@@ -163,18 +171,19 @@ public class GameObject extends myGraphic{
 	}
 	public void setGameWorld(GameWorld gameWorld) {
 		this.gameWorld = gameWorld;
-		this.map = gameWorld.getCurrentMap();
 	}
 	public void setWeightPoint(double x, double y) {
 		this.position.set(x - weightPoint.x, y - weightPoint.y);
-		this.setPosition(position.x + map.getX(), position.y + map.getY());
+		this.setPosition(position.x + gameWorld.getCurrentMap().getX(), 
+					     position.y + gameWorld.getCurrentMap().getY());
 	}
 	public Couple getWeightPoint() {
 		return new Couple(this.position.x + this.weightPoint.x, this.position.y + this.weightPoint.y);
 	}
 	public void setRealPosition(double x, double y) {
 		this.position.set(x, y);
-		this.setPosition(this.position.x + map.getX(), this.position.y + map.getY());
+		this.setPosition(this.position.x + gameWorld.getCurrentMap().getX(), 
+						 this.position.y + gameWorld.getCurrentMap().getY());
 	}
 	public Couple getPosition() {
 		return position;

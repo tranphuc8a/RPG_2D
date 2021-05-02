@@ -103,4 +103,7 @@ public class PauseMenu extends ParentMenu {
 		menuName.setY(nameFrame.getY() + 60);
 		root.getChildren().add(menuName);
 	}
+	public GameFrame getGameFrame() {
+		return this.gameFrame;
+	}
 }

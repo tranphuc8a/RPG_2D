@@ -8,7 +8,9 @@ public class GameLoop extends AnimationTimer {
 	public static void main(String[] args) {
 		new GameLoop().start();
 	}
+	private GameFrame gameFrame = null;
 	private GameWorld gameWorld = null;
+	
 	@Override public void handle(long currentTime) {
 		if (currentTime - lastTime >= SLEEP * 1e9) {
 //			System.out.println("Loop called!");
@@ -25,8 +27,6 @@ public class GameLoop extends AnimationTimer {
 	public static long TO_NANO = 1_000_000_000;
 	public static double FPS = 1;
 	public static double SLEEP = 1.0 / FPS;
-	
-	private GameFrame gameFrame = null;
 	
 	public GameLoop() {}
 	public GameLoop(GameFrame gameFrame) {

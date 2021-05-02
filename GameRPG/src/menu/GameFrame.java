@@ -21,6 +21,8 @@ public class GameFrame extends Application {
 	}
 	@Override public void start(Stage primaryStage) {
 		initialize();
+		loadGraphic();
+		
 		primaryStage = this.stage;
 		primaryStage.show();
 		gameLoop.start();
@@ -40,13 +42,13 @@ public class GameFrame extends Application {
 	private Scene scene = null;
 	private Group root = null;
 	
-	private GameWorld gameWorld = new GameWorld(this);
-	private Camera camera = new Camera(this);
-	private GameLoop gameLoop = new GameLoop(this);
+	private GameWorld gameWorld 		= new GameWorld(this);
+	private Camera camera 				= new Camera(this);
+	private GameLoop gameLoop 			= new GameLoop(this);
 	private EventDistributor eventDistributor = new EventDistributor(this);
 	
 	
-	public static final Couple stageSize = ParentMenu.stageSize;
+	public static final Couple stageSize = new Couple(800, 550);
 	public static final Couple stagePosition = ParentMenu.stagePosition;
 	public static final Couple stagePad = ParentMenu.padFrame;
 	
@@ -73,11 +75,12 @@ public class GameFrame extends Application {
 		// make Graph of list GameObject
 		
 		gameWorld.initialize();
-		root.getChildren().addAll(gameWorld.getCurrentMap(), gameWorld.getCharacter());
 		gameLoop.setFPS(50);
 		camera.initialize();
-		gameWorld.loadGraphic();
 		distributeEvent();
+	}
+	public void loadGraphic() {
+		gameWorld.loadGraphic();
 	}
 	
 	public void distributeEvent() {
@@ -98,7 +101,7 @@ public class GameFrame extends Application {
 		pauseMenu.run();
 	}
 	public void continueGame() {
-		gameWorld.loadGraphic();
+//		gameWorld.loadGraphic();
 		stage.show();
 		gameLoop.start();
 	}

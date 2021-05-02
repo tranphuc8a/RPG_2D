@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import javafx.scene.Group;
 import system.GameConfig;
 import system.myGraphic;
 import system.myImage;
@@ -30,7 +31,11 @@ public class Map extends myGraphic {
 	}
 	
 	public void readMask(String path){
-		File file = new File(path);
+		this.setTextPath(path);
+		this.readMask();
+	}
+	public void readMask() {
+		File file = new File(textPath);
 		try {
 			Scanner fscan = new Scanner(file);
 			row = col = 2;
@@ -49,16 +54,29 @@ public class Map extends myGraphic {
 		}
 	}
 	public void loadGraphic(String path) {
-		this.setImage(new myImage(path));
+		this.setImagePath(path);
+		this.loadGraphic();
+	}
+	public void loadGraphic() {
+		this.setImage(new myImage(this.imagePath));
+//		readMask(this.textPath);
 //		for (int i = 0; i < monsters.size(); i++) {
 //			monsters.get(i).loadGraphic();
 //		}
-		readMask(this.textPath);
 	}
 	public void initialize() {
-		this.readMask(textPath);
+		this.readMask();
 		this.setSize(col * GameObject.BASE, row * GameObject.BASE);
 		this.setPosition(0, 0);
+	}
+	public void insert(Group root) {
+		if (!root.getChildren().contains(root))
+			root.getChildren().add(this);
+		for (Monster mon : monsters) {
+			if (!root.getChildren().contains(mon)) {
+				mon.insert(root);
+			}
+		}
 	}
 	public void update(long currentTime) {
 		for (int i = 0; i < monsters.size(); i++) {

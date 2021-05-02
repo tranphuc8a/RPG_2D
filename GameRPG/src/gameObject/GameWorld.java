@@ -20,9 +20,10 @@ public class GameWorld {
 		this.gameFrame = gameFrame;
 	}
 	public void loadGraphic() {
-		currentMap.loadGraphic(currentMap.getImagePath());
-		character.loadGraphic(GameConfig.theme.charaterPath);
+		currentMap.loadGraphic();
+		character.loadGraphic();
 	}
+	
 	public void initialize() {
 		myHao.setImagePath(GameConfig.theme.mapImagePath[1]);
 		xuanTruong.setImagePath(GameConfig.theme.mapImagePath[2]);
@@ -35,15 +36,19 @@ public class GameWorld {
 		myHao.initialize();
 		xuanTruong.initialize();
 		tuSon.initialize();
-		currentMap = tuSon;
+		currentMap = myHao;
 		
 		// add monsters for each map
 		// write later
 		// using method: addMonster(Monster) of each map
 		
 		character.initialize();
+		
+		currentMap.insert(gameFrame.getRoot());
+		character.insert(gameFrame.getRoot());
 	}
 	public void update(long currentTime) {
+		currentMap.update(currentTime);
 		character.update(currentTime);
 	}
 	
@@ -61,11 +66,10 @@ public class GameWorld {
 		Group root = gameFrame.getRoot();
 		root.getChildren().removeAll(root.getChildren());
 		this.currentMap = currentMap;
-		root.getChildren().addAll(currentMap, character);
-		root.getChildren().addAll(currentMap.getMonsters());
+		currentMap.loadGraphic();
+		currentMap.insert(root);
+		character.insert(root);
 		System.out.println(currentMap.getImagePath() + " " + currentMap.getTextPath());
-		
-		this.loadGraphic();
 	}
 	public GameFrame getGameFrame() {
 		return this.gameFrame;
