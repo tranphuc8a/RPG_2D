@@ -67,6 +67,7 @@ public class GameOverMenu extends ParentMenu {
 		EventHandler<MouseEvent> e1 = new EventHandler<MouseEvent>() {
 			@Override public void handle(MouseEvent e) {
 				stop();
+				GameConfig.writeData();
 				mainMenu.run();
 			}
 		};

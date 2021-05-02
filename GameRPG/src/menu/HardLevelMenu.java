@@ -74,7 +74,7 @@ public class HardLevelMenu extends ParentMenu {
 		};
 		EventHandler<MouseEvent> e2 = new EventHandler<MouseEvent>() {
 			@Override public void handle(MouseEvent e) {
-				GameConfig.hardLevel = GameConfig.EASY;
+				GameConfig.hardLevel = GameConfig.NORMAL;
 				Text name = ((MainMenu) parent).getName()[2];
 				myGraphic button = ((MainMenu) parent).getButtons()[2];
 				name.setText("Độ khó: Trung bình");
@@ -84,7 +84,7 @@ public class HardLevelMenu extends ParentMenu {
 		};
 		EventHandler<MouseEvent> e3 = new EventHandler<MouseEvent>() {
 			@Override public void handle(MouseEvent e) {
-				GameConfig.hardLevel = GameConfig.EASY;
+				GameConfig.hardLevel = GameConfig.HARD;
 				Text name = ((MainMenu) parent).getName()[2];
 				myGraphic button = ((MainMenu) parent).getButtons()[2];
 				name.setText("Độ khó: Khó");

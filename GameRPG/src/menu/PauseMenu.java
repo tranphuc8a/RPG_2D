@@ -83,6 +83,7 @@ public class PauseMenu extends ParentMenu {
 			@Override public void handle(MouseEvent e) {
 				stop();
 				gameFrame.stop();
+				GameConfig.writeData();
 				mainMenu.run();
 			}
 		};
@@ -101,5 +102,8 @@ public class PauseMenu extends ParentMenu {
 		menuName.setX(nameFrame.getX() + 200);
 		menuName.setY(nameFrame.getY() + 60);
 		root.getChildren().add(menuName);
+	}
+	public GameFrame getGameFrame() {
+		return this.gameFrame;
 	}
 }

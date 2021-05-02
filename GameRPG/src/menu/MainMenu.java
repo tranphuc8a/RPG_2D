@@ -30,6 +30,8 @@ public class MainMenu extends ParentMenu{
 	@Override
 	public void initialize()
 	{
+		System.out.println("Start Game");
+		GameConfig.readData();
 		super.initialize();
 		initButton();
 		setEvent();
@@ -101,6 +103,7 @@ public class MainMenu extends ParentMenu{
 		EventHandler<MouseEvent> e5 = new EventHandler<MouseEvent>(){
 			@Override public void handle(MouseEvent e) {
 //				stage.hide();
+				GameConfig.writeData();
 				stop();
 			}
 		};

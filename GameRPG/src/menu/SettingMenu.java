@@ -105,6 +105,11 @@ public class SettingMenu extends ParentMenu{
 					GameConfig.theme = Theme.FIRST_THEME();
 				}
 				loadGraphic(GameConfig.theme);
+				if (parent instanceof MainMenu) {
+					((MainMenu) parent).startMenu.getGameFrame().getGameWorld().loadGraphic();
+				} else if (parent instanceof PauseMenu) {
+					((PauseMenu) parent).getGameFrame().getGameWorld().loadGraphic();
+				}
 			}
 		};
 		EventHandler<MouseEvent> e4 = new EventHandler<MouseEvent>(){

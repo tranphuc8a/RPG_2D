@@ -1,5 +1,6 @@
 package menu;
 
+import gameObject.GameWorld;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -13,7 +14,6 @@ import system.Couple;
 import system.EventDistributor;
 import system.GameConfig;
 import system.GameLoop;
-import system.GameWorld;
 
 public class GameFrame extends Application {
 	public static void main(String[] args) {
@@ -21,6 +21,8 @@ public class GameFrame extends Application {
 	}
 	@Override public void start(Stage primaryStage) {
 		initialize();
+		loadGraphic();
+		
 		primaryStage = this.stage;
 		primaryStage.show();
 		gameLoop.start();
@@ -40,13 +42,13 @@ public class GameFrame extends Application {
 	private Scene scene = null;
 	private Group root = null;
 	
-	private GameWorld gameWorld = new GameWorld(this);
-	private Camera camera = new Camera(this);
-	private GameLoop gameLoop = new GameLoop(this);
+	private GameWorld gameWorld 		= new GameWorld(this);
+	private Camera camera 				= new Camera(this);
+	private GameLoop gameLoop 			= new GameLoop(this);
 	private EventDistributor eventDistributor = new EventDistributor(this);
 	
 	
-	public static final Couple stageSize = ParentMenu.stageSize;
+	public static final Couple stageSize = new Couple(800, 550);
 	public static final Couple stagePosition = ParentMenu.stagePosition;
 	public static final Couple stagePad = ParentMenu.padFrame;
 	
@@ -63,19 +65,22 @@ public class GameFrame extends Application {
 		stage.setScene(scene);
 		stage.setX(stagePosition.x);
 		stage.setY(stagePosition.y);
-		stage.setWidth(stageSize.x - stagePad.x);
-		stage.setHeight(stageSize.y - stagePad.y);
-		stage.setMinWidth(stageSize.x - stagePad.x);
-		stage.setMinHeight(stageSize.y - stagePad.y);
-		stage.setMaxWidth(stageSize.x - stagePad.x);
-		stage.setMaxHeight(stageSize.y - stagePad.y);
+		stage.setWidth(stageSize.x + stagePad.x);
+		stage.setHeight(stageSize.y + stagePad.y);
+		stage.setMinWidth(stageSize.x + stagePad.x);
+		stage.setMinHeight(stageSize.y + stagePad.y);
+		stage.setMaxWidth(stageSize.x + stagePad.x);
+		stage.setMaxHeight(stageSize.y + stagePad.y);
 		// load ConfigGame
 		// make Graph of list GameObject
+		
 		gameWorld.initialize();
 		gameLoop.setFPS(50);
 		camera.initialize();
-		root.getChildren().addAll(gameWorld.getMap(), gameWorld.getCharacter());
 		distributeEvent();
+	}
+	public void loadGraphic() {
+		gameWorld.loadGraphic();
 	}
 	
 	public void distributeEvent() {
@@ -96,6 +101,7 @@ public class GameFrame extends Application {
 		pauseMenu.run();
 	}
 	public void continueGame() {
+//		gameWorld.loadGraphic();
 		stage.show();
 		gameLoop.start();
 	}
@@ -109,5 +115,8 @@ public class GameFrame extends Application {
 	}
 	public Camera getCamera() {
 		return this.camera;
+	}
+	public Group getRoot() {
+		return this.root;
 	}
 }

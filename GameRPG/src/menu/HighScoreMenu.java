@@ -69,11 +69,8 @@ public class HighScoreMenu extends ParentMenu {
 		menuName.setY(nameFrame.getY() + 60);
 		root.getChildren().add(menuName);
 		// HIGHSCORE
-		StringBuffer Content = new StringBuffer("");
-		for (int i = 1; i <= 5; i++) {
-			Content.append(i + ". " + GameConfig.highScore[i] + "\n");
-		}
-		content = new Text(Content.toString());
+		
+		content = new Text(GameConfig.getHighScore());
 		content.setFont(new Font("Courier", 20));
 		
 		double layout = buttonFrame.getX() + (buttonFrame.getFitWidth() - 30)/2;
