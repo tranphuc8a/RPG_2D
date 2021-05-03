@@ -60,9 +60,9 @@ public class Map extends myGraphic {
 	public void loadGraphic() {
 		this.setImage(new myImage(this.imagePath));
 //		readMask(this.textPath);
-//		for (int i = 0; i < monsters.size(); i++) {
-//			monsters.get(i).loadGraphic();
-//		}
+		for (int i = 0; i < monsters.size(); i++) {
+			monsters.get(i).loadGraphic();
+		}
 	}
 	public void initialize() {
 		this.readMask();
@@ -81,6 +81,9 @@ public class Map extends myGraphic {
 	public void update(long currentTime) {
 		for (int i = 0; i < monsters.size(); i++) {
 			while (i < monsters.size() && monsters.get(i).state.isDie) {
+				if (monsters.get(i).getLevel() == Monster.EASY) {
+					gameWorld.addScore(1);
+				} else gameWorld.addScore(2);
 				monsters.remove(i);
 			}
 			if (i < monsters.size()) {
@@ -133,6 +136,9 @@ public class Map extends myGraphic {
 	public ArrayList<Monster> getMonsters() {
 		return monsters;
 	}
+	public int countMonster() {
+		return this.monsters.size();
+	}
 	public void setMonsters(ArrayList<Monster> monsters) {
 		this.monsters = monsters;
 	}
@@ -140,6 +146,7 @@ public class Map extends myGraphic {
 		return gameWorld;
 	}
 	public void addMonster(Monster monster) {
+		monster.initialize();
 		monsters.add(monster);
 	}
 }

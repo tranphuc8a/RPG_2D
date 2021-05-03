@@ -26,7 +26,7 @@ public class GameOverMenu extends ParentMenu {
 	
 	@Override public void initialize() { 
 		super.initialize();
-		mainMenu = (MainMenu) gameFrame.parent.parent;
+		mainMenu = new MainMenu();
 		highScoreMenu = new HighScoreMenu(this);
 		initButtons();
 		initText();

@@ -36,7 +36,7 @@ public class GameFrame extends Application {
 	
 	public ParentMenu parent 			= null;
 	private PauseMenu pauseMenu 		= new PauseMenu(this);
-	private GameOverMenu gameOverMenu 	= null;
+	private GameOverMenu gameOverMenu 	= new GameOverMenu(this);
 
 	private Stage stage = null;
 	private Scene scene = null;
@@ -105,9 +105,10 @@ public class GameFrame extends Application {
 		stage.show();
 		gameLoop.start();
 	}
-	public void endGame() {
+	public void endGame(boolean isWin, int score) {
 		stage.hide();
 		gameLoop.stop();
+		// set gameOverMenu follow isWin and score
 		gameOverMenu.run();
 	}
 	public GameWorld getGameWorld() {

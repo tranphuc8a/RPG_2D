@@ -29,8 +29,10 @@ public class MainCharacter extends GameObject {
 	}
 	@Override public void initialize() {
 		super.initialize();
-		this.setTimeSleep(0.03);
-		this.state.speed = 0.6 * BASE;
+		this.setTimeSleep(0.04);
+		this.setTimeDizz(1);
+		this.state.heartPoint = this.state.maxHP = 1000;
+		this.state.speed = 0.5 * BASE;
 		this.state.direct = ObjectState.DOWN;
 		this.setSize(4 * GameObject.BASE, 4 * GameObject.BASE);
 		this.weightPoint.set(this.getFitWidth()/2, this.getFitHeight() * 3/4);
@@ -43,11 +45,12 @@ public class MainCharacter extends GameObject {
 	}
 	@Override
 	public void update(long currentTime) {
+		if (!(!state.isDie && currentTime/1e9 - lastTime >= timeSleep
+					 	   && currentTime/1e9 - lastTimeDizz >= timeDizz)) return;	
 		Map map = gameWorld.getCurrentMap();
-		if (currentTime - lastTime >= timeSleep) {
-			hp.update(currentTime);
-		}
+		hp.update(currentTime);
 		super.update(currentTime);
+		// check change map
 		int x = (int) (this.getWeightPoint().x / BASE);
 		int y = (int) (this.getWeightPoint().y / BASE);
 		int direct = map.getMatrix()[y][x];
@@ -73,5 +76,12 @@ public class MainCharacter extends GameObject {
 		} else {
 			return;
 		}
+	}
+	public boolean impactMonster(Monster monster) {
+		double distance = this.getWeightPoint().distance(monster.getWeightPoint());
+		return distance <= Math.sqrt(2) * BASE;
+	}
+	public HeartPoint getHPGraphic() {
+		return this.hp;
 	}
 }

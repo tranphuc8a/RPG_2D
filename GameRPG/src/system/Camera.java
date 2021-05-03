@@ -48,6 +48,11 @@ public class Camera {
 			map.setY(this.centerPosition.y - center.y);
 		}
 		
+		for (Monster mon : map.getMonsters()) {
+			mon.setWeightPoint(mon.getWeightPoint().x, mon.getWeightPoint().y);
+			mon.getHPGraphic().setWeightPoint(mon.getHPGraphic().getWeightPoint().x,
+											  mon.getHPGraphic().getWeightPoint().y);
+		}
 		character.setPosition(character.getPosition().x + map.getX(), character.getPosition().y + map.getY());
 	}
 	

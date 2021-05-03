@@ -11,4 +11,7 @@ public class Couple {
 		this.x = x;
 		this.y = y;
 	}
+	public double distance(Couple cp2) {
+		return Math.sqrt(Math.pow(x - cp2.x, 2) + Math.pow(y - cp2.y, 2));
+	}
 }

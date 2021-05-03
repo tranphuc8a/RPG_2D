@@ -36,10 +36,11 @@ public class HeartPoint extends GameObject {
 		this.setWeightPoint(parentObject.getWeightPoint().x, parentObject.getPosition().y - this.getFitHeight()/2);
 	}
 	@Override public void update(long currentTime) {
-		double percent = this.parentObject.getState().heartPower/this.parentObject.getState().maxHP;
+		double percent = this.parentObject.getState().heartPoint/this.parentObject.getState().maxHP;
 		int newFrame = (int) (percent * numFrames) - 1;
 		if (newFrame != currentFrame) {
 			currentFrame = newFrame;
+			if (currentFrame <= 0) currentFrame = 0;
 			this.setImage(images[currentFrame]);
 		}
 		this.setWeightPoint(parentObject.getWeightPoint().x, parentObject.getPosition().y - this.getFitHeight()/2);

@@ -1,7 +1,7 @@
 package gameObject;
 
 public class ObjectState {
-	public int heartPower 		= 1000;
+	public double heartPoint 	= 1000;
 	public double speed			= 0.3 * GameObject.BASE; // pixels per move
 			
 	public boolean isGoUp 		= false;
@@ -22,8 +22,10 @@ public class ObjectState {
 	public static final int LEFT		= 3;
 	public static final int RIGHT		= 4;
 	
-	public int maxHP 		= 1000;
-	public int minHP		= 0;
+	public double maxHP 		= 1000;
+	public double minHP			= 0;
+	
+	public double dame			= 50;
 	
 	public ObjectState() {
 		this(1000);
@@ -33,15 +35,18 @@ public class ObjectState {
 		this.setHP(maxHP);
 	}
 	
-	public void setHP(int newHP) {
-		if (newHP >= maxHP) this.heartPower = maxHP;
-		else if (newHP <= minHP) this.heartPower = minHP;
-		else this.heartPower = newHP;
+	public void setHP(double newHP) {
+		if (newHP >= maxHP) this.heartPoint = maxHP;
+		else if (newHP <= minHP) {
+			this.heartPoint = minHP;
+			this.isDie = true;
+		}
+		else this.heartPoint = newHP;
 	}
 	public void decreaseHP(int delta) {
-		this.setHP(this.heartPower + delta);
+		this.setHP(this.heartPoint + delta);
 	}
 	public void increaseHP(int delta) {
-		this.setHP(this.heartPower - delta);
+		this.setHP(this.heartPoint - delta);
 	}
 }

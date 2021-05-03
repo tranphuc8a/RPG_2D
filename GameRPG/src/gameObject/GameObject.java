@@ -18,6 +18,7 @@ public class GameObject extends myGraphic{
 	
 	protected Couple position 		= new Couple(0, 0);
 	protected Couple weightPoint 	= new Couple(0, 0);
+	private	  Couple getWeightPoint = new Couple(0, 0);
 	
 	protected Animation front 	= new Animation(this);
 	protected Animation behind 	= new Animation(this);
@@ -27,6 +28,9 @@ public class GameObject extends myGraphic{
 	protected ObjectState state 	= new ObjectState();
 	protected double timeSleep 	= 0.1;
 	protected double lastTime 	= System.nanoTime() / 1e9;
+	
+	protected double timeDizz 			= 3;
+	protected double lastTimeDizz 		= System.nanoTime() / 1e9;
 	
 	public GameObject() {}
 	public GameObject(ObjectPath path) {
@@ -52,6 +56,7 @@ public class GameObject extends myGraphic{
 		// init state
 		state.direct = ObjectState.UP;
 		state.speed = 0.5 * BASE;
+		state.isDie = false;
 		
 		int x = 0, y = 0;
 		Random rand = new Random();
@@ -91,7 +96,8 @@ public class GameObject extends myGraphic{
 	}
 	public void update(long currentTime) {
 		Map map = gameWorld.getCurrentMap();
-		if (!state.isDie && currentTime/1e9 - lastTime >= timeSleep) {
+		if (!state.isDie && currentTime/1e9 - lastTime 		>= timeSleep && 
+							currentTime/1e9 - lastTimeDizz 	>= timeDizz) {
 			update();
 			switch (state.direct) {
 			case ObjectState.UP:
@@ -146,17 +152,6 @@ public class GameObject extends myGraphic{
 		}
 		return false;
 	}
-	public boolean impact(Monster monster) {
-		if (state.isDie) return false;
-		
-		return false;
-	}
-	public boolean impact(Character chrt) {
-		if (state.isDie) return false;
-		
-		return false;
-	}
-	
 	
 	// Getter and Setter
 	public double getTimeSleep() {
@@ -178,7 +173,9 @@ public class GameObject extends myGraphic{
 					     position.y + gameWorld.getCurrentMap().getY());
 	}
 	public Couple getWeightPoint() {
-		return new Couple(this.position.x + this.weightPoint.x, this.position.y + this.weightPoint.y);
+		this.getWeightPoint.set(this.position.x + this.weightPoint.x, 
+								this.position.y + this.weightPoint.y);
+		return this.getWeightPoint;
 	}
 	public void setRealPosition(double x, double y) {
 		this.position.set(x, y);
@@ -202,5 +199,8 @@ public class GameObject extends myGraphic{
 	}
 	public void setWeightPoint(Couple weightPoint) {
 		this.weightPoint = weightPoint;
+	}
+	public void setTimeDizz(double timeDizz) {
+		this.timeDizz = timeDizz;
 	}
 }

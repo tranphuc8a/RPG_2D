@@ -38,6 +38,8 @@ public class GameWorld {
 		tuSon.initialize();
 		currentMap = myHao;
 		
+		myHao.addMonster(new Bat(52 * GameObject.BASE, 28 * GameObject.BASE, Monster.HARD, this));
+		
 		// add monsters for each map
 		// write later
 		// using method: addMonster(Monster) of each map
@@ -48,6 +50,19 @@ public class GameWorld {
 		character.insert(gameFrame.getRoot());
 	}
 	public void update(long currentTime) {
+		// Check win or lose game
+		int sumMonsters = myHao.countMonster() + 
+						  xuanTruong.countMonster() + 
+						  tuSon.countMonster();
+		if (sumMonsters == 0) {
+			System.out.println("You win");
+			gameFrame.endGame(true, score);
+		}
+		if (character.state.isDie) {
+			System.out.println("You lose");
+			gameFrame.endGame(false, score);
+		}
+		// Update
 		currentMap.update(currentTime);
 		character.update(currentTime);
 	}
@@ -76,6 +91,9 @@ public class GameWorld {
 	}
 	public int getScore() {
 		return this.score;
+	}
+	public void addScore(int delta) {
+		this.score += delta;
 	}
 	public void setScore(int score) {
 		if (score < 0) score = 0;
