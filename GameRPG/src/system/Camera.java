@@ -19,7 +19,7 @@ public class Camera {
 	
 	public void initialize() {
 		for (int i = 1; i <= 2; i++) safeArea[i] = new Couple(0, 0);
-		update();
+//		update();
 	}
 	
 	public void update() {
@@ -50,10 +50,11 @@ public class Camera {
 		
 		for (Monster mon : map.getMonsters()) {
 			mon.setWeightPoint(mon.getWeightPoint().x, mon.getWeightPoint().y);
-			mon.getHPGraphic().setWeightPoint(mon.getHPGraphic().getWeightPoint().x,
-											  mon.getHPGraphic().getWeightPoint().y);
+			mon.getHPGraphic().update();
 		}
-		character.setPosition(character.getPosition().x + map.getX(), character.getPosition().y + map.getY());
+		character.setPosition(character.getPosition().x + map.getX(), 
+							  character.getPosition().y + map.getY());
+		character.getHPGraphic().update();
 	}
 	
 	// GET/SET:

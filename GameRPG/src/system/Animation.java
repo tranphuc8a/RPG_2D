@@ -1,6 +1,8 @@
 package system;
 
+import gameObject.Buffalo;
 import gameObject.GameObject;
+import gameObject.MainCharacter;
 
 //import javafx.stage.Stage;
 //import menu.ParentMenu;
@@ -27,10 +29,11 @@ public class Animation {
 	}
 	
 	public void update() {
-		if (	parent.getState().isGoUp 	|| parent.getState().isGoDown || 	
-				parent.getState().isGoLeft 	|| parent.getState().isGoRight		)
-			currentFrame = (currentFrame + 1) % numFrame;
-		else currentFrame = 0;
+		currentFrame = (currentFrame + 1) % numFrame;
+		if (parent.getState().isStandStill() && 
+				(parent instanceof MainCharacter ||
+				 parent instanceof Buffalo))
+			currentFrame = 0;
 		parent.setImage(images[currentFrame]);
 	}
 	public void update(long currentTime) {

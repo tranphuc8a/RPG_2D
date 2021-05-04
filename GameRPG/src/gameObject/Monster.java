@@ -65,7 +65,6 @@ public class Monster extends GameObject {
 		hp.initialize();
 	}
 	public void standstill() {
-		this.state.isGoCross = false;
 		this.state.isGoDown = false;
 		this.state.isGoUp = false;
 		this.state.isGoLeft = false;
@@ -73,32 +72,19 @@ public class Monster extends GameObject {
 	}
 	public void updateEasy(long currentTime) {
 		Random rand = new Random();
-		int direct = rand.nextInt() % 4;
+		int direct = rand.nextInt() % 2;
 		if (direct != 0) {
 			this.standstill();
 			return;
 		}
-		MainCharacter character = gameWorld.getCharacter(); 
-		direct = rand.nextInt() % 4;
+		
+		direct = rand.nextInt() % 4 + 1;
 		this.standstill();
-		switch(direct) {
-		case 0:
-			this.state.isGoUp = true;
-			break;
-		case 1:
-			this.state.isGoDown = true;
-			break;
-		case 2:
-			this.state.isGoLeft = true;
-			break;
-		case 3:
-			this.state.isGoRight = true;
-			break;
-		}
+		this.state.setGo(direct);
 	}
 	public void updateHard(long currentTime) {
 		Random rand = new Random();
-		int direct = rand.nextInt() % 3;
+		int direct = rand.nextInt() % 2;
 		if (direct != 0) {
 			this.standstill();
 			return;
@@ -126,7 +112,6 @@ public class Monster extends GameObject {
 		if (this.impactCharacter(character) && currentTime/1e9 - character.lastTimeDizz >= character.timeDizz) {
 			character.state.setHP(character.state.heartPoint - this.state.dame);
 			character.lastTimeDizz = currentTime/1e9;
-			character.getHPGraphic().update();
 			double nextX, nextY;
 			Map map = gameWorld.getCurrentMap();
 			switch(state.direct) {
@@ -155,6 +140,7 @@ public class Monster extends GameObject {
 					character.setWeightPoint(nextX, nextY);
 				break;
 			}
+			character.getHPGraphic().update();
 			return;
 		}
 		if (level == Monster.EASY) {

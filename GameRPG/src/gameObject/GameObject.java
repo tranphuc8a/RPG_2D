@@ -76,7 +76,7 @@ public class GameObject extends myGraphic{
 	}
 	public void update() {
 		double speed = state.speed;
-		if (state.isGoCross) speed /= Math.sqrt(2);
+		if (state.isGoCross()) speed /= Math.sqrt(2);
 		if (state.isGoUp && !impactMap(ObjectState.UP)) {
 			state.direct = ObjectState.UP;
 			this.setRealPosition(this.position.x, this.position.y - speed);
@@ -93,35 +93,31 @@ public class GameObject extends myGraphic{
 			state.direct = ObjectState.RIGHT;
 			this.setRealPosition(this.position.x + speed, this.position.y);
 		}
+		switch (state.direct) {
+		case ObjectState.UP:
+			behind.update();
+			break;
+		case ObjectState.DOWN:
+			front.update();
+			break;
+		case ObjectState.LEFT:
+			left.update();
+			break;
+		case ObjectState.RIGHT:
+			right.update();
+			break;
+		}
 	}
 	public void update(long currentTime) {
-		Map map = gameWorld.getCurrentMap();
 		if (!state.isDie && currentTime/1e9 - lastTime 		>= timeSleep && 
 							currentTime/1e9 - lastTimeDizz 	>= timeDizz) {
 			update();
-			switch (state.direct) {
-			case ObjectState.UP:
-				behind.update(currentTime);
-				break;
-			case ObjectState.DOWN:
-				front.update(currentTime);
-				break;
-			case ObjectState.LEFT:
-				left.update(currentTime);
-				break;
-			case ObjectState.RIGHT:
-				right.update(currentTime);
-				break;
-			}
 			lastTime = currentTime/1e9;
 		}
 	}
 	public boolean impactMap(int direct) {
 		Map map = gameWorld.getCurrentMap();
 		Couple center = this.getWeightPoint();
-		System.out.println(	center.x/BASE + ", " + center.y/BASE + ", " + 
-							map.getMatrix()[(int)(center.y/BASE)][(int)(center.x/BASE)]);
-		
 		double nextY = 0, nextX = 0;
 		switch(direct) {
 		case ObjectState.UP:

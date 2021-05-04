@@ -36,6 +36,7 @@ public class Bat extends Monster{
 	
 	@Override public void initialize() {
 		super.initialize();
+		this.setTimeSleep(0.08);
 		this.state.speed = 0.35*BASE;
 	}
 	

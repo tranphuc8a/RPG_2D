@@ -38,7 +38,14 @@ public class GameWorld {
 		tuSon.initialize();
 		currentMap = myHao;
 		
-		myHao.addMonster(new Bat(52 * GameObject.BASE, 28 * GameObject.BASE, Monster.HARD, this));
+		double BASE = GameObject.BASE;
+		
+		myHao.addMonster(new Bat(55 * BASE, 40 * BASE, Monster.HARD, this));
+		myHao.addMonster(new Buffalo(55 * BASE, 30 * BASE, Monster.EASY, this));
+		myHao.addMonster(new Fox(55 * BASE, 35 * BASE, Monster.EASY, this));
+		myHao.addMonster(new Mouse(55 * BASE, 25 * BASE, Monster.EASY, this));
+		myHao.addMonster(new Pig(55 * BASE, 45 * BASE, Monster.HARD, this));
+		myHao.addMonster(new Snake(55 * BASE, 50 * BASE, Monster.HARD, this));
 		
 		// add monsters for each map
 		// write later
