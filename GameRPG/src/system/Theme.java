@@ -104,9 +104,9 @@ public class Theme {
 		firstTheme.knifePath.right = new String[6];
 		for (int i = 0; i < 6; i++) {
 			firstTheme.knifePath.front[i] = "resource/knife/word/front/" + (i + 1) + ".png";
-			firstTheme.knifePath.behind[i] = "resource/knife/word/front/" + (i + 1) + ".png";
-			firstTheme.knifePath.left[i] = "resource/knife/word/front/" + (i + 1) + ".png";
-			firstTheme.knifePath.right[i] = "resource/knife/word/front/" + (i + 1) + ".png";
+			firstTheme.knifePath.behind[i] = "resource/knife/word/behind/" + (i + 1) + ".png";
+			firstTheme.knifePath.left[i] = "resource/knife/word/left/" + (i + 1) + ".png";
+			firstTheme.knifePath.right[i] = "resource/knife/word/right/" + (i + 1) + ".png";
 		}
 		// hurt
 		firstTheme.hurtPath = new String[24];
@@ -236,9 +236,9 @@ public class Theme {
 		secondTheme.knifePath.right = new String[6];
 		for (int i = 0; i < 6; i++) {
 			secondTheme.knifePath.front[i] = "resource/knife/word/front/" + (i + 1) + ".png";
-			secondTheme.knifePath.behind[i] = "resource/knife/word/front/" + (i + 1) + ".png";
-			secondTheme.knifePath.left[i] = "resource/knife/word/front/" + (i + 1) + ".png";
-			secondTheme.knifePath.right[i] = "resource/knife/word/front/" + (i + 1) + ".png";
+			secondTheme.knifePath.behind[i] = "resource/knife/word/behind/" + (i + 1) + ".png";
+			secondTheme.knifePath.left[i] = "resource/knife/word/left/" + (i + 1) + ".png";
+			secondTheme.knifePath.right[i] = "resource/knife/word/right/" + (i + 1) + ".png";
 		}
 		// hurtPath
 		secondTheme.hurtPath = new String[24];
@@ -370,9 +370,9 @@ public class Theme {
 		thirdTheme.knifePath.right = new String[6];
 		for (int i = 0; i < 6; i++) {
 			thirdTheme.knifePath.front[i] = "resource/knife/word/front/" + (i + 1) + ".png";
-			thirdTheme.knifePath.behind[i] = "resource/knife/word/front/" + (i + 1) + ".png";
-			thirdTheme.knifePath.left[i] = "resource/knife/word/front/" + (i + 1) + ".png";
-			thirdTheme.knifePath.right[i] = "resource/knife/word/front/" + (i + 1) + ".png";
+			thirdTheme.knifePath.behind[i] = "resource/knife/word/behind/" + (i + 1) + ".png";
+			thirdTheme.knifePath.left[i] = "resource/knife/word/left/" + (i + 1) + ".png";
+			thirdTheme.knifePath.right[i] = "resource/knife/word/right/" + (i + 1) + ".png";
 		}
 		// hurtPath
 		thirdTheme.hurtPath = new String[24];

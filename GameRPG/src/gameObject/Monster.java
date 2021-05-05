@@ -161,12 +161,12 @@ public class Monster extends GameObject {
 		if (level <= Monster.EASY) {
 			this.level = Monster.EASY;
 			this.state.heartPoint = this.state.maxHP = 250;
-			this.state.dame = 50;
+			this.state.dame = 30;
 		}
 		else {
 			this.level = Monster.HARD;
 			this.state.heartPoint = this.state.maxHP = 400;
-			this.state.dame = 80;
+			this.state.dame = 50;
 		}
 	}
 	public int getLevel() {

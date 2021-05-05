@@ -16,6 +16,7 @@ public class GameObject extends myGraphic{
 	
 	protected GameWorld gameWorld  	= null;
 	
+	protected Couple realPosition 	= new Couple(0, 0);
 	protected Couple position 		= new Couple(0, 0);
 	protected Couple weightPoint 	= new Couple(0, 0);
 	private	  Couple getWeightPoint = new Couple(0, 0);
@@ -52,22 +53,22 @@ public class GameObject extends myGraphic{
 		// do nothing
 	}
 	public void initialize() {
-		Map map = gameWorld.getCurrentMap();
+		// Map map = gameWorld.getCurrentMap();
 		// init state
 		state.direct = ObjectState.UP;
 		state.speed = 0.5 * BASE;
 		state.isDie = false;
 		
-		int x = 0, y = 0;
-		Random rand = new Random();
-		do {
-			x = (Math.abs(rand.nextInt()) + map.getCol()) % (map.getCol());
-			y = (Math.abs(rand.nextInt()) + map.getRow()) % (map.getRow());
-		}
-		while (!((0 <= x) && (x < map.getCol()) && 
-				 (0 <= y) && (y < map.getRow()) && 
-				 (map.getMatrix()[y][x] == 0)));
-		setWeightPoint(x * BASE, y * BASE);
+//		int x = 0, y = 0;
+//		Random rand = new Random();
+//		do {
+//			x = (Math.abs(rand.nextInt()) + map.getCol()) % (map.getCol());
+//			y = (Math.abs(rand.nextInt()) + map.getRow()) % (map.getRow());
+//		}
+//		while (!((0 <= x) && (x < map.getCol()) && 
+//				 (0 <= y) && (y < map.getRow()) && 
+//				 (map.getMatrix()[y][x] == 0)));
+//		setWeightPoint(x * BASE, y * BASE);
 	}
 	public void insert(Group root) {
 		if (!root.getChildren().contains(this)) {
@@ -177,6 +178,10 @@ public class GameObject extends myGraphic{
 		this.position.set(x, y);
 		this.setPosition(this.position.x + gameWorld.getCurrentMap().getX(), 
 						 this.position.y + gameWorld.getCurrentMap().getY());
+	}
+	public Couple getRealPosition() {
+		this.realPosition.set(this.getX(), this.getY());
+		return this.realPosition;
 	}
 	public Couple getPosition() {
 		return position;

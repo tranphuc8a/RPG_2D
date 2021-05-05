@@ -44,9 +44,9 @@ public class EventDistributor {
 		} else if (code.equals(KeyCode.RIGHT)) {
 			state.setGo(ObjectState.RIGHT);
 		} else if (code.equals(KeyCode.SPACE)) {
-			gameWorld.getCharacter().getState().isUseKnife = true;			
+			gameWorld.getCharacter().useKnife();			
 		} else if (code.equals(KeyCode.ENTER)) {
-			gameWorld.getCharacter().getState().isUseGun = true;			
+			gameWorld.getCharacter().useGun();			
 		}
 	}
 	public void SolveReleaseKey(KeyCode code) {

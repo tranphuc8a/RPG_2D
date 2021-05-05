@@ -36,7 +36,7 @@ public class Snake extends Monster {
 	
 	@Override public void initialize() {
 		super.initialize();
-		this.setTimeSleep(0.08);
+		this.setTimeSleep(0.1);
 		this.state.speed = 0.35*BASE;
 		this.setSize(4 * BASE, 4 * BASE);
 		this.weightPoint.set(0.5 * this.getFitWidth(), 0.9 * this.getFitHeight());

@@ -1,8 +1,12 @@
 package system;
 
 import gameObject.Buffalo;
+import gameObject.Fox;
 import gameObject.GameObject;
 import gameObject.MainCharacter;
+import gameObject.Mouse;
+import gameObject.Pig;
+import gameObject.Snake;
 
 //import javafx.stage.Stage;
 //import menu.ParentMenu;
@@ -32,7 +36,11 @@ public class Animation {
 		currentFrame = (currentFrame + 1) % numFrame;
 		if (parent.getState().isStandStill() && 
 				(parent instanceof MainCharacter ||
-				 parent instanceof Buffalo))
+				 parent instanceof Buffalo ||
+				 parent instanceof Snake ||
+				 parent instanceof Fox ||
+				 parent instanceof Mouse ||
+				 parent instanceof Pig))
 			currentFrame = 0;
 		parent.setImage(images[currentFrame]);
 	}
@@ -64,50 +72,3 @@ public class Animation {
 		return 1.0 / timeSleep;
 	}
 }
-
-// run try the Animation
-//class loop extends GameLoop{
-//	public Animator anm1 = new Animator();
-//	public Animator anm2 = new Animator();
-//	@Override public void handle(long currentTime) {
-//		if (currentTime - lastTime >= SLEEP) {
-//			anm1.update(currentTime);
-//			anm2.update(currentTime);
-//			lastTime = currentTime;
-//		}
-//	}
-//}
-//public class Animation extends ParentMenu{
-//	loop Loop = new loop();
-//	@Override public void start(Stage primaryStage) {
-//		Loop.setSleep(0.001);
-//		
-//		Loop.anm1 = new Animator();
-//		Loop.anm1.loadImage(images());
-//		Loop.anm1.setSpeed(8);
-//		Loop.anm1.setSize(200, 200);
-//		Loop.anm1.setPosition(300, 0);
-//		
-//		Loop.anm2 = new Animator();
-//		Loop.anm2.loadImage(images());
-//		Loop.anm2.setSpeed(2);
-//		Loop.anm2.setSize(200, 200);
-//		Loop.anm2.setPosition(100, 0);
-//		
-//		super.start(primaryStage);
-//		root.getChildren().addAll(Loop.anm1, Loop.anm2);
-//		Loop.start();
-//	}
-//	public String[] images() {
-//		String[] imgs = new String[9];
-//		for (int i = 0; i < 9; i++) {
-//			String path = "resource/character/man/front/fr" + (i + 1) + "-removebg-preview.png";
-//			imgs[i] = path;
-//		}
-//		return imgs;
-//	}
-//	public static void main(String[] args) {
-//		launch(args);
-//	}
-//}
-

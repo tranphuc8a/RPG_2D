@@ -42,11 +42,11 @@ public class ObjectState {
 		}
 		else this.heartPoint = newHP;
 	}
-	public void decreaseHP(int delta) {
-		this.setHP(this.heartPoint + delta);
-	}
-	public void increaseHP(int delta) {
+	public void decreaseHP(double delta) {
 		this.setHP(this.heartPoint - delta);
+	}
+	public void increaseHP(double delta) {
+		this.setHP(this.heartPoint + delta);
 	}
 	public void setStandStill() {
 		this.isGoDown = false;
