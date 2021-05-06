@@ -8,6 +8,7 @@ import system.GameConfig;
 public class Knife extends Skill {
 	private double length = 0;
 	
+	
 	public Knife() {}
 	public Knife(GameObject parentObject) {
 		super(parentObject);
@@ -24,46 +25,91 @@ public class Knife extends Skill {
 		super.initialize();
 		this.setSize(11 * BASE, 7.5 * BASE);
 		this.weightPoint.set(0.48 * this.getFitWidth(), 0.85 * this.getFitHeight());
-		this.length = 4 * BASE;
-		this.setDame(500);
+		this.length = 6  * BASE;
+		this.setDame(30);
+		this.state.isDie = true;
 	}
 	@Override public void update() {
 		this.state.direct = parentObject.getState().direct;
 		this.setWeightPoint(parentObject.getWeightPoint().x, 
 							parentObject.getWeightPoint().y);
 		super.update();
-		ArrayList<Monster> list = this.getGameWorld().getCurrentMap().getMonsters();
-		for (int i = 0; i < list.size(); i++) {
-			if (this.checkDamaged(list.get(i))) {
-				System.out.println("OK");
-				list.get(i).getState().decreaseHP(this.dame);
-				list.get(i).update();
+		
+		boolean isCheck = false;
+		switch (state.direct) {
+		case ObjectState.UP:
+			if (behind.getCurrentFrame() >= behind.getNumFrame() - 1) {
+				this.state.isDie = true;
+				isCheck = true;
 			}
+			break;
+		case ObjectState.DOWN:
+			if (front.getCurrentFrame() >= front.getNumFrame() - 1) {
+				this.state.isDie = true;
+				isCheck = true;
+			}
+			break;
+		case ObjectState.LEFT:
+			if (left.getCurrentFrame() >= left.getNumFrame() - 1) {
+				this.state.isDie = true;
+				isCheck = true;
+			}
+			break;
+		case ObjectState.RIGHT:
+			if (right.getCurrentFrame() >= right.getNumFrame() - 1) {
+				this.state.isDie = true;
+				isCheck = true;
+			}
+			break;
+		}
+		if (isCheck) {
+			ArrayList<Monster> list = this.getGameWorld().getCurrentMap().getMonsters();
+			for (int i = 0; i < list.size(); i++) {
+				if (this.checkDamaged(list.get(i))) {
+					list.get(i).getState().decreaseHP(this.dame);
+					list.get(i).update();
+					list.get(i).lastTimeDizz = System.nanoTime()/1e9;
+				}
+			}
+		}
+		 
+		if (this.state.isDie) {
+			parentObject.getGameWorld().getGameFrame().getRoot().getChildren().remove(this);
 		}
 	}
 	public boolean checkDamaged(Monster monster) {
 		MainCharacter character = (MainCharacter) parentObject;
+		this.state.direct = parentObject.getState().direct;
+		Couple under = new Couple(parentObject.getX() + parentObject.getFitWidth() * 0.5,
+								  parentObject.getY() + parentObject.getFitHeight() * 0.9);
 		Couple vector = new Couple();
 		switch (this.state.direct) {
 		case ObjectState.LEFT:
-			vector.set(monster.getWeightPoint().x - this.getWeightPoint().x,
-					   monster.getWeightPoint().y - this.getWeightPoint().y);
-			if (!(vector.y >= vector.x && vector.y <= 0)) return false;
-			return vector.module() <= this.length;
+			if (monster.getY() + 0.5 * monster.getFitHeight() < parentObject.getY()) return false;
+			if (monster.getY() > parentObject.getY() + 0.5 * parentObject.getFitHeight()) 
+					return false;
+			if (monster.getWeightPoint().x > parentObject.getWeightPoint().x)
+					return false;
+			return Math.abs(monster.getWeightPoint().x - parentObject.getWeightPoint().x) 
+					< this.length;
 		case ObjectState.RIGHT:
-			vector.set(monster.getWeightPoint().x - this.getWeightPoint().x,
-					   monster.getWeightPoint().y - this.getWeightPoint().y);
-			if (!(vector.x >= 0 && vector.y <= 0 && vector.x + vector.y >= 0))
-				return false;
-			return vector.module() <= this.length;
+			if (monster.getY() + 0.5 * monster.getFitHeight() < parentObject.getY()) return false;
+			if (monster.getY() > parentObject.getY() + 0.5 * parentObject.getFitHeight()) 
+					return false;
+			if (monster.getWeightPoint().x < parentObject.getWeightPoint().x)
+					return false;
+			return Math.abs(monster.getWeightPoint().x - parentObject.getWeightPoint().x) 
+					< this.length;
 		case ObjectState.UP:
-			if (monster.getWeightPoint().x < character.getWeightPoint().x - BASE) return false;
-			if (monster.getWeightPoint().x > character.getWeightPoint().x + BASE) return false;
-			return this.weightPoint.y - monster.getWeightPoint().y <= this.length;
+			if (monster.getWeightPoint().x < (character.getWeightPoint().x - BASE)) return false;
+			if (monster.getWeightPoint().x > (character.getWeightPoint().x + BASE)) return false;
+			if (this.getWeightPoint().y - monster.getWeightPoint().y < 0) return false;
+			return Math.abs(monster.getWeightPoint().y - this.getWeightPoint().y) <= (this.length);
 		case ObjectState.DOWN:
-			if (monster.getWeightPoint().x < character.getWeightPoint().x - BASE) return false;
-			if (monster.getWeightPoint().x > character.getWeightPoint().x + BASE) return false;
-			return monster.getWeightPoint().y - this.weightPoint.y <= this.length;
+			if (monster.getWeightPoint().x < (character.getWeightPoint().x - BASE)) return false;
+			if (monster.getWeightPoint().x > (character.getWeightPoint().x + BASE))  return false;
+			if (this.getWeightPoint().y - monster.getWeightPoint().y > 0) return false;
+			return Math.abs(this.getWeightPoint().y - monster.getWeightPoint().y) <= (this.length);
 		}
 		return false;
 	}
@@ -75,4 +121,7 @@ public class Knife extends Skill {
 	}
 	
 	// GETTER and SETTER
+	public double getLength() {
+		return this.length;
+	}
 }

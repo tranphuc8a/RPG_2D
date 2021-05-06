@@ -84,7 +84,8 @@ public class Map extends myGraphic {
 				if (monsters.get(i).getLevel() == Monster.EASY) {
 					gameWorld.addScore(1);
 				} else gameWorld.addScore(2);
-				monsters.remove(i);
+				monsters.get(i).remove(gameWorld.getGameFrame().getRoot() );
+				monsters.remove(monsters.get(i));
 			}
 			if (i < monsters.size()) {
 				monsters.get(i).update(currentTime);

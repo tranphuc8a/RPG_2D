@@ -1,21 +1,27 @@
 package gameObject;
 
+import java.util.ArrayList;
+
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
 import javafx.scene.Group;
 import javafx.scene.input.MouseEvent;
+import system.Animation;
 import system.Couple;
 import system.GameConfig;
 import system.Theme.ObjectPath;
+import system.myGraphic;
 
 
 public class MainCharacter extends GameObject {
 	public static final double BASE = GameObject.BASE;
 	protected HeartPoint hp		= new HeartPoint(this);
 	private Knife knife 		= new Knife(this);
-	
-	public MainCharacter() {}
+//	private ArrayList<GameObject> hurts = new ArrayList<GameObject>();
+	private GameObject hurtAnimation = new GameObject();
+
+	MainCharacter() {}
 	public MainCharacter(GameWorld gameWorld) {
 //		super(gameWorld);
 		this.gameWorld = gameWorld;
@@ -27,6 +33,17 @@ public class MainCharacter extends GameObject {
 	@Override public void loadGraphic() {
 		super.loadGraphic(GameConfig.theme.charaterPath);
 		this.hp.loadGraphic();
+	}
+	public void initHurtAnimation(GameObject hurt) {
+		hurt.initialize();
+		hurt.getState().direct = ObjectState.DOWN;
+		hurt.getState().isDie = true;
+		hurt.loadGraphic(GameConfig.theme.hurtPath);
+		hurt.setSize(5 * BASE, 5 * BASE);
+		hurt.setGameWorld(this.gameWorld);
+		hurt.weightPoint.set(0.5 * hurt.getFitWidth(), 
+							 0.5 * hurt.getFitHeight());
+		hurt.setTimeSleep(0.001);
 	}
 	@Override public void initialize() {
 		super.initialize();
@@ -40,7 +57,9 @@ public class MainCharacter extends GameObject {
 		this.setWeightPoint(53.5 * BASE, 8 * BASE);
 		hp.initialize();
 		knife.initialize();
+		knife.loadGraphic();
 		knife.getState().isDie = true;
+		this.initHurtAnimation(hurtAnimation);
 	}
 	@Override public void insert(Group root) {
 		super.insert(root);
@@ -74,10 +93,37 @@ public class MainCharacter extends GameObject {
 		} 
 	}
 	public void useKnife() {
-		if (!knife.getState().isDie) return;
 		knife.getState().isDie = false;
-//		this.gameWorld.getGameFrame().getRoot().getChildren().add(knife);
-		knife.loadGraphic();
+		Group root = this.gameWorld.getGameFrame().getRoot();
+		if (!(root.getChildren().contains(knife))) {
+			root.getChildren().add(knife);
+		}
+		
+//		GameObject hurtAnimation = new GameObject();
+//		initHurtAnimation(hurtAnimation);
+		hurtAnimation.getState().isDie = false;
+		hurtAnimation.setWeightPoint(knife.getWeightPoint().x, knife.getWeightPoint().y);
+		switch (knife.getState().direct) {
+		case ObjectState.UP:
+			hurtAnimation.setWeightPoint(knife.getWeightPoint().x, 
+					 knife.getWeightPoint().y - knife.getLength());
+			break;
+		case ObjectState.DOWN:
+			hurtAnimation.setWeightPoint(knife.getWeightPoint().x, 
+					 knife.getWeightPoint().y + 0.5 * knife.getLength());
+			break;
+		case ObjectState.LEFT:
+			hurtAnimation.setWeightPoint(knife.getWeightPoint().x - 0.75 * knife.getLength(), 
+					 knife.getWeightPoint().y - BASE/2);
+			break;
+		case ObjectState.RIGHT:
+			hurtAnimation.setWeightPoint(knife.getWeightPoint().x + 0.75 * knife.getLength(), 
+					 knife.getWeightPoint().y - BASE/2);
+			break;
+		}
+//		hurts.add(hurtAnimation);
+		if (!root.getChildren().contains(hurtAnimation))
+			hurtAnimation.insert(root);
 	}
 	public void useGun() {
 		
@@ -86,11 +132,30 @@ public class MainCharacter extends GameObject {
 	public void update(long currentTime) {
 		if (!(!state.isDie && currentTime/1e9 - lastTime >= timeSleep
 					 	   && currentTime/1e9 - lastTimeDizz >= timeDizz)) return;	
+		super.update(currentTime); 
 		hp.update(currentTime);
 		
-		if (!knife.getState().isDie) knife.update(currentTime);
+		if (!(knife.getState().isDie)) knife.update(currentTime);
 		
-		super.update(currentTime);
+//		for (int i = 0; i < hurts.size(); i++) {
+//			if (hurts.get(i).front.getCurrentFrame() >= hurts.get(i).front.getNumFrame() - 1) {
+//				hurts.get(i).getState().isDie = true;
+//				this.getGameWorld().getGameFrame().getRoot().getChildren().remove(hurts.get(i));
+//				hurts.remove(hurts.get(i));
+//			} else {
+//				hurts.get(i).update();
+//			}
+//		}
+		
+		
+		if (!hurtAnimation.getState().isDie) {
+			if (hurtAnimation.front.getCurrentFrame() >= hurtAnimation.front.getNumFrame() - 1) {
+				hurtAnimation.getState().isDie = true;
+				this.getGameWorld().getGameFrame().getRoot().getChildren().remove(hurtAnimation);
+			}
+			hurtAnimation.update();
+		}
+			
 		this.checkChangeMap();
 	}
 	public boolean impactMonster(Monster monster) {

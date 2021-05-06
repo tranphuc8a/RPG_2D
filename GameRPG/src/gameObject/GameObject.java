@@ -71,11 +71,10 @@ public class GameObject extends myGraphic{
 //		setWeightPoint(x * BASE, y * BASE);
 	}
 	public void insert(Group root) {
-		if (!root.getChildren().contains(this)) {
-			root.getChildren().add(this);
-		}
+		root.getChildren().add(this);
 	}
 	public void update() {
+		this.setWeightPoint(this.getWeightPoint().x, this.getWeightPoint().y);
 		double speed = state.speed;
 		if (state.isGoCross()) speed /= Math.sqrt(2);
 		if (state.isGoUp && !impactMap(ObjectState.UP)) {

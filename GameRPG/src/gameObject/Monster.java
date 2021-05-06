@@ -56,7 +56,7 @@ public class Monster extends GameObject {
 			this.state.heartPoint = this.state.maxHP = 450;
 			this.state.heartPoint = 80;
 		}
-		this.setTimeDizz(3);
+		this.setTimeDizz(2);
 		this.state.heartPoint = this.state.maxHP = 250;
 		this.setSize(4 * BASE, 4 * BASE);
 		this.weightPoint.set(this.getFitWidth()/2, this.getFitHeight()/2);
@@ -152,6 +152,9 @@ public class Monster extends GameObject {
 	}
 	@Override public void insert(Group root) {
 		root.getChildren().addAll(this, hp);
+	}
+	public void remove(Group root) {
+		root.getChildren().removeAll(this, hp);
 	}
 	public boolean impactCharacter(MainCharacter character) {
 		return character.impactMonster(this);

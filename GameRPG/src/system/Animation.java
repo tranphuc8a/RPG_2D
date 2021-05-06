@@ -71,4 +71,23 @@ public class Animation {
 	public double getSpeed() {
 		return 1.0 / timeSleep;
 	}
+	public GameObject getParent() {
+		return parent;
+	}
+	public void setParent(GameObject parent) {
+		this.parent = parent;
+	}
+	public int getNumFrame() {
+		return numFrame;
+	}
+	public void setNumFrame(int numFrame) {
+		this.numFrame = numFrame;
+	}
+	public int getCurrentFrame() {
+		return currentFrame;
+	}
+	public void setCurrentFrame(int currentFrame) {
+		this.currentFrame = currentFrame;
+	}
+	
 }

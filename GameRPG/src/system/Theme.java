@@ -36,7 +36,7 @@ public class Theme {
 	public ObjectPath bulletPath		= new ObjectPath();
 	public ObjectPath knifePath			= new ObjectPath();
 	
-	public String[] hurtPath;
+	public ObjectPath hurtPath			= new ObjectPath();
 	public String[] hpPath;
 	
 	public static Theme firstTheme = new Theme();
@@ -109,9 +109,15 @@ public class Theme {
 			firstTheme.knifePath.right[i] = "resource/knife/word/right/" + (i + 1) + ".png";
 		}
 		// hurt
-		firstTheme.hurtPath = new String[24];
+		firstTheme.hurtPath.front = new String[24];
+		firstTheme.hurtPath.behind = new String[24];
+		firstTheme.hurtPath.left = new String[24];
+		firstTheme.hurtPath.right = new String[24];
 		for (int i = 0; i < 24; i++) {
-			firstTheme.hurtPath[i] = "resource/knife/hurtAnimation/" + (i + 1) + ".png";
+			firstTheme.hurtPath.front[i] = "resource/knife/hurtAnimation/" + (i + 1) + ".png";
+			firstTheme.hurtPath.behind[i] = "resource/knife/hurtAnimation/" + (i + 1) + ".png";
+			firstTheme.hurtPath.left[i] = "resource/knife/hurtAnimation/" + (i + 1) + ".png";
+			firstTheme.hurtPath.right[i] = "resource/knife/hurtAnimation/" + (i + 1) + ".png";
 		}
 		// monsters:
 		// bat:
@@ -241,9 +247,16 @@ public class Theme {
 			secondTheme.knifePath.right[i] = "resource/knife/word/right/" + (i + 1) + ".png";
 		}
 		// hurtPath
-		secondTheme.hurtPath = new String[24];
+		// hurt
+		firstTheme.hurtPath.front = new String[24];
+		firstTheme.hurtPath.behind = new String[24];
+		firstTheme.hurtPath.left = new String[24];
+		firstTheme.hurtPath.right = new String[24];
 		for (int i = 0; i < 24; i++) {
-			secondTheme.hurtPath[i] = "resource/knife/hurtAnimation/" + (i + 1) + ".png";
+			firstTheme.hurtPath.front[i] = "resource/knife/hurtAnimation/" + (i + 1) + ".png";
+			firstTheme.hurtPath.behind[i] = "resource/knife/hurtAnimation/" + (i + 1) + ".png";
+			firstTheme.hurtPath.left[i] = "resource/knife/hurtAnimation/" + (i + 1) + ".png";
+			firstTheme.hurtPath.right[i] = "resource/knife/hurtAnimation/" + (i + 1) + ".png";
 		}		
 		// monsters:
 		// bat:
@@ -375,9 +388,16 @@ public class Theme {
 			thirdTheme.knifePath.right[i] = "resource/knife/word/right/" + (i + 1) + ".png";
 		}
 		// hurtPath
-		thirdTheme.hurtPath = new String[24];
+		// hurt
+		firstTheme.hurtPath.front = new String[24];
+		firstTheme.hurtPath.behind = new String[24];
+		firstTheme.hurtPath.left = new String[24];
+		firstTheme.hurtPath.right = new String[24];
 		for (int i = 0; i < 24; i++) {
-			thirdTheme.hurtPath[i] = "resource/knife/hurtAnimation/" + (i + 1) + ".png";
+			firstTheme.hurtPath.front[i] = "resource/knife/hurtAnimation/" + (i + 1) + ".png";
+			firstTheme.hurtPath.behind[i] = "resource/knife/hurtAnimation/" + (i + 1) + ".png";
+			firstTheme.hurtPath.left[i] = "resource/knife/hurtAnimation/" + (i + 1) + ".png";
+			firstTheme.hurtPath.right[i] = "resource/knife/hurtAnimation/" + (i + 1) + ".png";
 		}
 		// monsters:
 		// bat:
