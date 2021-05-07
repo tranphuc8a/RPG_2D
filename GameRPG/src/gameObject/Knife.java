@@ -25,8 +25,8 @@ public class Knife extends Skill {
 		super.initialize();
 		this.setSize(11 * BASE, 7.5 * BASE);
 		this.weightPoint.set(0.48 * this.getFitWidth(), 0.85 * this.getFitHeight());
-		this.length = 6  * BASE;
-		this.setDame(30);
+		this.length = 6 * BASE;
+		this.setDame(10);
 		this.state.isDie = true;
 	}
 	@Override public void update() {

@@ -13,7 +13,6 @@ public class GameLoop extends AnimationTimer {
 	
 	@Override public void handle(long currentTime) {
 		if (currentTime - lastTime >= SLEEP * 1e9) {
-//			System.out.println("Loop called!");
 			gameWorld.update(currentTime);
 			gameFrame.getCamera().update();
 			lastTime = currentTime;

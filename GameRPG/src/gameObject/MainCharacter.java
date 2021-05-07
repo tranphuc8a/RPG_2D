@@ -18,8 +18,9 @@ public class MainCharacter extends GameObject {
 	public static final double BASE = GameObject.BASE;
 	protected HeartPoint hp		= new HeartPoint(this);
 	private Knife knife 		= new Knife(this);
-//	private ArrayList<GameObject> hurts = new ArrayList<GameObject>();
+	private Bullet bullet		= new Bullet(this);
 	private GameObject hurtAnimation = new GameObject();
+	
 
 	MainCharacter() {}
 	public MainCharacter(GameWorld gameWorld) {
@@ -56,6 +57,7 @@ public class MainCharacter extends GameObject {
 		this.weightPoint.set(this.getFitWidth()/2, this.getFitHeight() * 3/4);
 		this.setWeightPoint(53.5 * BASE, 8 * BASE);
 		hp.initialize();
+		bullet.initialize();
 		knife.initialize();
 		knife.loadGraphic();
 		knife.getState().isDie = true;
@@ -64,7 +66,6 @@ public class MainCharacter extends GameObject {
 	@Override public void insert(Group root) {
 		super.insert(root);
 		hp.insert(root);
-		knife.insert(root);
 	}
 	public void checkChangeMap() {
 		// check change map
@@ -99,34 +100,56 @@ public class MainCharacter extends GameObject {
 			root.getChildren().add(knife);
 		}
 		
-//		GameObject hurtAnimation = new GameObject();
-//		initHurtAnimation(hurtAnimation);
 		hurtAnimation.getState().isDie = false;
 		hurtAnimation.setWeightPoint(knife.getWeightPoint().x, knife.getWeightPoint().y);
-		switch (knife.getState().direct) {
+		switch (this.getState().direct) {
 		case ObjectState.UP:
-			hurtAnimation.setWeightPoint(knife.getWeightPoint().x, 
-					 knife.getWeightPoint().y - knife.getLength());
+			hurtAnimation.setWeightPoint(this.getWeightPoint().x, 
+					 this.getWeightPoint().y - knife.getLength());
 			break;
 		case ObjectState.DOWN:
-			hurtAnimation.setWeightPoint(knife.getWeightPoint().x, 
-					 knife.getWeightPoint().y + 0.5 * knife.getLength());
+			hurtAnimation.setWeightPoint(this.getWeightPoint().x, 
+					 this.getWeightPoint().y + 0.5 * knife.getLength());
 			break;
 		case ObjectState.LEFT:
-			hurtAnimation.setWeightPoint(knife.getWeightPoint().x - 0.75 * knife.getLength(), 
-					 knife.getWeightPoint().y - BASE/2);
+			hurtAnimation.setWeightPoint(this.getWeightPoint().x - 0.75 * knife.getLength(), 
+					 this.getWeightPoint().y - BASE/2);
 			break;
 		case ObjectState.RIGHT:
-			hurtAnimation.setWeightPoint(knife.getWeightPoint().x + 0.75 * knife.getLength(), 
-					 knife.getWeightPoint().y - BASE/2);
+			hurtAnimation.setWeightPoint(this .getWeightPoint().x + 0.75 * knife.getLength(), 
+					 this.getWeightPoint().y - BASE/2);
 			break;
 		}
-//		hurts.add(hurtAnimation);
 		if (!root.getChildren().contains(hurtAnimation))
 			hurtAnimation.insert(root);
 	}
 	public void useGun() {
+		if (!bullet.getState().isDie) return;
 		
+		bullet.getState().isDie = false;
+		Group root = this.getGameWorld().getGameFrame().getRoot();
+		bullet.getState().direct = this.state.direct;
+		bullet.setWeightPoint(this.getWeightPoint().x, this.getWeightPoint().y);
+		switch (this.getState().direct) {
+		case ObjectState.UP:
+			bullet.setWeightPoint(this.getWeightPoint().x, 
+					 this.getWeightPoint().y - 2 * BASE);
+			break;
+		case ObjectState.DOWN:
+			bullet.setWeightPoint(this.getWeightPoint().x, 
+					 this.getWeightPoint().y + BASE);
+			break;
+		case ObjectState.LEFT:
+			bullet.setWeightPoint(this.getWeightPoint().x - BASE, 
+					 this.getWeightPoint().y);
+			break;
+		case ObjectState.RIGHT:
+			bullet.setWeightPoint(this .getWeightPoint().x + BASE, 
+					 this.getWeightPoint().y);
+			break;
+		}
+		if (!root.getChildren().contains(bullet))
+			bullet.insert(root);
 	}
 	@Override
 	public void update(long currentTime) {
@@ -135,25 +158,22 @@ public class MainCharacter extends GameObject {
 		super.update(currentTime); 
 		hp.update(currentTime);
 		
-		if (!(knife.getState().isDie)) knife.update(currentTime);
-		
-//		for (int i = 0; i < hurts.size(); i++) {
-//			if (hurts.get(i).front.getCurrentFrame() >= hurts.get(i).front.getNumFrame() - 1) {
-//				hurts.get(i).getState().isDie = true;
-//				this.getGameWorld().getGameFrame().getRoot().getChildren().remove(hurts.get(i));
-//				hurts.remove(hurts.get(i));
-//			} else {
-//				hurts.get(i).update();
-//			}
-//		}
-		
-		
+		if (!(knife.getState().isDie)) knife.update(currentTime); 
+	
 		if (!hurtAnimation.getState().isDie) {
 			if (hurtAnimation.front.getCurrentFrame() >= hurtAnimation.front.getNumFrame() - 1) {
 				hurtAnimation.getState().isDie = true;
 				this.getGameWorld().getGameFrame().getRoot().getChildren().remove(hurtAnimation);
 			}
 			hurtAnimation.update();
+		} else {
+			this.getGameWorld().getGameFrame().getRoot().getChildren().remove(hurtAnimation); 
+		}
+		
+		if (!bullet.getState().isDie) {
+			bullet.update();
+		} else {
+			this.getGameWorld().getGameFrame().getRoot().getChildren().remove(bullet);
 		}
 			
 		this.checkChangeMap();

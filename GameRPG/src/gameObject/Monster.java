@@ -56,7 +56,7 @@ public class Monster extends GameObject {
 			this.state.heartPoint = this.state.maxHP = 450;
 			this.state.heartPoint = 80;
 		}
-		this.setTimeDizz(2);
+		this.setTimeDizz(0 );
 		this.state.heartPoint = this.state.maxHP = 250;
 		this.setSize(4 * BASE, 4 * BASE);
 		this.weightPoint.set(this.getFitWidth()/2, this.getFitHeight()/2);
@@ -163,12 +163,11 @@ public class Monster extends GameObject {
 	public void setLevel(int level) {
 		if (level <= Monster.EASY) {
 			this.level = Monster.EASY;
-			this.state.heartPoint = this.state.maxHP = 250;
-			this.state.dame = 30;
-		}
-		else {
-			this.level = Monster.HARD;
 			this.state.heartPoint = this.state.maxHP = 400;
+			this.state.dame = 50;
+		} else {
+			this.level = Monster.HARD;
+			this.state.heartPoint = this.state.maxHP = 800;
 			this.state.dame = 50;
 		}
 	}

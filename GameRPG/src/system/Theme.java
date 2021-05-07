@@ -248,15 +248,15 @@ public class Theme {
 		}
 		// hurtPath
 		// hurt
-		firstTheme.hurtPath.front = new String[24];
-		firstTheme.hurtPath.behind = new String[24];
-		firstTheme.hurtPath.left = new String[24];
-		firstTheme.hurtPath.right = new String[24];
+		secondTheme.hurtPath.front = new String[24];
+		secondTheme.hurtPath.behind = new String[24];
+		secondTheme.hurtPath.left = new String[24];
+		secondTheme.hurtPath.right = new String[24];
 		for (int i = 0; i < 24; i++) {
-			firstTheme.hurtPath.front[i] = "resource/knife/hurtAnimation/" + (i + 1) + ".png";
-			firstTheme.hurtPath.behind[i] = "resource/knife/hurtAnimation/" + (i + 1) + ".png";
-			firstTheme.hurtPath.left[i] = "resource/knife/hurtAnimation/" + (i + 1) + ".png";
-			firstTheme.hurtPath.right[i] = "resource/knife/hurtAnimation/" + (i + 1) + ".png";
+			secondTheme.hurtPath.front[i] = "resource/knife/hurtAnimation/" + (i + 1) + ".png";
+			secondTheme.hurtPath.behind[i] = "resource/knife/hurtAnimation/" + (i + 1) + ".png";
+			secondTheme.hurtPath.left[i] = "resource/knife/hurtAnimation/" + (i + 1) + ".png";
+			secondTheme.hurtPath.right[i] = "resource/knife/hurtAnimation/" + (i + 1) + ".png";
 		}		
 		// monsters:
 		// bat:
@@ -389,15 +389,15 @@ public class Theme {
 		}
 		// hurtPath
 		// hurt
-		firstTheme.hurtPath.front = new String[24];
-		firstTheme.hurtPath.behind = new String[24];
-		firstTheme.hurtPath.left = new String[24];
-		firstTheme.hurtPath.right = new String[24];
+		thirdTheme.hurtPath.front = new String[24];
+		thirdTheme.hurtPath.behind = new String[24];
+		thirdTheme.hurtPath.left = new String[24];
+		thirdTheme.hurtPath.right = new String[24];
 		for (int i = 0; i < 24; i++) {
-			firstTheme.hurtPath.front[i] = "resource/knife/hurtAnimation/" + (i + 1) + ".png";
-			firstTheme.hurtPath.behind[i] = "resource/knife/hurtAnimation/" + (i + 1) + ".png";
-			firstTheme.hurtPath.left[i] = "resource/knife/hurtAnimation/" + (i + 1) + ".png";
-			firstTheme.hurtPath.right[i] = "resource/knife/hurtAnimation/" + (i + 1) + ".png";
+			thirdTheme.hurtPath.front[i] = "resource/knife/hurtAnimation/" + (i + 1) + ".png";
+			thirdTheme.hurtPath.behind[i] = "resource/knife/hurtAnimation/" + (i + 1) + ".png";
+			thirdTheme.hurtPath.left[i] = "resource/knife/hurtAnimation/" + (i + 1) + ".png";
+			thirdTheme.hurtPath.right[i] = "resource/knife/hurtAnimation/" + (i + 1) + ".png";
 		}
 		// monsters:
 		// bat:
