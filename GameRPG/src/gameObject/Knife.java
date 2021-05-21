@@ -67,7 +67,7 @@ public class Knife extends Skill {
 			for (int i = 0; i < list.size(); i++) {
 				if (this.checkDamaged(list.get(i))) {
 					list.get(i).getState().decreaseHP(this.dame);
-					list.get(i).update();
+//					list.get(i).update();
 					list.get(i).lastTimeDizz = System.nanoTime()/1e9;
 				}
 			}

@@ -82,8 +82,8 @@ public class Map extends myGraphic {
 		for (int i = 0; i < monsters.size(); i++) {
 			while (i < monsters.size() && monsters.get(i).state.isDie) {
 				if (monsters.get(i).getLevel() == Monster.EASY) {
-					gameWorld.addScore(1);
-				} else gameWorld.addScore(2);
+					gameWorld.addScore(100);
+				} else gameWorld.addScore(200);
 				monsters.get(i).remove(gameWorld.getGameFrame().getRoot() );
 				monsters.remove(monsters.get(i));
 			}

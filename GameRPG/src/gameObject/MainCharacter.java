@@ -49,7 +49,7 @@ public class MainCharacter extends GameObject {
 	@Override public void initialize() {
 		super.initialize();
 		this.setTimeSleep(0.04);
-		this.setTimeDizz(0.2);
+		this.setTimeDizz(0);
 		this.state.heartPoint = this.state.maxHP = 1000;
 		this.state.speed = 0.5 * BASE;
 		this.state.direct = ObjectState.DOWN;

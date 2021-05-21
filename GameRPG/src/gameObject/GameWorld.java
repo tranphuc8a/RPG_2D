@@ -1,12 +1,20 @@
 package gameObject;
 
 import javafx.scene.Group;
+import javafx.scene.control.Label;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import menu.GameFrame;
 import system.GameConfig;
 
 public class GameWorld {
 	private GameFrame gameFrame = null;
 	private int score = 0;
+	private Label Score = new Label();
 	
 	private MainCharacter character 	= new MainCharacter(this);
 	private Map myHao 					= new Map(this);
@@ -25,38 +33,49 @@ public class GameWorld {
 	}
 	
 	public void initialize() {
+		// init for 3 map and 1 character
 		myHao.setImagePath(GameConfig.theme.mapImagePath[1]);
 		xuanTruong.setImagePath(GameConfig.theme.mapImagePath[2]);
 		tuSon.setImagePath(GameConfig.theme.mapImagePath[3]);
-		
 		myHao.setTextPath(GameConfig.theme.mapTextPath[1]);
 		xuanTruong.setTextPath(GameConfig.theme.mapTextPath[2]);
 		tuSon.setTextPath(GameConfig.theme.mapTextPath[3]);
-		
 		myHao.initialize();
 		xuanTruong.initialize();
 		tuSon.initialize();
+		
 		currentMap = myHao;
 		
-		double BASE = GameObject.BASE;
-		
-		myHao.addMonster(new Bat(55 * BASE, 40 * BASE, Monster.HARD, this));
-		myHao.addMonster(new Buffalo(55 * BASE, 30 * BASE, Monster.EASY, this));
-		myHao.addMonster(new Fox(55 * BASE, 35 * BASE, Monster.EASY, this));
-		myHao.addMonster(new Mouse(55 * BASE, 25 * BASE, Monster.EASY, this));
-		myHao.addMonster(new Pig(55 * BASE, 45 * BASE, Monster.HARD, this));
-		myHao.addMonster(new Snake(55 * BASE, 50 * BASE, Monster.HARD, this));
-		
-		// add monsters for each map
-		// write later
-		// using method: addMonster(Monster) of each map
+		setMyHaoMonster();
+		setXuanTruongMonster();
+		setTuSonMonster();
 		
 		character.initialize();
 		
+		// insert map and character to stage
 		currentMap.insert(gameFrame.getRoot());
 		character.insert(gameFrame.getRoot());
+		
+		// init for text score
+		Font font = Font.font("Time New Roman", FontWeight.EXTRA_BOLD, 30);
+		
+		Score.setTextFill(Color.LIGHTCYAN);
+		Score.setFont(font);
+		Score.setLayoutX(20);
+		Score.setLayoutY(20);
+		Score.setBackground(new Background(new BackgroundFill(Color.GREY, null, null)));
+		
+		Score.setText("SCORE: 0");
+		
+		this.getGameFrame().getRoot().getChildren().add(Score);
 	}
 	public void update(long currentTime) {
+		// Update
+		currentMap.update(currentTime);
+		character.update(currentTime);
+	}
+	
+	public void checkEndGame() {
 		// Check win or lose game
 		int sumMonsters = myHao.countMonster() + 
 						  xuanTruong.countMonster() + 
@@ -69,9 +88,6 @@ public class GameWorld {
 			System.out.println("You lose");
 			gameFrame.endGame(false, score);
 		}
-		// Update
-		currentMap.update(currentTime);
-		character.update(currentTime);
 	}
 	
 	// GET_SET GameObject
@@ -91,6 +107,7 @@ public class GameWorld {
 		currentMap.loadGraphic();
 		currentMap.insert(root);
 		character.insert(root);
+		root.getChildren().add(Score);
 		System.out.println(currentMap.getImagePath() + " " + currentMap.getTextPath());
 	}
 	public GameFrame getGameFrame() {
@@ -100,11 +117,12 @@ public class GameWorld {
 		return this.score;
 	}
 	public void addScore(int delta) {
-		this.score += delta;
+		this.setScore(score + delta);
 	}
 	public void setScore(int score) {
 		if (score < 0) score = 0;
 		this.score = score;
+		Score.setText("SCORE: " + this.score);
 	}
 	public Map getMyHao() {
 		return myHao;
@@ -114,5 +132,20 @@ public class GameWorld {
 	}
 	public Map getTuSon() {
 		return tuSon;
+	}
+	public void setMyHaoMonster() {
+		double BASE = GameObject.BASE;
+		myHao.addMonster(new Bat(55 * BASE, 40 * BASE, Monster.HARD, this));
+		myHao.addMonster(new Buffalo(55 * BASE, 30 * BASE, Monster.EASY, this));
+		myHao.addMonster(new Fox(55 * BASE, 35 * BASE, Monster.EASY, this));
+		myHao.addMonster(new Mouse(55 * BASE, 25 * BASE, Monster.EASY, this));
+		myHao.addMonster(new Pig(55 * BASE, 45 * BASE, Monster.HARD, this));
+		myHao.addMonster(new Snake(55 * BASE, 50 * BASE, Monster.HARD, this));
+	}
+	public void setXuanTruongMonster() {
+
+	}
+	public void setTuSonMonster() {
+		
 	}
 }

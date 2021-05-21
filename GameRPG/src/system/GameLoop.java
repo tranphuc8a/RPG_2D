@@ -9,12 +9,14 @@ public class GameLoop extends AnimationTimer {
 		new GameLoop().start();
 	}
 	private GameFrame gameFrame = null;
-	private GameWorld gameWorld = null;
 	
 	@Override public void handle(long currentTime) {
 		if (currentTime - lastTime >= SLEEP * 1e9) {
-			gameWorld.update(currentTime);
+			gameFrame.getGameWorld().checkEndGame();
+			
+			gameFrame.getGameWorld().update(currentTime);
 			gameFrame.getCamera().update();
+			
 			lastTime = currentTime;
 		}
 	}
@@ -30,7 +32,6 @@ public class GameLoop extends AnimationTimer {
 	public GameLoop() {}
 	public GameLoop(GameFrame gameFrame) {
 		this.gameFrame = gameFrame;
-		this.gameWorld = gameFrame.getGameWorld();
 	}
 	public void setSleep(double second) {
 		SLEEP = second;

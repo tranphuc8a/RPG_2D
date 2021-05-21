@@ -14,17 +14,18 @@ import java.util.Scanner;
 //import javafx.scene.media.MediaPlayer;
 //import javafx.stage.Stage;
 
-class Player{
-	public String name;
-	public int score;
-	public Player() {}
-	public Player(String _name, int _score) {
-		name = _name;
-		score = _score;
-	}
-}
 
 public class GameConfig {
+	public class Player{
+		public String name;
+		public int score;
+		public Player() {}
+		public Player(String _name, int _score) {
+			name = _name;
+			score = _score;
+		}
+	}
+	
 	public static final int EASY = 1;
 	public static final int NORMAL = 2;
 	public static final int HARD = 3;
@@ -58,7 +59,7 @@ public class GameConfig {
 			else theme = Theme.thirdTheme;
 			
 			for (int i = 1; i <= 5; i++) {
-				highScore[i] = new Player();
+				highScore[i] = new GameConfig().new Player();
 				highScore[i].name = fscan.nextLine();
 				highScore[i].score = Integer.valueOf(fscan.nextLine());
 			}
@@ -102,7 +103,7 @@ public class GameConfig {
 	}
 	public static void updateHighScore(String name, int score) {
 		int index = 1;
-		while (index < 5 && score < highScore[index].score) index++;
+		while (index < 5 && score <= highScore[index].score) index++;
 		if (index > 5) return;
 		for (int i = 5; i > index; i--) {
 			highScore[i].name = highScore[i - 1].name;

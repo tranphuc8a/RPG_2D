@@ -2,7 +2,11 @@ package menu;
 
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import system.Couple;
 import system.GameConfig;
 import system.myGraphic;
@@ -18,6 +22,8 @@ public class GameOverMenu extends ParentMenu {
 	private Text menuName				= null;
 	private int numButtons 				= 2;
 	public static final Couple buttonSize = new Couple(150, 60);
+	
+	private Text information = new Text();
 	
 	public GameOverMenu() {}
 	public GameOverMenu(GameFrame gameFrame) {
@@ -62,6 +68,13 @@ public class GameOverMenu extends ParentMenu {
 		menuName.setX(nameFrame.getX() + 180);
 		menuName.setY(nameFrame.getY() + 60);
 		root.getChildren().add(menuName);
+		
+		information.setX(this.buttonFrame.getX() + 90);
+		information.setY(this.buttonFrame.getY() + 100);
+		information.setFont(Font.font("Time New Roman", FontWeight.EXTRA_BOLD, 30));
+		information.setFill(Color.DEEPPINK);
+		information.setTextAlignment(TextAlignment.CENTER);
+		root.getChildren().add(information);
 	}
 	public void setEvent() {
 		EventHandler<MouseEvent> e1 = new EventHandler<MouseEvent>() {
@@ -81,5 +94,9 @@ public class GameOverMenu extends ParentMenu {
 		buttons[2].addEventHandler(MouseEvent.MOUSE_CLICKED, e2);
 		name[1].addEventHandler(MouseEvent.MOUSE_CLICKED, e1);
 		name[2].addEventHandler(MouseEvent.MOUSE_CLICKED, e2);
+	}
+	
+	public Text getInformation() {
+		return this.information;
 	}
 }

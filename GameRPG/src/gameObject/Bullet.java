@@ -22,7 +22,9 @@ public class Bullet extends Skill{
 		this.state.isDie = true;
 		this.loadGraphic();
 		this.state.speed = BASE;
-		this.dame = 5;
+		this.dame = 5
+				
+				;
 	}
 	public void refresh() {
 		this.front.setCurrentFrame(0);
@@ -74,7 +76,7 @@ public class Bullet extends Skill{
 		for (int i = 0; i < list.size(); i++) {
 			if (this.impact(list.get(i))) {
 				list.get(i).getState().decreaseHP(this.dame);
-				list.get(i).update();
+//				list.get(i).update();
 				list.get(i).lastTimeDizz = System.nanoTime()/1e9;
 				this.state.isDie = true;
 				this.refresh();

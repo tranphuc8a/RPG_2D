@@ -18,8 +18,8 @@ public class Camera {
 	}
 	
 	public void initialize() {
-		for (int i = 1; i <= 2; i++) safeArea[i] = new Couple(0, 0);
-//		update();
+		for (int i = 1; i <= 2; i++) 
+			safeArea[i] = new Couple(0, 0);
 	}
 	
 	public void update() {
@@ -28,23 +28,20 @@ public class Camera {
 		
 		this.setCameraSize(gameFrame.stageSize.x, gameFrame.stageSize.y);
 		Couple center = character.getWeightPoint();
+		
 		if (center.x < safeArea[1].x) {
 			map.setX(0);
-		}
-		else if (center.x > safeArea[2].x) {
+		} else if (center.x > safeArea[2].x) {
 			map.setX(this.cameraSize.x - map.getFitWidth());
-		}
-		else{
+		} else{
 			map.setX(this.centerPosition.x - center.x);
 		}
 		
 		if (center.y < safeArea[1].y) {
 			map.setY(0);
-		}
-		else if (center.y > safeArea[2].y) {
+		} else if (center.y > safeArea[2].y) {
 			map.setY(this.cameraSize.y - map.getFitHeight());
-		}
-		else{
+		} else{
 			map.setY(this.centerPosition.y - center.y);
 		}
 		

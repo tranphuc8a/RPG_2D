@@ -17,13 +17,14 @@ public class ParentMenu extends Application {
 	@Override
 	public void start(Stage primaryStage)
 	{
-		initialize();
+		this.initialize();
 		primaryStage = this.stage;
 		primaryStage.show();
 	}
 	@Override
 	public void stop()
 	{
+		GameConfig.writeData();
 		stage.hide();
 		if (parent != null)
 		{

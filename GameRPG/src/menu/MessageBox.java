@@ -6,19 +6,22 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import system.myImage;
 
 public class MessageBox extends Application{
-	private ParentMenu parent = null;
-	private String title = "Message Box";
-	private String content = "Unknown";
-	private Button okay = null;
-	private Label Content = null;
-	private Stage stage = null;
-	private Scene scene = null;
-	private Group root = null;
+	protected ParentMenu parent = null;
+	protected String title = "Message Box";
+	protected String content = "Unknown";
+	protected Button okay = null;
+	protected Label Content = null;
+	protected Stage stage = null;
+	protected Scene scene = null;
+	protected Group root = null;
+	protected TextField inputName = null;
 	
 	public static double HEIGHT = 250;
 	public static double WIDTH = 250;

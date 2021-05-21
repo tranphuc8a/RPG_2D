@@ -2,8 +2,11 @@ package menu;
 
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import system.Couple;
 import system.GameConfig;
 import system.myGraphic;
@@ -71,12 +74,17 @@ public class HighScoreMenu extends ParentMenu {
 		// HIGHSCORE
 		
 		content = new Text(GameConfig.getHighScore());
-		content.setFont(new Font("Courier", 20));
+		content.setFont(Font.font("Consolas", FontWeight.EXTRA_BOLD, 23));
+		content.setTextAlignment(TextAlignment.CENTER);
+		content.setFill(Color.FIREBRICK);
 		
-		double layout = buttonFrame.getX() + (buttonFrame.getFitWidth() - 30)/2;
+		System.out.println(content.getLayoutBounds().getWidth() 
+				);
+		double layout = buttonFrame.getX() + (buttonFrame.getFitWidth() - content.getLayoutBounds().getWidth())/2;
 		double start  = buttonFrame.getY() + 90;
 		content.setX(layout);
 		content.setY(start);
 		root.getChildren().add(content);
 	}
 }
+

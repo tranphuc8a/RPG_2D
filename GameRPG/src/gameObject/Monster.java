@@ -1,5 +1,7 @@
 package gameObject;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Random;
 
 import javafx.scene.Group;
@@ -14,6 +16,8 @@ public class Monster extends GameObject {
 	
 	protected HeartPoint hp = new HeartPoint(this);
 	protected int level = Monster.EASY;
+	protected double lastTimeBite = 0;
+	protected double timeWait = 1;
 	
 	public Monster() {}
 	public Monster(GameWorld gameWorld) {
@@ -92,15 +96,80 @@ public class Monster extends GameObject {
 		MainCharacter character = gameWorld.getCharacter(); 
 		Couple chrc = character.getWeightPoint();
 		Couple pos  = this.getWeightPoint();
-		if (Math.abs(pos.x - chrc.x) >= BASE) {
+		double distance = 15 * BASE;
+		if (chrc.distance(pos) >= distance) {
+			direct = rand.nextInt() % 4 + 1;
 			this.standstill();
-			if (pos.x < chrc.x) this.state.isGoRight = true;
-			else this.state.isGoLeft = true;
+			this.state.setGo(direct);
 		} else {
-			this.standstill();
-			if (pos.y < chrc.y) this.state.isGoDown = true;
-			else this.state.isGoUp = true;
+			ArrayList<Couple> path = getPath();
+			if (path.size() >= 2) {
+				Couple direct2 = getPath().get(1);
+	//			this.setWeightPoint(direct2.x* BASE, direct2.y * BASE);
+				
+				if (direct2.y - pos.y/BASE >= 0.5) {
+					this.state.setGo(ObjectState.DOWN);
+				} else if (direct2.y - pos.y/BASE <= -0.5) {
+					this.state.setGo(ObjectState.UP);
+				} else if (direct2.x - pos.x/BASE >= 0.5) {
+					this.state.setGo(ObjectState.RIGHT);
+				} else {
+					this.state.setGo(ObjectState.LEFT);
+				}
+			}	
 		}
+	}
+	
+	public ArrayList<Couple> getPath(){
+		ArrayList<Couple> result = new ArrayList<Couple>();
+		
+		MainCharacter character = this.getGameWorld().getCharacter();
+		Map map = this.getGameWorld().getCurrentMap();
+		
+		Couple source = new Couple(this.getWeightPoint().x/BASE, this.getWeightPoint().y/BASE);
+		Couple desti = new Couple(character.getWeightPoint().x/BASE, character.getWeightPoint().y/BASE);
+		
+		LinkedList<Couple> queue = new LinkedList<Couple>();
+		Couple[][] trace = new Couple[map.getRow()][map.getCol()];
+		boolean[][] visited = new boolean[map.getRow()][map.getCol()];
+		
+		visited[(int)source.x][(int)source.y] = true;
+		trace[(int)source.x][(int)source.y] = new Couple(-1, -1);
+		
+		queue.addLast(source);
+		
+		Couple[] direct = {	new Couple(0, -1), 
+							new Couple(0, 1), 
+							new Couple(-1, 0), 
+							new Couple(1, 0)	};
+		Couple res = null;
+		
+		while (!queue.isEmpty()) {
+			Couple front = queue.getFirst();
+			queue.removeFirst();
+			
+			for (int i = 0; i < 4; i++) {
+				Couple newCouple = new Couple(front.x + direct[i].x, front.y + direct[i].y);
+				if (Math.abs(newCouple.x - desti.x) <= 0.5 && Math.abs(newCouple.y - desti.y) <= 0.5) {
+					res = newCouple;
+					trace[(int)res.x][(int) res.y] = front;
+				} else if (!visited[(int) newCouple.x][(int) newCouple.y] 
+							&& (map.getMatrix()[(int) newCouple.y][(int) newCouple.x] == 0)) {
+					queue.addLast(newCouple);
+					visited[(int) newCouple.x][(int) newCouple.y] = true;
+					trace[(int) newCouple.x][(int) newCouple.y] = front;
+				}
+			}
+		}
+		
+		if (res != null) {
+			while (res.x >= 0) {
+				result.add(0, res);
+				res = trace[(int) res.x][(int) res.y];
+			}
+		}
+		
+		return result;
 	}
 	
 	
@@ -109,40 +178,13 @@ public class Monster extends GameObject {
 						   && currentTime/1e9 - lastTimeDizz >= timeDizz)) return;
 		hp.update(currentTime);
 		MainCharacter character = gameWorld.getCharacter(); 
-		if (this.impactCharacter(character) && currentTime/1e9 - character.lastTimeDizz >= character.timeDizz) {
-			character.state.setHP(character.state.heartPoint - this.state.dame);
-			character.lastTimeDizz = currentTime/1e9;
-			double nextX, nextY;
-			Map map = gameWorld.getCurrentMap();
-			switch(state.direct) {
-			case ObjectState.UP:
-				nextX = character.getWeightPoint().x;
-				nextY = character.getWeightPoint().y - 5 * character.state.speed;
-				if (map.getMatrix()[(int)(nextY/BASE)][(int)(nextX/BASE)] == 0)
-					character.setWeightPoint(nextX, nextY);
-				break;
-			case ObjectState.DOWN:
-				nextX = character.getWeightPoint().x;
-				nextY = character.getWeightPoint().y + 5 * character.state.speed;
-				if (map.getMatrix()[(int)(nextY/BASE)][(int)(nextX/BASE)] == 0)
-					character.setWeightPoint(nextX, nextY);
-				break;
-			case ObjectState.LEFT:
-				nextX = character.getWeightPoint().x - 5 * character.state.speed;
-				nextY = character.getWeightPoint().y;
-				if (map.getMatrix()[(int)(nextY/BASE)][(int)(nextX/BASE)] == 0)
-					character.setWeightPoint(nextX, nextY);
-				break;
-			case ObjectState.RIGHT:
-				nextX = character.getWeightPoint().x + 5 * character.state.speed;
-				nextY = character.getWeightPoint().y;
-				if (map.getMatrix()[(int)(nextY/BASE)][(int)(nextX/BASE)] == 0)
-					character.setWeightPoint(nextX, nextY);
-				break;
-			}
-			character.getHPGraphic().update();
-			return;
-		}
+		
+//		if (this.impactCharacter(character) && currentTime/1e9 - lastTimeBite >= timeWait) {
+//			character.state.setHP(character.state.heartPoint - this.state.dame);
+//			lastTimeBite = currentTime/1e9;
+//			character.getHPGraphic().update();
+//		}
+		
 		if (level == Monster.EASY) {
 			updateEasy(currentTime);
 		} else {
