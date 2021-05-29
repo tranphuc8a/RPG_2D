@@ -16,31 +16,34 @@ public class Monster extends GameObject {
 	
 	protected HeartPoint hp = new HeartPoint(this);
 	protected int level = Monster.EASY;
+	protected double distance = 0;
 	protected double lastTimeBite = 0;
-	protected double timeWait = 1;
+	protected double timeWait = 0.5;
 	
-	public Monster() {}
+	public Monster() {
+		this.setLevel(EASY);
+	}
 	public Monster(GameWorld gameWorld) {
 		this.gameWorld = gameWorld;
 	}
 	public Monster(double x, double y, GameWorld gameWorld) {
 		this(gameWorld);
-		this.setRealPosition(x, y);
+		this.setWeightPoint(x, y);
 	}
 	public Monster(double x, double y, int hardLevel, GameWorld gameWorld) {
 		this(gameWorld);
-		this.setRealPosition(x,  y);
+		this.setWeightPoint(x,  y);
 		this.setLevel(hardLevel);
 	}
 	public Monster(ObjectPath path, double x, double y, GameWorld gameWorld) {
 		this(gameWorld);
 		this.loadGraphic(path);
-		this.setRealPosition(x,  y);
+		this.setWeightPoint(x,  y);
 	}
 	public Monster(ObjectPath path, double x, double y, int hardLevel, GameWorld gameWorld) {
 		this(gameWorld);
 		this.loadGraphic(path);
-		this.setRealPosition(x,  y);
+		this.setWeightPoint(x,  y);
 		this.setLevel(hardLevel);
 	}
 	
@@ -60,64 +63,48 @@ public class Monster extends GameObject {
 			this.state.heartPoint = this.state.maxHP = 450;
 			this.state.heartPoint = 80;
 		}
-		this.setTimeDizz(0 );
+		this.setTimeDizz(0.15);
 		this.state.heartPoint = this.state.maxHP = 250;
 		this.setSize(4 * BASE, 4 * BASE);
 		this.weightPoint.set(this.getFitWidth()/2, this.getFitHeight()/2);
-		this.getState().speed = 0.25 * BASE;
-		this.setTimeSleep(0.04);
+		this.getState().speed = 0.35 * BASE;
+		this.setTimeSleep(0.08);
 		hp.initialize();
 	}
-	public void standstill() {
-		this.state.isGoDown = false;
-		this.state.isGoUp = false;
-		this.state.isGoLeft = false;
-		this.state.isGoRight = false;
-	}
-	public void updateEasy(long currentTime) {
+
+	public void updateWalk(long currentTime) {
 		Random rand = new Random();
 		int direct = rand.nextInt() % 2;
 		if (direct != 0) {
-			this.standstill();
+			this.state.setStandStill();
 			return;
 		}
 		
-		direct = rand.nextInt() % 4 + 1;
-		this.standstill();
-		this.state.setGo(direct);
-	}
-	public void updateHard(long currentTime) {
-		Random rand = new Random();
-		int direct = rand.nextInt() % 2;
-		if (direct != 0) {
-			this.standstill();
-			return;
-		}
 		MainCharacter character = gameWorld.getCharacter(); 
 		Couple chrc = character.getWeightPoint();
 		Couple pos  = this.getWeightPoint();
-		double distance = 15 * BASE;
+		
 		if (chrc.distance(pos) >= distance) {
 			direct = rand.nextInt() % 4 + 1;
-			this.standstill();
+			this.state.setStandStill();
 			this.state.setGo(direct);
-		} else {
-			ArrayList<Couple> path = getPath();
-			if (path.size() >= 2) {
-				Couple direct2 = getPath().get(1);
-	//			this.setWeightPoint(direct2.x* BASE, direct2.y * BASE);
-				
-				if (direct2.y - pos.y/BASE >= 0.5) {
-					this.state.setGo(ObjectState.DOWN);
-				} else if (direct2.y - pos.y/BASE <= -0.5) {
-					this.state.setGo(ObjectState.UP);
-				} else if (direct2.x - pos.x/BASE >= 0.5) {
-					this.state.setGo(ObjectState.RIGHT);
-				} else {
-					this.state.setGo(ObjectState.LEFT);
-				}
-			}	
+			return;
 		}
+		
+		ArrayList<Couple> path = getPath();
+		if (path.size() >= 2) {
+			Couple direct2 = getPath().get(1);
+			
+			if (direct2.y - pos.y/BASE >= 0.5) {
+				this.state.setGo(ObjectState.DOWN);
+			} else if (direct2.y - pos.y/BASE <= -0.5) {
+				this.state.setGo(ObjectState.UP);
+			} else if (direct2.x - pos.x/BASE >= 0.5) {
+				this.state.setGo(ObjectState.RIGHT);
+			} else {
+				this.state.setGo(ObjectState.LEFT);
+			}
+		}	
 	}
 	
 	public ArrayList<Couple> getPath(){
@@ -126,12 +113,14 @@ public class Monster extends GameObject {
 		MainCharacter character = this.getGameWorld().getCharacter();
 		Map map = this.getGameWorld().getCurrentMap();
 		
-		Couple source = new Couple(this.getWeightPoint().x/BASE, this.getWeightPoint().y/BASE);
-		Couple desti = new Couple(character.getWeightPoint().x/BASE, character.getWeightPoint().y/BASE);
+		Couple source = new Couple( (int) (this.getWeightPoint().x/BASE) + 0.5, 
+									(int) (this.getWeightPoint().y/BASE) + 0.5);
+		Couple desti = new Couple(	character.getWeightPoint().x/BASE, 
+									character.getWeightPoint().y/BASE);
 		
 		LinkedList<Couple> queue = new LinkedList<Couple>();
-		Couple[][] trace = new Couple[map.getRow()][map.getCol()];
-		boolean[][] visited = new boolean[map.getRow()][map.getCol()];
+		Couple[][] trace = new Couple[map.getCol()][map.getRow()];
+		boolean[][] visited = new boolean[map.getCol()][map.getRow()];
 		
 		visited[(int)source.x][(int)source.y] = true;
 		trace[(int)source.x][(int)source.y] = new Couple(-1, -1);
@@ -144,15 +133,16 @@ public class Monster extends GameObject {
 							new Couple(1, 0)	};
 		Couple res = null;
 		
-		while (!queue.isEmpty()) {
+		while (!queue.isEmpty() && res == null) {
 			Couple front = queue.getFirst();
 			queue.removeFirst();
 			
 			for (int i = 0; i < 4; i++) {
 				Couple newCouple = new Couple(front.x + direct[i].x, front.y + direct[i].y);
-				if (Math.abs(newCouple.x - desti.x) <= 0.5 && Math.abs(newCouple.y - desti.y) <= 0.5) {
+				if (newCouple.distance(desti) <= Math.sqrt(2)) {
 					res = newCouple;
 					trace[(int)res.x][(int) res.y] = front;
+					break;
 				} else if (!visited[(int) newCouple.x][(int) newCouple.y] 
 							&& (map.getMatrix()[(int) newCouple.y][(int) newCouple.x] == 0)) {
 					queue.addLast(newCouple);
@@ -179,17 +169,14 @@ public class Monster extends GameObject {
 		hp.update(currentTime);
 		MainCharacter character = gameWorld.getCharacter(); 
 		
-//		if (this.impactCharacter(character) && currentTime/1e9 - lastTimeBite >= timeWait) {
-//			character.state.setHP(character.state.heartPoint - this.state.dame);
-//			lastTimeBite = currentTime/1e9;
-//			character.getHPGraphic().update();
-//		}
 		
-		if (level == Monster.EASY) {
-			updateEasy(currentTime);
-		} else {
-			updateHard(currentTime);
+		if (this.impactCharacter(character) && currentTime/1e9 - lastTimeBite >= timeWait) {
+			character.state.setHP(character.state.heartPoint - this.state.dame);
+			lastTimeBite = currentTime/1e9;
+			character.getHPGraphic().update();
 		}
+		
+		updateWalk(currentTime);
 		super.update(currentTime);
 	}
 	@Override public void insert(Group root) {
@@ -207,10 +194,18 @@ public class Monster extends GameObject {
 			this.level = Monster.EASY;
 			this.state.heartPoint = this.state.maxHP = 400;
 			this.state.dame = 50;
+			this.distance = 10 * BASE;
+			this.setTimeSleep(0.08);
+			this.setTimeDizz(0.2);
+			this.state.speed = 0.35 * BASE;
 		} else {
 			this.level = Monster.HARD;
 			this.state.heartPoint = this.state.maxHP = 800;
 			this.state.dame = 50;
+			this.distance = 20 * BASE;
+			this.setTimeSleep(0.07);
+			this.state.speed = 0.45 * BASE;
+			this.setTimeDizz(0.1);
 		}
 	}
 	public int getLevel() {

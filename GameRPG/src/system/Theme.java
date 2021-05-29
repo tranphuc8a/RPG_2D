@@ -38,6 +38,9 @@ public class Theme {
 	
 	public ObjectPath hurtPath			= new ObjectPath();
 	public String[] hpPath;
+	public String[] humanHurt;
+	public String[] monsterHurt;
+	public String[] monsterBullet;
 	
 	public static Theme firstTheme = new Theme();
 	public static Theme secondTheme = new Theme();
@@ -119,6 +122,14 @@ public class Theme {
 			firstTheme.hurtPath.left[i] = "resource/knife/hurtAnimation/" + (i + 1) + ".png";
 			firstTheme.hurtPath.right[i] = "resource/knife/hurtAnimation/" + (i + 1) + ".png";
 		}
+		firstTheme.humanHurt = new String[2];
+		firstTheme.humanHurt[0] = "resource/humanHurt/1.png";
+		firstTheme.humanHurt[1] = "resource/humanHurt/2.png";
+		firstTheme.monsterHurt = new String[2];
+		firstTheme.monsterHurt[0] = "resource/mosterHurt/1.png";
+		firstTheme.monsterHurt[1] = "resource/mosterHurt/2.png";
+		firstTheme.monsterBullet = new String[1];
+		firstTheme.monsterBullet[0] = "resource/monsterBullet/1.png";
 		// monsters:
 		// bat:
 		firstTheme.batPath.front = new String[3];
@@ -257,7 +268,15 @@ public class Theme {
 			secondTheme.hurtPath.behind[i] = "resource/knife/hurtAnimation/" + (i + 1) + ".png";
 			secondTheme.hurtPath.left[i] = "resource/knife/hurtAnimation/" + (i + 1) + ".png";
 			secondTheme.hurtPath.right[i] = "resource/knife/hurtAnimation/" + (i + 1) + ".png";
-		}		
+		}
+		secondTheme.humanHurt = new String[2];
+		secondTheme.humanHurt[0] = "resource/humanHurt/1.png";
+		secondTheme.humanHurt[1] = "resource/humanHurt/2.png";
+		secondTheme.monsterHurt = new String[2];
+		secondTheme.monsterHurt[0] = "resource/mosterHurt/1.png";
+		secondTheme.monsterHurt[1] = "resource/mosterHurt/2.png";
+		secondTheme.monsterBullet = new String[1];
+		secondTheme.monsterBullet[0] = "resource/monsterBullet/1.png";
 		// monsters:
 		// bat:
 		secondTheme.batPath.front = new String[3];
@@ -399,6 +418,14 @@ public class Theme {
 			thirdTheme.hurtPath.left[i] = "resource/knife/hurtAnimation/" + (i + 1) + ".png";
 			thirdTheme.hurtPath.right[i] = "resource/knife/hurtAnimation/" + (i + 1) + ".png";
 		}
+		thirdTheme.humanHurt = new String[2];
+		thirdTheme.humanHurt[0] = "resource/humanHurt/1.png";
+		thirdTheme.humanHurt[1] = "resource/humanHurt/2.png";
+		thirdTheme.monsterHurt = new String[2];
+		thirdTheme.monsterHurt[0] = "resource/mosterHurt/1.png";
+		thirdTheme.monsterHurt[1] = "resource/mosterHurt/2.png";
+		thirdTheme.monsterBullet = new String[1];
+		thirdTheme.monsterBullet[0] = "resource/monsterBullet/1.png";
 		// monsters:
 		// bat:
 		thirdTheme.batPath.front = new String[3];

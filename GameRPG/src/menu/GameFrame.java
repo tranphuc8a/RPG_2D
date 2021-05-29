@@ -81,7 +81,7 @@ public class GameFrame extends Application {
 		// make Graph of list GameObject
 		
 		gameWorld.initialize();
-		gameLoop.setFPS(50);
+		gameLoop.setFPS(10000);
 		camera.initialize();
 		distributeEvent();
 	}
@@ -114,7 +114,11 @@ public class GameFrame extends Application {
 	public void checkHighScore(int score) {
 		if (score > GameConfig.highScore[5].score) {
 			(new MessageBox() {
-
+				GameFrame newParent = null;
+				public MessageBox setParent(GameFrame par) {
+					this.newParent = par;
+					return this;
+				}
 				@Override
 				public void initialization() {
 					super.initialization();
@@ -136,15 +140,18 @@ public class GameFrame extends Application {
 					okay.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {;
 						@Override public void handle(MouseEvent e) {
 							GameConfig.updateHighScore(inputName.getText(), score);
+							newParent.stage.hide();
 							gameOverMenu.run();
 						}
 					});
 				}
-			}).run();		
-		} else gameOverMenu.run();
+			}).setParent(this).run();
+		} else {
+			stage.hide();
+			gameOverMenu.run();
+		}
 	}
 	public void endGame(boolean isWin, int score) {
-		stage.hide();
 		gameLoop.stop();
 		String infor = "";
 		if (isWin) {
@@ -162,5 +169,9 @@ public class GameFrame extends Application {
 	}
 	public Group getRoot() {
 		return this.root;
+	}
+	public void setRoot(Group root) {		
+		this.root = root;
+		this.scene.setRoot(root);
 	}
 }

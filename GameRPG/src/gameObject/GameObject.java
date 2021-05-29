@@ -58,23 +58,13 @@ public class GameObject extends myGraphic{
 		state.direct = ObjectState.UP;
 		state.speed = 0.5 * BASE;
 		state.isDie = false;
-		
-//		int x = 0, y = 0;
-//		Random rand = new Random();
-//		do {
-//			x = (Math.abs(rand.nextInt()) + map.getCol()) % (map.getCol());
-//			y = (Math.abs(rand.nextInt()) + map.getRow()) % (map.getRow());
-//		}
-//		while (!((0 <= x) && (x < map.getCol()) && 
-//				 (0 <= y) && (y < map.getRow()) && 
-//				 (map.getMatrix()[y][x] == 0)));
-//		setWeightPoint(x * BASE, y * BASE);
+
 	}
 	public void insert(Group root) {
 		root.getChildren().add(this);
 	}
 	public void update() {
-		this.setWeightPoint(this.getWeightPoint().x, this.getWeightPoint().y);
+//		this.setWeightPoint(this.getWeightPoint().x, this.getWeightPoint().y);
 		double speed = state.speed;
 		if (state.isGoCross()) speed /= Math.sqrt(2);
 		if (state.isGoUp && !impactMap(ObjectState.UP)) {

@@ -10,22 +10,22 @@ public class Pig extends Monster {
 	}
 	public Pig(double x, double y, GameWorld gameWorld) {
 		this(gameWorld);
-		this.setRealPosition(x, y);
+		this.setWeightPoint(x, y);
 	}
 	public Pig(double x, double y, int hardLevel, GameWorld gameWorld) {
 		this(gameWorld);
-		this.setRealPosition(x,  y);
+		this.setWeightPoint(x,  y);
 		this.setLevel(hardLevel);
 	}
 	public Pig(ObjectPath path, double x, double y, GameWorld gameWorld) {
 		this(gameWorld);
 		this.loadGraphic(path);
-		this.setRealPosition(x,  y);
+		this.setWeightPoint(x,  y);
 	}
 	public Pig(ObjectPath path, double x, double y, int hardLevel, GameWorld gameWorld) {
 		this(gameWorld);
 		this.loadGraphic(path);
-		this.setRealPosition(x,  y);
+		this.setWeightPoint(x,  y);
 		this.setLevel(hardLevel);
 	}
 	

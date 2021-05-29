@@ -10,22 +10,22 @@ public class Snake extends Monster {
 	}
 	public Snake(double x, double y, GameWorld gameWorld) {
 		this(gameWorld);
-		this.setRealPosition(x, y);
+		this.setWeightPoint(x, y);
 	}
 	public Snake(double x, double y, int hardLevel, GameWorld gameWorld) {
 		this(gameWorld);
-		this.setRealPosition(x,  y);
+		this.setWeightPoint(x,  y);
 		this.setLevel(hardLevel);
 	}
 	public Snake(ObjectPath path, double x, double y, GameWorld gameWorld) {
 		this(gameWorld);
 		this.loadGraphic(path);
-		this.setRealPosition(x,  y);
+		this.setWeightPoint(x,  y);
 	}
 	public Snake(ObjectPath path, double x, double y, int hardLevel, GameWorld gameWorld) {
 		this(gameWorld);
 		this.loadGraphic(path);
-		this.setRealPosition(x,  y);
+		this.setWeightPoint(x,  y);
 		this.setLevel(hardLevel);
 	}
 	

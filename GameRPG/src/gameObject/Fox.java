@@ -10,22 +10,22 @@ public class Fox extends Monster {
 	}
 	public Fox(double x, double y, GameWorld gameWorld) {
 		this(gameWorld);
-		this.setRealPosition(x, y);
+		this.setWeightPoint(x, y);
 	}
 	public Fox(double x, double y, int hardLevel, GameWorld gameWorld) {
 		this(gameWorld);
-		this.setRealPosition(x,  y);
+		this.setWeightPoint(x,  y);
 		this.setLevel(hardLevel);
 	}
 	public Fox(ObjectPath path, double x, double y, GameWorld gameWorld) {
 		this(gameWorld);
 		this.loadGraphic(path);
-		this.setRealPosition(x,  y);
+		this.setWeightPoint(x,  y);
 	}
 	public Fox(ObjectPath path, double x, double y, int hardLevel, GameWorld gameWorld) {
 		this(gameWorld);
 		this.loadGraphic(path);
-		this.setRealPosition(x,  y);
+		this.setWeightPoint(x,  y);
 		this.setLevel(hardLevel);
 	}
 	

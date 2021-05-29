@@ -44,7 +44,7 @@ public class MainCharacter extends GameObject {
 		hurt.setGameWorld(this.gameWorld);
 		hurt.weightPoint.set(0.5 * hurt.getFitWidth(), 
 							 0.5 * hurt.getFitHeight());
-		hurt.setTimeSleep(0.001);
+		hurt.setTimeSleep(0);
 	}
 	@Override public void initialize() {
 		super.initialize();
@@ -94,6 +94,10 @@ public class MainCharacter extends GameObject {
 		} 
 	}
 	public void useKnife() {
+		double now = System.nanoTime()/1e9;
+		if (now - knife.getLastTimeUse() <= knife.getTimeUse()) return;
+		knife.setLastTimeUse(now);
+		
 		knife.getState().isDie = false;
 		Group root = this.gameWorld.getGameFrame().getRoot();
 		if (!(root.getChildren().contains(knife))) {
@@ -124,6 +128,9 @@ public class MainCharacter extends GameObject {
 			hurtAnimation.insert(root);
 	}
 	public void useGun() {
+		double now = System.nanoTime()/1e9;
+		if (now - bullet.getLastTimeUse() <= bullet.getTimeUse()) return;
+		bullet.setLastTimeUse(now);
 		if (!bullet.getState().isDie) return;
 		
 		bullet.getState().isDie = false;
@@ -154,7 +161,8 @@ public class MainCharacter extends GameObject {
 	@Override
 	public void update(long currentTime) {
 		if (!(!state.isDie && currentTime/1e9 - lastTime >= timeSleep
-					 	   && currentTime/1e9 - lastTimeDizz >= timeDizz)) return;	
+					 	   && currentTime/1e9 - lastTimeDizz >= timeDizz)) return;
+		
 		super.update(currentTime); 
 		hp.update(currentTime);
 		

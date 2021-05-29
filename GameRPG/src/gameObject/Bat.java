@@ -10,22 +10,22 @@ public class Bat extends Monster{
 	}
 	public Bat(double x, double y, GameWorld gameWorld) {
 		this(gameWorld);
-		this.setRealPosition(x, y);
+		this.setWeightPoint(x, y);
 	}
 	public Bat(double x, double y, int hardLevel, GameWorld gameWorld) {
 		this(gameWorld);
-		this.setRealPosition(x,  y);
+		this.setWeightPoint(x,  y);
 		this.setLevel(hardLevel);
 	}
 	public Bat(ObjectPath path, double x, double y, GameWorld gameWorld) {
 		this(gameWorld);
 		this.loadGraphic(path);
-		this.setRealPosition(x,  y);
+		this.setWeightPoint(x,  y);
 	}
 	public Bat(ObjectPath path, double x, double y, int hardLevel, GameWorld gameWorld) {
 		this(gameWorld);
 		this.loadGraphic(path);
-		this.setRealPosition(x,  y);
+		this.setWeightPoint(x,  y);
 		this.setLevel(hardLevel);
 	}
 	

@@ -21,13 +21,14 @@ public class Knife extends Skill {
 	}
 	@Override public void initialize() {
 		this.gameWorld = parentObject.getGameWorld();
-		this.setTimeSleep(0.05);
+		this.setTimeSleep(0);
 		super.initialize();
 		this.setSize(11 * BASE, 7.5 * BASE);
 		this.weightPoint.set(0.48 * this.getFitWidth(), 0.85 * this.getFitHeight());
 		this.length = 6 * BASE;
-		this.setDame(10);
+		this.setDame(40);
 		this.state.isDie = true;
+		this.setTimeUse(0.1);
 	}
 	@Override public void update() {
 		this.state.direct = parentObject.getState().direct;
@@ -85,29 +86,29 @@ public class Knife extends Skill {
 		Couple vector = new Couple();
 		switch (this.state.direct) {
 		case ObjectState.LEFT:
-			if (monster.getY() + 0.5 * monster.getFitHeight() < parentObject.getY()) return false;
-			if (monster.getY() > parentObject.getY() + 0.5 * parentObject.getFitHeight()) 
+			if (monster.getY() + 0.75 * monster.getFitHeight() < parentObject.getY()) return false;
+			if (monster.getY() > parentObject.getY() + 0.75 * parentObject.getFitHeight()) 
 					return false;
 			if (monster.getWeightPoint().x > parentObject.getWeightPoint().x)
 					return false;
 			return Math.abs(monster.getWeightPoint().x - parentObject.getWeightPoint().x) 
 					< this.length;
 		case ObjectState.RIGHT:
-			if (monster.getY() + 0.5 * monster.getFitHeight() < parentObject.getY()) return false;
-			if (monster.getY() > parentObject.getY() + 0.5 * parentObject.getFitHeight()) 
+			if (monster.getY() + 0.75 * monster.getFitHeight() < parentObject.getY()) return false;
+			if (monster.getY() > parentObject.getY() + 0.75 * parentObject.getFitHeight()) 
 					return false;
 			if (monster.getWeightPoint().x < parentObject.getWeightPoint().x)
 					return false;
 			return Math.abs(monster.getWeightPoint().x - parentObject.getWeightPoint().x) 
 					< this.length;
 		case ObjectState.UP:
-			if (monster.getWeightPoint().x < (character.getWeightPoint().x - BASE)) return false;
-			if (monster.getWeightPoint().x > (character.getWeightPoint().x + BASE)) return false;
+			if (monster.getWeightPoint().x < (character.getWeightPoint().x - 2 * BASE)) return false;
+			if (monster.getWeightPoint().x > (character.getWeightPoint().x + 2 * BASE)) return false;
 			if (this.getWeightPoint().y - monster.getWeightPoint().y < 0) return false;
 			return Math.abs(monster.getWeightPoint().y - this.getWeightPoint().y) <= (this.length);
 		case ObjectState.DOWN:
-			if (monster.getWeightPoint().x < (character.getWeightPoint().x - BASE)) return false;
-			if (monster.getWeightPoint().x > (character.getWeightPoint().x + BASE))  return false;
+			if (monster.getWeightPoint().x < (character.getWeightPoint().x - 2 * BASE)) return false;
+			if (monster.getWeightPoint().x > (character.getWeightPoint().x + 2 * BASE))  return false;
 			if (this.getWeightPoint().y - monster.getWeightPoint().y > 0) return false;
 			return Math.abs(this.getWeightPoint().y - monster.getWeightPoint().y) <= (this.length);
 		}

@@ -70,12 +70,9 @@ public class Map extends myGraphic {
 		this.setPosition(0, 0);
 	}
 	public void insert(Group root) {
-		if (!root.getChildren().contains(root))
-			root.getChildren().add(this);
+		root.getChildren().add(this);
 		for (Monster mon : monsters) {
-			if (!root.getChildren().contains(mon)) {
-				mon.insert(root);
-			}
+			mon.insert(root);
 		}
 	}
 	public void update(long currentTime) {
