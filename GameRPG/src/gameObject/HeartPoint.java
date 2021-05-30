@@ -15,14 +15,14 @@ public class HeartPoint extends GameObject {
 	public HeartPoint(GameObject par) {
 		this.parentObject = par;
 	}	
-	public void loadGraphic(String[] pathes) {
+	public void loadGraphic(myImage[] pathes) {
 		this.numFrames = pathes.length;
-		images = new myImage[numFrames];
-		for (int i = 0; i < numFrames; i++) {
-			images[i] = new myImage(pathes[i]);
-		}
-		currentFrame = numFrames - 1;
-		this.setImage(images[currentFrame]);
+		images = pathes;
+		GameObject parent = this.parentObject;
+		int index = numFrames - 1;
+		if (parent != null)
+			index = (int) (numFrames * parent.state.heartPoint * 1.0 / parent.state.maxHP);
+		this.setImage(images[index - 1]);
 	}
 	public void loadGraphic() {
 		this.loadGraphic(GameConfig.theme.hpPath);

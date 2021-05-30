@@ -47,7 +47,7 @@ public class GameObject extends myGraphic{
 		front.loadImage(path.front);
 		left.loadImage(path.left);
 		right.loadImage(path.right);
-		this.setImage(new myImage(path.front[0]));
+		this.setImage(path.front[0]);
 	}
 	public void loadGraphic() {
 		// do nothing

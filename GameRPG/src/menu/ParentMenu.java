@@ -154,9 +154,9 @@ public class ParentMenu extends Application {
 	}
 	
 	// get-set
-	public void setBackground(String path)
+	public void setBackground(myImage path)
 	{
-		background.setImage(new myImage(path));
+		background.setImage(path);
 		background.setSize(stageSize.x, stageSize.y);
 	}
 	public ParentMenu getParent() {
@@ -199,14 +199,14 @@ public class ParentMenu extends Application {
 		return buttons;
 	}
 	public void loadGraphic(Theme newTheme) {
-		background.setImage(new myImage(newTheme.backgroundPath));
-		nameFrame.setImage(new myImage(newTheme.nameFramePath));
-		buttonFrame.setImage(new myImage(newTheme.buttonFramePath));
+		background.setImage(newTheme.backgroundPath);
+		nameFrame.setImage(newTheme.nameFramePath);
+		buttonFrame.setImage(newTheme.buttonFramePath);
 		for (int i = 1; i < buttons.length; i++) {
-			buttons[i].setImage(new myImage(newTheme.buttonPath));
+			buttons[i].setImage(newTheme.buttonPath);
 			name[i].setFont(newTheme.nameButtonFont);
 		}
-		infor.setImage(new myImage(newTheme.informationPath));
-		tutor.setImage(new myImage(newTheme.tutorialPath));
+		infor.setImage(newTheme.informationPath);
+		tutor.setImage(newTheme.tutorialPath);
 	}
 }

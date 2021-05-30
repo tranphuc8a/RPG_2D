@@ -53,7 +53,6 @@ public class GameConfig {
 	public static Theme theme = Theme.FIRST_THEME();
 	
 	public static void readData() {
-		Theme.setData();
 		try
 		{
 			File file = new File("Data/GameConfig.txt");

@@ -23,7 +23,7 @@ public class Animation {
 	public Animation() {
 		lastTime = System.nanoTime() / 1e9;
 	}
-	public Animation(String[] imagePath) {
+	public Animation(myImage[] imagePath) {
 		this();
 		loadImage(imagePath);
 	}
@@ -50,12 +50,9 @@ public class Animation {
 			lastTime = currentTime / 1e9;
 		}
 	}
-	public void loadImage(String[] imagePath) {
+	public void loadImage(myImage[] imagePath) {
 		numFrame = imagePath.length;
-		images = new myImage[numFrame];
-		for (int i = 0; i < numFrame; i++) {
-			images[i] = new myImage(imagePath[i]);
-		}
+		images = imagePath;
 	}
 	
 	// getter and setter:

@@ -22,11 +22,7 @@ public class GameWorld {
 	private Map xuanTruong 				= new Map(this);
 	private Map tuSon 					= new Map(this);
 	
-	private Group root1 = new Group();
-	private Group root2 = new Group();
-	private Group root3 = new Group();
-	
-	private Group currentRoot			= root1;
+	private Group root1, root2, root3, currentRoot = null;
 	private Map currentMap 				= myHao;
 	
 	public GameWorld() {}
@@ -52,6 +48,8 @@ public class GameWorld {
 		xuanTruong.initialize();
 		tuSon.initialize();
 		
+		root1 = new Group(); root2 = new Group(); root3 = new Group();
+		this.currentRoot = root1;
 		gameFrame.setRoot(root1);
 		
 		setMyHaoMonster();
