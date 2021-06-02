@@ -16,8 +16,10 @@ public class GameObject extends myGraphic{
 	
 	protected GameWorld gameWorld  	= null;
 	
+	protected Couple realPosition 	= new Couple(0, 0);
 	protected Couple position 		= new Couple(0, 0);
 	protected Couple weightPoint 	= new Couple(0, 0);
+	private	  Couple getWeightPoint = new Couple(0, 0);
 	
 	protected Animation front 	= new Animation(this);
 	protected Animation behind 	= new Animation(this);
@@ -27,6 +29,9 @@ public class GameObject extends myGraphic{
 	protected ObjectState state 	= new ObjectState();
 	protected double timeSleep 	= 0.1;
 	protected double lastTime 	= System.nanoTime() / 1e9;
+	
+	protected double timeDizz 			= 3;
+	protected double lastTimeDizz 		= System.nanoTime() / 1e9;
 	
 	public GameObject() {}
 	public GameObject(ObjectPath path) {
@@ -42,36 +47,26 @@ public class GameObject extends myGraphic{
 		front.loadImage(path.front);
 		left.loadImage(path.left);
 		right.loadImage(path.right);
-		this.setImage(new myImage(path.front[0]));
+		this.setImage(path.front[0]);
 	}
 	public void loadGraphic() {
 		// do nothing
 	}
 	public void initialize() {
-		Map map = gameWorld.getCurrentMap();
+		// Map map = gameWorld.getCurrentMap();
 		// init state
 		state.direct = ObjectState.UP;
 		state.speed = 0.5 * BASE;
-		
-		int x = 0, y = 0;
-		Random rand = new Random();
-		do {
-			x = (Math.abs(rand.nextInt()) + map.getCol()) % (map.getCol());
-			y = (Math.abs(rand.nextInt()) + map.getRow()) % (map.getRow());
-		}
-		while (!((0 <= x) && (x < map.getCol()) && 
-				 (0 <= y) && (y < map.getRow()) && 
-				 (map.getMatrix()[y][x] == 0)));
-		setWeightPoint(x * BASE, y * BASE);
+		state.isDie = false;
+
 	}
 	public void insert(Group root) {
-		if (!root.getChildren().contains(this)) {
-			root.getChildren().add(this);
-		}
+		root.getChildren().add(this);
 	}
 	public void update() {
+//		this.setWeightPoint(this.getWeightPoint().x, this.getWeightPoint().y);
 		double speed = state.speed;
-		if (state.isGoCross) speed /= Math.sqrt(2);
+		if (state.isGoCross()) speed /= Math.sqrt(2);
 		if (state.isGoUp && !impactMap(ObjectState.UP)) {
 			state.direct = ObjectState.UP;
 			this.setRealPosition(this.position.x, this.position.y - speed);
@@ -88,34 +83,31 @@ public class GameObject extends myGraphic{
 			state.direct = ObjectState.RIGHT;
 			this.setRealPosition(this.position.x + speed, this.position.y);
 		}
+		switch (state.direct) {
+		case ObjectState.UP:
+			behind.update();
+			break;
+		case ObjectState.DOWN:
+			front.update();
+			break;
+		case ObjectState.LEFT:
+			left.update();
+			break;
+		case ObjectState.RIGHT:
+			right.update();
+			break;
+		}
 	}
 	public void update(long currentTime) {
-		Map map = gameWorld.getCurrentMap();
-		if (!state.isDie && currentTime/1e9 - lastTime >= timeSleep) {
+		if (!state.isDie && currentTime/1e9 - lastTime 		>= timeSleep && 
+							currentTime/1e9 - lastTimeDizz 	>= timeDizz) {
 			update();
-			switch (state.direct) {
-			case ObjectState.UP:
-				behind.update(currentTime);
-				break;
-			case ObjectState.DOWN:
-				front.update(currentTime);
-				break;
-			case ObjectState.LEFT:
-				left.update(currentTime);
-				break;
-			case ObjectState.RIGHT:
-				right.update(currentTime);
-				break;
-			}
 			lastTime = currentTime/1e9;
 		}
 	}
 	public boolean impactMap(int direct) {
 		Map map = gameWorld.getCurrentMap();
 		Couple center = this.getWeightPoint();
-		System.out.println(	center.x/BASE + ", " + center.y/BASE + ", " + 
-							map.getMatrix()[(int)(center.y/BASE)][(int)(center.x/BASE)]);
-		
 		double nextY = 0, nextX = 0;
 		switch(direct) {
 		case ObjectState.UP:
@@ -146,17 +138,6 @@ public class GameObject extends myGraphic{
 		}
 		return false;
 	}
-	public boolean impact(Monster monster) {
-		if (state.isDie) return false;
-		
-		return false;
-	}
-	public boolean impact(Character chrt) {
-		if (state.isDie) return false;
-		
-		return false;
-	}
-	
 	
 	// Getter and Setter
 	public double getTimeSleep() {
@@ -178,12 +159,18 @@ public class GameObject extends myGraphic{
 					     position.y + gameWorld.getCurrentMap().getY());
 	}
 	public Couple getWeightPoint() {
-		return new Couple(this.position.x + this.weightPoint.x, this.position.y + this.weightPoint.y);
+		this.getWeightPoint.set(this.position.x + this.weightPoint.x, 
+								this.position.y + this.weightPoint.y);
+		return this.getWeightPoint;
 	}
 	public void setRealPosition(double x, double y) {
 		this.position.set(x, y);
 		this.setPosition(this.position.x + gameWorld.getCurrentMap().getX(), 
 						 this.position.y + gameWorld.getCurrentMap().getY());
+	}
+	public Couple getRealPosition() {
+		this.realPosition.set(this.getX(), this.getY());
+		return this.realPosition;
 	}
 	public Couple getPosition() {
 		return position;
@@ -202,5 +189,8 @@ public class GameObject extends myGraphic{
 	}
 	public void setWeightPoint(Couple weightPoint) {
 		this.weightPoint = weightPoint;
+	}
+	public void setTimeDizz(double timeDizz) {
+		this.timeDizz = timeDizz;
 	}
 }

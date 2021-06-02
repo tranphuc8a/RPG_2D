@@ -1,10 +1,13 @@
 package menu;
 
+import javax.swing.GroupLayout.Alignment;
+
 import gameObject.GameWorld;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -13,6 +16,7 @@ import system.Camera;
 import system.Couple;
 import system.EventDistributor;
 import system.GameConfig;
+import system.GameConfig.Player;
 import system.GameLoop;
 
 public class GameFrame extends Application {
@@ -20,11 +24,13 @@ public class GameFrame extends Application {
 		launch(args);
 	}
 	@Override public void start(Stage primaryStage) {
+		// start GAME
 		initialize();
 		loadGraphic();
 		
 		primaryStage = this.stage;
 		primaryStage.show();
+		
 		gameLoop.start();
 	}
 	public void run() {
@@ -36,7 +42,7 @@ public class GameFrame extends Application {
 	
 	public ParentMenu parent 			= null;
 	private PauseMenu pauseMenu 		= new PauseMenu(this);
-	private GameOverMenu gameOverMenu 	= null;
+	private GameOverMenu gameOverMenu 	= new GameOverMenu(this);
 
 	private Stage stage = null;
 	private Scene scene = null;
@@ -75,7 +81,7 @@ public class GameFrame extends Application {
 		// make Graph of list GameObject
 		
 		gameWorld.initialize();
-		gameLoop.setFPS(50);
+		gameLoop.setFPS(10000);
 		camera.initialize();
 		distributeEvent();
 	}
@@ -105,10 +111,55 @@ public class GameFrame extends Application {
 		stage.show();
 		gameLoop.start();
 	}
-	public void endGame() {
-		stage.hide();
+	public void checkHighScore(int score) {
+		if (score > GameConfig.highScore[5].score) {
+			(new MessageBox() {
+				GameFrame newParent = null;
+				public MessageBox setParent(GameFrame par) {
+					this.newParent = par;
+					return this;
+				}
+				@Override
+				public void initialization() {
+					super.initialization();
+					inputName = new TextField();
+					Content.setText("You f*cking break world records");
+					Content.setLayoutX(20);
+					Content.setLayoutY(50);
+					root.getChildren().add(inputName);
+					this.setTitle("Congratulation!!!");
+					inputName.setLayoutX(10);
+					inputName.setLayoutY(100);
+					inputName.setPrefSize(200, 20);
+					inputName.setText("Enter your name");
+					inputName.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+						@Override public void handle(MouseEvent e) {
+							inputName.setText("");
+						}
+					});
+					okay.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {;
+						@Override public void handle(MouseEvent e) {
+							GameConfig.updateHighScore(inputName.getText(), score);
+							newParent.stage.hide();
+							gameOverMenu.run();
+						}
+					});
+				}
+			}).setParent(this).run();
+		} else {
+			stage.hide();
+			gameOverMenu.run();
+		}
+	}
+	public void endGame(boolean isWin, int score) {
 		gameLoop.stop();
-		gameOverMenu.run();
+		String infor = "";
+		if (isWin) {
+			infor += "YOU WIN!\n";
+		} else infor += "YOU LOSE!\n";
+		infor += "YOUR SCORE: " + score;
+		gameOverMenu.getInformation().setText(infor);
+		checkHighScore(score);
 	}
 	public GameWorld getGameWorld() {
 		return this.gameWorld;
@@ -118,5 +169,9 @@ public class GameFrame extends Application {
 	}
 	public Group getRoot() {
 		return this.root;
+	}
+	public void setRoot(Group root) {		
+		this.root = root;
+		this.scene.setRoot(root);
 	}
 }

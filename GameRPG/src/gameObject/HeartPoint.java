@@ -15,14 +15,14 @@ public class HeartPoint extends GameObject {
 	public HeartPoint(GameObject par) {
 		this.parentObject = par;
 	}	
-	public void loadGraphic(String[] pathes) {
+	public void loadGraphic(myImage[] pathes) {
 		this.numFrames = pathes.length;
-		images = new myImage[numFrames];
-		for (int i = 0; i < numFrames; i++) {
-			images[i] = new myImage(pathes[i]);
-		}
-		currentFrame = numFrames - 1;
-		this.setImage(images[currentFrame]);
+		images = pathes;
+		GameObject parent = this.parentObject;
+		int index = numFrames - 1;
+		if (parent != null)
+			index = (int) (numFrames * parent.state.heartPoint * 1.0 / parent.state.maxHP);
+		this.setImage(images[index - 1]);
 	}
 	public void loadGraphic() {
 		this.loadGraphic(GameConfig.theme.hpPath);
@@ -35,14 +35,18 @@ public class HeartPoint extends GameObject {
 		this.weightPoint.set(this.getFitWidth()/2, this.getFitHeight()/2);
 		this.setWeightPoint(parentObject.getWeightPoint().x, parentObject.getPosition().y - this.getFitHeight()/2);
 	}
-	@Override public void update(long currentTime) {
-		double percent = this.parentObject.getState().heartPower/this.parentObject.getState().maxHP;
+	@Override public void update() {
+		double percent = this.parentObject.getState().heartPoint/this.parentObject.getState().maxHP;
 		int newFrame = (int) (percent * numFrames) - 1;
 		if (newFrame != currentFrame) {
 			currentFrame = newFrame;
+			if (currentFrame <= 0) currentFrame = 0;
 			this.setImage(images[currentFrame]);
 		}
 		this.setWeightPoint(parentObject.getWeightPoint().x, parentObject.getPosition().y - this.getFitHeight()/2);
+	}
+	@Override public void update(long currentTime) {
+		update();
 	}
 	
 	public void setParentObject(GameObject parent) {

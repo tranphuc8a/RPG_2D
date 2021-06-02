@@ -15,7 +15,7 @@ public class StartMenu extends ParentMenu{
 	}
 	
 	private Text menuName 			= null;
-	private GameFrame gameFrame 	= new GameFrame(this);
+	private GameFrame gameFrame; // 	= new GameFrame(this);
 	
 	public final int numButtons 	= 3;
 	public final Couple buttonSize 	= new Couple(200, 60);
@@ -67,16 +67,17 @@ public class StartMenu extends ParentMenu{
 	{
 		EventHandler<MouseEvent> e1 = new EventHandler<MouseEvent>() {
 			@Override public void handle(MouseEvent e) {
+//				stop();
 				stage.hide();
 				GameConfig.numberPlayer = 1;
-				gameFrame.run();
+				new GameFrame(StartMenu.this).run();
 			}
 		};
 		EventHandler<MouseEvent> e2 = new EventHandler<MouseEvent>() {
 			@Override public void handle(MouseEvent e) {
-				stage.hide();
+//				stage.hide();
 				GameConfig.numberPlayer = 2;
-//				gameFrame(gmcfg) run
+//				new GameFrame(StartMenu.this).run();
 			}
 		};
 		EventHandler<MouseEvent> e3 = new EventHandler<MouseEvent>() {

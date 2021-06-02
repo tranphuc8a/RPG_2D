@@ -34,34 +34,19 @@ public class EventDistributor {
 		ObjectState state = gameWorld.getCharacter().getState();
 		if (code.equals(KeyCode.ESCAPE)) {
 			gameFrame.pauseGame();
-			state.isGoUp = false;
-			state.isGoDown = false;
-			state.isGoLeft = false;
-			state.isGoRight = false;
+			state.setStandStill();
 		} else if (code.equals(KeyCode.UP)) {
-			state.direct = ObjectState.UP;
-			state.isGoUp = true;
-			if (state.isGoDown) state.isGoDown = false;			
-			if (state.isGoLeft || state.isGoRight) state.isGoCross = true;			
+			state.setGo(ObjectState.UP);	
 		} else if (code.equals(KeyCode.DOWN)) {
-			state.direct = ObjectState.DOWN;
-			state.isGoDown = true;
-			if (state.isGoUp) state.isGoUp = false;			
-			if (state.isGoLeft || state.isGoRight) state.isGoCross = true;
+			state.setGo(ObjectState.DOWN);
 		} else if (code.equals(KeyCode.LEFT)) {
-			state.direct = ObjectState.LEFT;
-			state.isGoLeft = true;
-			if (state.isGoRight) state.isGoRight = false;			
-			if (state.isGoUp || state.isGoDown) state.isGoCross = true;
+			state.setGo(ObjectState.LEFT);
 		} else if (code.equals(KeyCode.RIGHT)) {
-			state.direct = ObjectState.RIGHT;
-			state.isGoRight = true;
-			if (state.isGoLeft) state.isGoLeft = false;			
-			if (state.isGoUp || state.isGoDown) state.isGoCross = true;
+			state.setGo(ObjectState.RIGHT);
 		} else if (code.equals(KeyCode.SPACE)) {
-			gameWorld.getCharacter().getState().isUseKnife = true;			
+			gameWorld.getCharacter().useKnife();			
 		} else if (code.equals(KeyCode.ENTER)) {
-			gameWorld.getCharacter().getState().isUseGun = true;			
+			gameWorld.getCharacter().useGun();			
 		}
 	}
 	public void SolveReleaseKey(KeyCode code) {
@@ -70,16 +55,12 @@ public class EventDistributor {
 //			gameFrame.pauseGame();
 		} else if (code.equals(KeyCode.UP)) {
 			state.isGoUp = false;
-			state.isGoCross = false;
 		} else if (code.equals(KeyCode.DOWN)) {
 			state.isGoDown = false;
-			state.isGoCross = false;
 		} else if (code.equals(KeyCode.LEFT)) {
 			state.isGoLeft = false;	
-			state.isGoCross = false;
 		} else if (code.equals(KeyCode.RIGHT)) {
 			state.isGoRight = false;
-			state.isGoCross = false;
 		} else if (code.equals(KeyCode.SPACE)) {
 			state.isUseKnife = false;				
 		} else if (code.equals(KeyCode.ENTER)) {

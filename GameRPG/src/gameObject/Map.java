@@ -10,7 +10,7 @@ import system.myGraphic;
 import system.myImage;
 
 public class Map extends myGraphic {
-	private String imagePath;
+	private myImage imagePath;
 	private String textPath;
 	
 	private int[][] matrix = null;
@@ -20,7 +20,7 @@ public class Map extends myGraphic {
 	private ArrayList<Monster> monsters = new ArrayList<Monster>();
 	
 	public Map() {}
-	public Map(String imagePath, String textPath) {
+	public Map(myImage imagePath, String textPath) {
 		super(imagePath);
 		setImagePath(imagePath);
 		setTextPath(textPath);
@@ -53,16 +53,16 @@ public class Map extends myGraphic {
 			System.out.println("readMask of Map error: " + e.getMessage());
 		}
 	}
-	public void loadGraphic(String path) {
+	public void loadGraphic(myImage path) {
 		this.setImagePath(path);
 		this.loadGraphic();
 	}
 	public void loadGraphic() {
-		this.setImage(new myImage(this.imagePath));
+		this.setImage(this.imagePath);
 //		readMask(this.textPath);
-//		for (int i = 0; i < monsters.size(); i++) {
-//			monsters.get(i).loadGraphic();
-//		}
+		for (int i = 0; i < monsters.size(); i++) {
+			monsters.get(i).loadGraphic();
+		}
 	}
 	public void initialize() {
 		this.readMask();
@@ -70,18 +70,19 @@ public class Map extends myGraphic {
 		this.setPosition(0, 0);
 	}
 	public void insert(Group root) {
-		if (!root.getChildren().contains(root))
-			root.getChildren().add(this);
+		root.getChildren().add(this);
 		for (Monster mon : monsters) {
-			if (!root.getChildren().contains(mon)) {
-				mon.insert(root);
-			}
+			mon.insert(root);
 		}
 	}
 	public void update(long currentTime) {
 		for (int i = 0; i < monsters.size(); i++) {
 			while (i < monsters.size() && monsters.get(i).state.isDie) {
-				monsters.remove(i);
+				if (monsters.get(i).getLevel() == Monster.EASY) {
+					gameWorld.addScore(100);
+				} else gameWorld.addScore(200);
+				monsters.get(i).remove(gameWorld.getGameFrame().getRoot() );
+				monsters.remove(monsters.get(i));
 			}
 			if (i < monsters.size()) {
 				monsters.get(i).update(currentTime);
@@ -94,10 +95,10 @@ public class Map extends myGraphic {
 	public void setGameWorld(GameWorld gameWorld) {
 		this.gameWorld = gameWorld;
 	}
-	public String getImagePath() {
+	public myImage getImagePath() {
 		return imagePath;
 	}
-	public void setImagePath(String imagePath) {
+	public void setImagePath(myImage imagePath) {
 		this.imagePath = imagePath;
 //		this.loadGraphic(imagePath);
 	}
@@ -108,7 +109,7 @@ public class Map extends myGraphic {
 		this.textPath = textPath;
 //		this.readMask(textPath);
 	}
-	public void set(String imagePath, String textPath) {
+	public void set(myImage imagePath, String textPath) {
 		this.setImagePath(imagePath);
 		this.setTextPath(textPath);
 	}
@@ -133,6 +134,9 @@ public class Map extends myGraphic {
 	public ArrayList<Monster> getMonsters() {
 		return monsters;
 	}
+	public int countMonster() {
+		return this.monsters.size();
+	}
 	public void setMonsters(ArrayList<Monster> monsters) {
 		this.monsters = monsters;
 	}
@@ -140,6 +144,7 @@ public class Map extends myGraphic {
 		return gameWorld;
 	}
 	public void addMonster(Monster monster) {
+		monster.initialize();
 		monsters.add(monster);
 	}
 }

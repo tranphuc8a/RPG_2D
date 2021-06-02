@@ -7,6 +7,7 @@ import javafx.scene.text.Text;
 import system.Couple;
 import system.GameConfig;
 import system.GameLoop;
+import system.Theme;
 import system.myGraphic;
 
 public class MainMenu extends ParentMenu{
@@ -32,6 +33,7 @@ public class MainMenu extends ParentMenu{
 	{
 		System.out.println("Start Game");
 		GameConfig.readData();
+		Theme.setData();
 		super.initialize();
 		initButton();
 		setEvent();
@@ -135,7 +137,10 @@ public class MainMenu extends ParentMenu{
 //			buttons[i].addEventHandler(MouseEvent.MOUSE_EXITED, e7);
 //		}
 	}
-	
+	@Override public void run() {
+		this.loadGraphic(GameConfig.theme);
+		this.stage.show();
+	}
 	public void initText()
 	{
 		menuName = new Text("Game RPG 2D");
