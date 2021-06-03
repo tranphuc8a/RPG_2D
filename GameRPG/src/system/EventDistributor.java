@@ -1,7 +1,6 @@
 package system;
 
 import gameObject.GameWorld;
-import gameObject.MainCharacter;
 import gameObject.ObjectState;
 import javafx.event.EventType;
 import javafx.scene.input.KeyCode;

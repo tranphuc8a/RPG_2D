@@ -1,7 +1,5 @@
 package gameObject;
 
-import java.util.Random;
-
 import javafx.scene.Group;
 import menu.GameFrame;
 import system.Theme.ObjectPath;
@@ -9,7 +7,6 @@ import system.Theme.ObjectPath;
 import system.Animation;
 import system.Couple;
 import system.myGraphic;
-import system.myImage;
 
 public class GameObject extends myGraphic{
 	public static final double BASE = GameFrame.stageSize.x / 60; // 1 base

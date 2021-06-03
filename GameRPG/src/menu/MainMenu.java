@@ -1,13 +1,12 @@
 package menu;
 
 import javafx.event.EventHandler;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import system.Couple;
 import system.GameConfig;
-import system.GameLoop;
 import system.Theme;
+import system.myAudio;
 import system.myGraphic;
 
 public class MainMenu extends ParentMenu{
@@ -38,6 +37,8 @@ public class MainMenu extends ParentMenu{
 		initButton();
 		setEvent();
 		initText();
+		if (GameConfig.music)
+			GameConfig.menubgAudio.play();
 	}
 	
 	public void initButton()
@@ -109,18 +110,18 @@ public class MainMenu extends ParentMenu{
 				stop();
 			}
 		};
-		EventHandler<MouseEvent> e6 = new EventHandler<MouseEvent>(){
-			@Override public void handle(MouseEvent e) {
-				myGraphic gr = (myGraphic) e.getTarget();
-				gr.setX(gr.getX() + 20);
-			}
-		};
-		EventHandler<MouseEvent> e7 = new EventHandler<MouseEvent>(){
-			@Override public void handle(MouseEvent e) {
-				myGraphic gr = (myGraphic) e.getTarget();
-				gr.setX(gr.getX() - 20);
-			}
-		};
+//		EventHandler<MouseEvent> e6 = new EventHandler<MouseEvent>(){
+//			@Override public void handle(MouseEvent e) {
+//				myGraphic gr = (myGraphic) e.getTarget();
+//				gr.setX(gr.getX() + 20);
+//			}
+//		};
+//		EventHandler<MouseEvent> e7 = new EventHandler<MouseEvent>(){
+//			@Override public void handle(MouseEvent e) {
+//				myGraphic gr = (myGraphic) e.getTarget();
+//				gr.setX(gr.getX() - 20);
+//			}
+//		};
 		
 		buttons[1].addEventHandler(MouseEvent.MOUSE_CLICKED, e1);
 		buttons[2].addEventHandler(MouseEvent.MOUSE_CLICKED, e2);
@@ -140,6 +141,7 @@ public class MainMenu extends ParentMenu{
 	@Override public void run() {
 		this.loadGraphic(GameConfig.theme);
 		this.stage.show();
+//		new myAudio("playbg.mp3", 120, false).play();
 	}
 	public void initText()
 	{

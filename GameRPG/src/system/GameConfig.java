@@ -1,29 +1,12 @@
 package system;
 
 import java.io.BufferedWriter;
-import java.io.DataOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
-import java.io.Writer;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Scanner;
-
-//import java.io.File;
-//
-//import javafx.application.Application;
-//import javafx.scene.Group;
-//import javafx.scene.media.AudioClip;
-//import javafx.scene.media.Media;
-//import javafx.scene.media.MediaPlayer;
-//import javafx.stage.Stage;
-
 
 public class GameConfig {
 	public class Player{
@@ -51,6 +34,12 @@ public class GameConfig {
 	public static boolean music = true;
 	public static int noTheme = FIRST_THEME;
 	public static Theme theme = Theme.FIRST_THEME();
+	
+	public static myAudio menubgAudio = new myAudio("resource/audio/menubg.wav", 166, true); // 166
+	public static myAudio playbgAudio = new myAudio("resource/audio/playbg.wav", 253, true);
+	public static myAudio bulletAudio = new myAudio("resource/audio/bullet.wav", 0.2, false);
+	public static myAudio knifeAudio = new myAudio("resource/audio/knife.wav", 0.2, false);
+	public static myAudio breakrecordsAudio = new myAudio("resource/audio/breakrecords.wav", 3, false);
 	
 	public static void readData() {
 		try
@@ -85,37 +74,29 @@ public class GameConfig {
 		int isSound = sound ? 1 : 0;
 		int isMusic = music ? 1 : 0;
 		noTheme = (theme == Theme.firstTheme ? 1 : theme == Theme.secondTheme ? 2 : 3);
+				
 		
-		try
-		{
-			File file = new File("Data/GameConfig.txt");
+		try (FileWriter fw = new FileWriter(new File("Data/GameConfig.txt"), StandardCharsets.UTF_8);
+            BufferedWriter writer = new BufferedWriter(fw)) {
 			
-			try (FileWriter fw = new FileWriter(file, StandardCharsets.UTF_8);
-	             BufferedWriter writer = new BufferedWriter(fw)) {
-				
-				writer.append(String.valueOf(hardLevel));
+			writer.append(String.valueOf(hardLevel));
+			writer.newLine();
+			writer.append(String.valueOf(isSound));
+			writer.newLine();
+			writer.append(String.valueOf(isMusic));
+			writer.newLine();
+			writer.append(String.valueOf(noTheme));
+			writer.newLine();
+			for (int i = 1; i <= 5; i++) {
+				writer.append(highScore[i].name);
 				writer.newLine();
-				writer.append(String.valueOf(isSound));
+				writer.append(String.valueOf(highScore[i].score));
 				writer.newLine();
-				writer.append(String.valueOf(isMusic));
-				writer.newLine();
-				writer.append(String.valueOf(noTheme));
-				writer.newLine();
-				for (int i = 1; i <= 5; i++) {
-//	 				out.appendUTF(highScore[i].name);
-					writer.append(highScore[i].name);
-					writer.newLine();
-					writer.append(String.valueOf(highScore[i].score));
-					writer.newLine();
-				}
-				
-	        } catch (IOException e) {
-	            e.printStackTrace();
-	        }
-		}
-		catch(Exception e) {
-			System.out.println("Cannot append Out GameConfig Data");
-		}
+			}
+			
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 	}
 	public static String getHighScore() {
 		StringBuffer res = new StringBuffer("");

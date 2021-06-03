@@ -1,6 +1,5 @@
 package system;
 
-import gameObject.GameObject;
 import gameObject.MainCharacter;
 import gameObject.Map;
 import gameObject.Monster;
@@ -26,7 +25,7 @@ public class Camera {
 		Map map = gameFrame.getGameWorld().getCurrentMap();
 		MainCharacter character = gameFrame.getGameWorld().getCharacter();
 		
-		this.setCameraSize(gameFrame.stageSize.x, gameFrame.stageSize.y);
+		this.setCameraSize(GameFrame.stageSize.x, GameFrame.stageSize.y);
 		Couple center = character.getWeightPoint();
 		
 		if (center.x < safeArea[1].x) {

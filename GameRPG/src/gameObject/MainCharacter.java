@@ -1,17 +1,8 @@
 package gameObject;
 
-import java.util.ArrayList;
-
-import javafx.event.Event;
-import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.scene.Group;
-import javafx.scene.input.MouseEvent;
-import system.Animation;
-import system.Couple;
 import system.GameConfig;
 import system.Theme.ObjectPath;
-import system.myGraphic;
 
 
 public class MainCharacter extends GameObject {
@@ -98,6 +89,10 @@ public class MainCharacter extends GameObject {
 		if (now - knife.getLastTimeUse() <= knife.getTimeUse()) return;
 		knife.setLastTimeUse(now);
 		
+		if (GameConfig.sound) {
+			GameConfig.knifeAudio.play();
+		}
+		
 		knife.getState().isDie = false;
 		Group root = this.gameWorld.getGameFrame().getRoot();
 		if (!(root.getChildren().contains(knife))) {
@@ -132,6 +127,10 @@ public class MainCharacter extends GameObject {
 		if (now - bullet.getLastTimeUse() <= bullet.getTimeUse()) return;
 		bullet.setLastTimeUse(now);
 		if (!bullet.getState().isDie) return;
+		
+		if (GameConfig.sound) {
+			GameConfig.bulletAudio.play();
+		}
 		
 		bullet.getState().isDie = false;
 		Group root = this.getGameWorld().getGameFrame().getRoot();

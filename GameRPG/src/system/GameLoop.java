@@ -1,6 +1,5 @@
 package system;
 
-import gameObject.GameWorld;
 import javafx.animation.AnimationTimer;
 import menu.GameFrame;
 
@@ -16,6 +15,9 @@ public class GameLoop extends AnimationTimer {
 			
 			gameFrame.getGameWorld().update(currentTime);
 			gameFrame.getCamera().update();
+			
+			if (GameConfig.music)
+				GameConfig.playbgAudio.update();
 			
 			lastTime = currentTime;
 		}

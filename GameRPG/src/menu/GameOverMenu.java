@@ -37,6 +37,8 @@ public class GameOverMenu extends ParentMenu {
 		initButtons();
 		initText();
 		setEvent();
+		if (GameConfig.music) 
+			GameConfig.menubgAudio.play();
 	}
 	
 	public void initButtons() {

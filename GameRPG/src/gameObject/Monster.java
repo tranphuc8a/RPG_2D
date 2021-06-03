@@ -6,9 +6,7 @@ import java.util.Random;
 
 import javafx.scene.Group;
 import system.Couple;
-import system.GameConfig;
 import system.Theme.ObjectPath;
-import system.myImage;
 
 public class Monster extends GameObject {
 	public static final int EASY = 1;

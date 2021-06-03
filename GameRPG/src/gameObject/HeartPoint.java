@@ -1,8 +1,6 @@
 package gameObject;
 
-import system.Animation;
 import system.GameConfig;
-import system.myGraphic;
 import system.myImage;
 
 public class HeartPoint extends GameObject {

@@ -71,10 +71,12 @@ public class SettingMenu extends ParentMenu{
 			@Override public void handle(MouseEvent e) {
 				if (GameConfig.music) {
 					name[1].setText("Nhạc nền: Tắt");
-					// turn on music
+					GameConfig.menubgAudio.stop();
+					GameConfig.playbgAudio.stop();
 				} else {
 					name[1].setText("Nhạc nền: Bật");
-					// turn of music
+					GameConfig.menubgAudio.play();
+					GameConfig.playbgAudio.stop();
 				}
 				GameConfig.music = !GameConfig.music;
 			}

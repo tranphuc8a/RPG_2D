@@ -7,9 +7,7 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
 import menu.GameFrame;
-import system.Couple;
 import system.GameConfig;
 
 public class GameWorld {

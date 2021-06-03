@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import javafx.scene.Group;
-import system.GameConfig;
 import system.myGraphic;
 import system.myImage;
 

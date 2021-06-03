@@ -8,6 +8,13 @@ public class Theme {
 		public myImage[] behind 	= null;
 		public myImage[] left 	= null;
 		public myImage[] right 	= null;
+		ObjectPath(){}
+		ObjectPath(int numFrame){
+			front = new myImage[numFrame];
+			behind = new myImage[numFrame];
+			left = new myImage[numFrame];
+			right = new myImage[numFrame];
+		}
 	}
 	
 	public myImage buttonPath;
@@ -24,19 +31,19 @@ public class Theme {
 	
 	public myImage[] mapImagePath			= {};
 	public String[] mapTextPath				= {};
-	public ObjectPath charaterPath		= new ObjectPath();
+	public ObjectPath charaterPath		= new ObjectPath(9);
 	
-	public ObjectPath batPath			= new ObjectPath();
-	public ObjectPath buffaloPath		= new ObjectPath();
-	public ObjectPath foxPath			= new ObjectPath();
-	public ObjectPath mousePath			= new ObjectPath();
-	public ObjectPath snakePath			= new ObjectPath();
-	public ObjectPath pigPath			= new ObjectPath();
+	public ObjectPath batPath			= new ObjectPath(3);
+	public ObjectPath buffaloPath		= new ObjectPath(3);
+	public ObjectPath foxPath			= new ObjectPath(3);
+	public ObjectPath mousePath			= new ObjectPath(3);
+	public ObjectPath snakePath			= new ObjectPath(3);
+	public ObjectPath pigPath			= new ObjectPath(3);
 	
-	public ObjectPath bulletPath		= new ObjectPath();
-	public ObjectPath knifePath			= new ObjectPath();
+	public ObjectPath bulletPath		= new ObjectPath(10);
+	public ObjectPath knifePath			= new ObjectPath(6);
 	
-	public ObjectPath hurtPath			= new ObjectPath();
+	public ObjectPath hurtPath			= new ObjectPath(24);
 	public myImage[] hpPath;
 	public myImage[] humanHurt;
 	public myImage[] monsterHurt;
@@ -58,17 +65,13 @@ public class Theme {
 		firstTheme.buttonFramePath 	= new myImage("resource/frame/buttonFrame.png");
 		firstTheme.nameFramePath 	= new myImage("resource/frame/text.png");
 		firstTheme.informationPath 	= new myImage("resource/symbol/infor.png");
-		firstTheme.tutorialPath 		= new myImage("resource/symbol/help.png");
-		firstTheme.musicPath 			= new myImage("resource/deche.mp3");
-		firstTheme.soundPath 			= new myImage("resource/deche.mp3");
-		firstTheme.nameMenuFont 		= new Font("Consolas", 40);
+		firstTheme.tutorialPath 	= new myImage("resource/symbol/help.png");
+		firstTheme.musicPath 		= new myImage("resource/deche.mp3");
+		firstTheme.soundPath 		= new myImage("resource/deche.mp3");
+		firstTheme.nameMenuFont 	= new Font("Consolas", 40);
 		firstTheme.nameButtonFont 	= new Font("Times New Roman", 20);
 		
 		// character
-		firstTheme.charaterPath.front = new myImage[9];
-		firstTheme.charaterPath.behind = new myImage[9];
-		firstTheme.charaterPath.left = new myImage[9];
-		firstTheme.charaterPath.right = new myImage[9];
 		for (int i = 0; i < 9; i++) {
 			firstTheme.charaterPath.front[i] = new myImage("resource/character/man/front/fr" + (i + 1) + "-removebg-preview.png");
 			firstTheme.charaterPath.behind[i] = new myImage("resource/character/man/behind/bh" + (i + 1) + "-removebg-preview.png");
@@ -85,10 +88,6 @@ public class Theme {
 		firstTheme.mapTextPath[2] = "resource/map/XuanTruong.txt";
 		firstTheme.mapTextPath[3] = "resource/map/tuSon.txt";
 		// bullet
-		firstTheme.bulletPath.front = new myImage[10];
-		firstTheme.bulletPath.behind = new myImage[10];
-		firstTheme.bulletPath.left = new myImage[10];
-		firstTheme.bulletPath.right = new myImage[10];
 		for (int i = 0; i < 10; i++) {
 			firstTheme.bulletPath.front[i] = new myImage("resource/bullet/bullet/down/" + (i + 1) + ".png");
 			firstTheme.bulletPath.behind[i] = new myImage("resource/bullet/bullet/up/" + (i + 1) + ".png");
@@ -101,10 +100,6 @@ public class Theme {
 			firstTheme.hpPath[i] = new myImage("resource/HP/blue/" + (i + 1) + ".png");
 		}
 		// knife
-		firstTheme.knifePath.front = new myImage[6];
-		firstTheme.knifePath.behind = new myImage[6];
-		firstTheme.knifePath.left = new myImage[6];
-		firstTheme.knifePath.right = new myImage[6];
 		for (int i = 0; i < 6; i++) {
 			firstTheme.knifePath.front[i] = new myImage("resource/knife/word/front/" + (i + 1) + ".png");
 			firstTheme.knifePath.behind[i] = new myImage("resource/knife/word/behind/" + (i + 1) + ".png");
@@ -112,10 +107,6 @@ public class Theme {
 			firstTheme.knifePath.right[i] = new myImage("resource/knife/word/right/" + (i + 1) + ".png");
 		}
 		// hurt
-		firstTheme.hurtPath.front = new myImage[24];
-		firstTheme.hurtPath.behind = new myImage[24];
-		firstTheme.hurtPath.left = new myImage[24];
-		firstTheme.hurtPath.right = new myImage[24];
 		for (int i = 0; i < 24; i++) {
 			firstTheme.hurtPath.front[i] = new myImage("resource/knife/hurtAnimation/" + (i + 1) + ".png");
 			firstTheme.hurtPath.behind[i] = new myImage("resource/knife/hurtAnimation/" + (i + 1) + ".png");
@@ -132,10 +123,6 @@ public class Theme {
 		firstTheme.monsterBullet[0] = new myImage("resource/monsterBullet/1.png");
 		// monsters:
 		// bat:
-		firstTheme.batPath.front = new myImage[3];
-		firstTheme.batPath.behind = new myImage[3];
-		firstTheme.batPath.left = new myImage[3];
-		firstTheme.batPath.right = new myImage[3];
 		for (int i = 0; i < 3; i++) {
 			firstTheme.batPath.front[i] = new myImage("resource/monster/bat/front/" + (i + 1) + ".png");
 			firstTheme.batPath.behind[i] = new myImage("resource/monster/bat/behind/" + (i + 1) + ".png");
@@ -143,10 +130,6 @@ public class Theme {
 			firstTheme.batPath.right[i] = new myImage("resource/monster/bat/right/" + (i + 1) + ".png");
 		}
 		// buffalo:
-		firstTheme.buffaloPath.front = new myImage[3];
-		firstTheme.buffaloPath.behind = new myImage[3];
-		firstTheme.buffaloPath.left = new myImage[3];
-		firstTheme.buffaloPath.right = new myImage[3];
 		for (int i = 0; i < 3; i++) {
 			firstTheme.buffaloPath.front[i] = new myImage("resource/monster/buffalo/front/" + (i + 1) + ".png");
 			firstTheme.buffaloPath.behind[i] = new myImage("resource/monster/buffalo/behind/" + (i + 1) + ".png");
@@ -154,10 +137,6 @@ public class Theme {
 			firstTheme.buffaloPath.right[i] = new myImage("resource/monster/buffalo/right/" + (i + 1) + ".png");
 		}
 		// fox:
-		firstTheme.foxPath.front = new myImage[3];
-		firstTheme.foxPath.behind = new myImage[3];
-		firstTheme.foxPath.left = new myImage[3];
-		firstTheme.foxPath.right = new myImage[3];
 		for (int i = 0; i < 3; i++) {
 			firstTheme.foxPath.front[i] = new myImage("resource/monster/fox/front/" + (i + 1) + ".png");
 			firstTheme.foxPath.behind[i] = new myImage("resource/monster/fox/behind/" + (i + 1) + ".png");
@@ -165,10 +144,6 @@ public class Theme {
 			firstTheme.foxPath.right[i] = new myImage("resource/monster/fox/right/" + (i + 1) + ".png");
 		}
 		// mouse:
-		firstTheme.mousePath.front = new myImage[3];
-		firstTheme.mousePath.behind = new myImage[3];
-		firstTheme.mousePath.left = new myImage[3];
-		firstTheme.mousePath.right = new myImage[3];
 		for (int i = 0; i < 3; i++) {
 			firstTheme.mousePath.front[i] = new myImage("resource/monster/mouse/front/" + (i + 1) + ".png");
 			firstTheme.mousePath.behind[i] = new myImage("resource/monster/mouse/behind/" + (i + 1) + ".png");
@@ -176,10 +151,6 @@ public class Theme {
 			firstTheme.mousePath.right[i] = new myImage("resource/monster/mouse/right/" + (i + 1) + ".png");
 		}
 		// pig:
-		firstTheme.pigPath.front = new myImage[3];
-		firstTheme.pigPath.behind = new myImage[3];
-		firstTheme.pigPath.left = new myImage[3];
-		firstTheme.pigPath.right = new myImage[3];
 		for (int i = 0; i < 3; i++) {
 			firstTheme.pigPath.front[i] = new myImage("resource/monster/pig/front/" + (i + 1) + ".png");
 			firstTheme.pigPath.behind[i] = new myImage("resource/monster/pig/behind/" + (i + 1) + ".png");
@@ -187,10 +158,6 @@ public class Theme {
 			firstTheme.pigPath.right[i] = new myImage("resource/monster/pig/right/" + (i + 1) + ".png");
 		}
 		// snake red:
-		firstTheme.snakePath.front = new myImage[3];
-		firstTheme.snakePath.behind = new myImage[3];
-		firstTheme.snakePath.left = new myImage[3];
-		firstTheme.snakePath.right = new myImage[3];
 		for (int i = 0; i < 3; i++) {
 			firstTheme.snakePath.front[i] = new myImage("resource/monster/snake/red/front/" + (i + 1) + ".png");
 			firstTheme.snakePath.behind[i] = new myImage("resource/monster/snake/red/behind/" + (i + 1) + ".png");
@@ -211,10 +178,6 @@ public class Theme {
 		secondTheme.nameMenuFont 		= new Font("Consolas", 40);
 		secondTheme.nameButtonFont 	= new Font("Times New Roman", 20);
 		
-		secondTheme.charaterPath.front = new myImage[9];
-		secondTheme.charaterPath.behind = new myImage[9];
-		secondTheme.charaterPath.left = new myImage[9];
-		secondTheme.charaterPath.right = new myImage[9];
 		for (int i = 0; i < 9; i++) {
 			secondTheme.charaterPath.front[i] = new myImage("resource/character/woman/front/" + (i + 1) + "-removebg-preview.png");
 			secondTheme.charaterPath.behind[i] = new myImage("resource/character/woman/behind/" + (i + 1) + "-removebg-preview.png");
@@ -231,10 +194,6 @@ public class Theme {
 		secondTheme.mapTextPath[2] = "resource/map/xuanTruong.txt";
 		secondTheme.mapTextPath[3] = "resource/map/tuSon.txt";
 		
-		secondTheme.bulletPath.front = new myImage[10];
-		secondTheme.bulletPath.behind = new myImage[10];
-		secondTheme.bulletPath.left = new myImage[10];
-		secondTheme.bulletPath.right = new myImage[10];
 		for (int i = 0; i < 10; i++) {
 			secondTheme.bulletPath.front[i] = new myImage("resource/bullet/bullet/down/" + (i + 1) + ".png");
 			secondTheme.bulletPath.behind[i] = new myImage("resource/bullet/bullet/up/" + (i + 1) + ".png");
@@ -247,10 +206,6 @@ public class Theme {
 			secondTheme.hpPath[i] = new myImage("resource/HP/red/" + (i + 1) + ".png");
 		}
 		// knife
-		secondTheme.knifePath.front = new myImage[6];
-		secondTheme.knifePath.behind = new myImage[6];
-		secondTheme.knifePath.left = new myImage[6];
-		secondTheme.knifePath.right = new myImage[6];
 		for (int i = 0; i < 6; i++) {
 			secondTheme.knifePath.front[i] = new myImage("resource/knife/word/front/" + (i + 1) + ".png");
 			secondTheme.knifePath.behind[i] = new myImage("resource/knife/word/behind/" + (i + 1) + ".png");
@@ -259,10 +214,6 @@ public class Theme {
 		}
 		// hurtPath
 		// hurt
-		secondTheme.hurtPath.front = new myImage[24];
-		secondTheme.hurtPath.behind = new myImage[24];
-		secondTheme.hurtPath.left = new myImage[24];
-		secondTheme.hurtPath.right = new myImage[24];
 		for (int i = 0; i < 24; i++) {
 			secondTheme.hurtPath.front[i] = new myImage("resource/knife/hurtAnimation/" + (i + 1) + ".png");
 			secondTheme.hurtPath.behind[i] = new myImage("resource/knife/hurtAnimation/" + (i + 1) + ".png");
@@ -279,10 +230,6 @@ public class Theme {
 		secondTheme.monsterBullet[0] = new myImage("resource/monsterBullet/1.png");
 		// monsters:
 		// bat:
-		secondTheme.batPath.front = new myImage[3];
-		secondTheme.batPath.behind = new myImage[3];
-		secondTheme.batPath.left = new myImage[3];
-		secondTheme.batPath.right = new myImage[3];
 		for (int i = 0; i < 3; i++) {
 			secondTheme.batPath.front[i] = new myImage("resource/monster/bat/front/" + (i + 1) + ".png");
 			secondTheme.batPath.behind[i] = new myImage("resource/monster/bat/behind/" + (i + 1) + ".png");
@@ -290,10 +237,6 @@ public class Theme {
 			secondTheme.batPath.right[i] = new myImage("resource/monster/bat/right/" + (i + 1) + ".png");
 		}
 		// buffalo:
-		secondTheme.buffaloPath.front = new myImage[3];
-		secondTheme.buffaloPath.behind = new myImage[3];
-		secondTheme.buffaloPath.left = new myImage[3];
-		secondTheme.buffaloPath.right = new myImage[3];
 		for (int i = 0; i < 3; i++) {
 			secondTheme.buffaloPath.front[i] = new myImage("resource/monster/buffalo/front/" + (i + 1) + ".png");
 			secondTheme.buffaloPath.behind[i] = new myImage("resource/monster/buffalo/behind/" + (i + 1) + ".png");
@@ -301,10 +244,6 @@ public class Theme {
 			secondTheme.buffaloPath.right[i] = new myImage("resource/monster/buffalo/right/" + (i + 1) + ".png");
 		}
 		// fox:
-		secondTheme.foxPath.front = new myImage[3];
-		secondTheme.foxPath.behind = new myImage[3];
-		secondTheme.foxPath.left = new myImage[3];
-		secondTheme.foxPath.right = new myImage[3];
 		for (int i = 0; i < 3; i++) {
 			secondTheme.foxPath.front[i] = new myImage("resource/monster/fox/front/" + (i + 1) + ".png");
 			secondTheme.foxPath.behind[i] = new myImage("resource/monster/fox/behind/" + (i + 1) + ".png");
@@ -312,10 +251,6 @@ public class Theme {
 			secondTheme.foxPath.right[i] = new myImage("resource/monster/fox/right/" + (i + 1) + ".png");
 		}
 		// mouse:
-		secondTheme.mousePath.front = new myImage[3];
-		secondTheme.mousePath.behind = new myImage[3];
-		secondTheme.mousePath.left = new myImage[3];
-		secondTheme.mousePath.right = new myImage[3];
 		for (int i = 0; i < 3; i++) {
 			secondTheme.mousePath.front[i] = new myImage("resource/monster/mouse/front/" + (i + 1) + ".png");
 			secondTheme.mousePath.behind[i] = new myImage("resource/monster/mouse/behind/" + (i + 1) + ".png");
@@ -323,10 +258,6 @@ public class Theme {
 			secondTheme.mousePath.right[i] = new myImage("resource/monster/mouse/right/" + (i + 1) + ".png");
 		}
 		// pig:
-		secondTheme.pigPath.front = new myImage[3];
-		secondTheme.pigPath.behind = new myImage[3];
-		secondTheme.pigPath.left = new myImage[3];
-		secondTheme.pigPath.right = new myImage[3];
 		for (int i = 0; i < 3; i++) {
 			secondTheme.pigPath.front[i] = new myImage("resource/monster/pig/front/" + (i + 1) + ".png");
 			secondTheme.pigPath.behind[i] = new myImage("resource/monster/pig/behind/" + (i + 1) + ".png");
@@ -334,10 +265,6 @@ public class Theme {
 			secondTheme.pigPath.right[i] = new myImage("resource/monster/pig/right/" + (i + 1) + ".png");
 		}
 		// snake yellow:
-		secondTheme.snakePath.front = new myImage[3];
-		secondTheme.snakePath.behind = new myImage[3];
-		secondTheme.snakePath.left = new myImage[3];
-		secondTheme.snakePath.right = new myImage[3];
 		for (int i = 0; i < 3; i++) {
 			secondTheme.snakePath.front[i] = new myImage("resource/monster/snake/yellow/front/" + (i + 1) + ".png");
 			secondTheme.snakePath.behind[i] = new myImage("resource/monster/snake/yellow/behind/" + (i + 1) + ".png");
@@ -359,10 +286,6 @@ public class Theme {
 		thirdTheme.nameMenuFont 		= new Font("Consolas", 40);
 		thirdTheme.nameButtonFont 	= new Font("Times New Roman", 20);
 		
-		thirdTheme.charaterPath.front = new myImage[9];
-		thirdTheme.charaterPath.behind = new myImage[9];
-		thirdTheme.charaterPath.left = new myImage[9];
-		thirdTheme.charaterPath.right = new myImage[9];
 		for (int i = 0; i < 9; i++) {
 			thirdTheme.charaterPath.front[i] 	= new myImage("resource/character/man/front/fr" 	+ (i + 1) + "-removebg-preview.png");
 			thirdTheme.charaterPath.behind[i] = new myImage("resource/character/man/behind/bh" 	+ (i + 1) + "-removebg-preview.png");
@@ -380,10 +303,6 @@ public class Theme {
 		thirdTheme.mapTextPath[3] = "resource/map/tuSon.txt";
 		
 		
-		thirdTheme.bulletPath.front = new myImage[10];
-		thirdTheme.bulletPath.behind = new myImage[10];
-		thirdTheme.bulletPath.left = new myImage[10];
-		thirdTheme.bulletPath.right = new myImage[10];
 		for (int i = 0; i < 10; i++) {
 			thirdTheme.bulletPath.front[i] = new myImage("resource/bullet/bullet/down/" + (i + 1) + ".png");
 			thirdTheme.bulletPath.behind[i] = new myImage("resource/bullet/bullet/up/" + (i + 1) + ".png");
@@ -396,10 +315,6 @@ public class Theme {
 			thirdTheme.hpPath[i] = new myImage("resource/HP/red/" + (i + 1) + ".png");
 		}
 		// knife
-		thirdTheme.knifePath.front = new myImage[6];
-		thirdTheme.knifePath.behind = new myImage[6];
-		thirdTheme.knifePath.left = new myImage[6];
-		thirdTheme.knifePath.right = new myImage[6];
 		for (int i = 0; i < 6; i++) {
 			thirdTheme.knifePath.front[i] = new myImage("resource/knife/word/front/" + (i + 1) + ".png");
 			thirdTheme.knifePath.behind[i] = new myImage("resource/knife/word/behind/" + (i + 1) + ".png");
@@ -408,10 +323,6 @@ public class Theme {
 		}
 		// hurtPath
 		// hurt
-		thirdTheme.hurtPath.front = new myImage[24];
-		thirdTheme.hurtPath.behind = new myImage[24];
-		thirdTheme.hurtPath.left = new myImage[24];
-		thirdTheme.hurtPath.right = new myImage[24];
 		for (int i = 0; i < 24; i++) {
 			thirdTheme.hurtPath.front[i] = new myImage("resource/knife/hurtAnimation/" + (i + 1) + ".png");
 			thirdTheme.hurtPath.behind[i] = new myImage("resource/knife/hurtAnimation/" + (i + 1) + ".png");
@@ -428,10 +339,6 @@ public class Theme {
 		thirdTheme.monsterBullet[0] = new myImage("resource/monsterBullet/1.png");
 		// monsters:
 		// bat:
-		thirdTheme.batPath.front = new myImage[3];
-		thirdTheme.batPath.behind = new myImage[3];
-		thirdTheme.batPath.left = new myImage[3];
-		thirdTheme.batPath.right = new myImage[3];
 		for (int i = 0; i < 3; i++) {
 			thirdTheme.batPath.front[i] = new myImage("resource/monster/bat/front/" + (i + 1) + ".png");
 			thirdTheme.batPath.behind[i] = new myImage("resource/monster/bat/behind/" + (i + 1) + ".png");
@@ -439,10 +346,6 @@ public class Theme {
 			thirdTheme.batPath.right[i] = new myImage("resource/monster/bat/right/" + (i + 1) + ".png");
 		}
 		// buffalo:
-		thirdTheme.buffaloPath.front = new myImage[3];
-		thirdTheme.buffaloPath.behind = new myImage[3];
-		thirdTheme.buffaloPath.left = new myImage[3];
-		thirdTheme.buffaloPath.right = new myImage[3];
 		for (int i = 0; i < 3; i++) {
 			thirdTheme.buffaloPath.front[i] = new myImage("resource/monster/buffalo/front/" + (i + 1) + ".png");
 			thirdTheme.buffaloPath.behind[i] = new myImage("resource/monster/buffalo/behind/" + (i + 1) + ".png");
@@ -450,10 +353,6 @@ public class Theme {
 			thirdTheme.buffaloPath.right[i] = new myImage("resource/monster/buffalo/right/" + (i + 1) + ".png");
 		}
 		// fox:
-		thirdTheme.foxPath.front = new myImage[3];
-		thirdTheme.foxPath.behind = new myImage[3];
-		thirdTheme.foxPath.left = new myImage[3];
-		thirdTheme.foxPath.right = new myImage[3];
 		for (int i = 0; i < 3; i++) {
 			thirdTheme.foxPath.front[i] = new myImage("resource/monster/fox/front/" + (i + 1) + ".png");
 			thirdTheme.foxPath.behind[i] = new myImage("resource/monster/fox/behind/" + (i + 1) + ".png");
@@ -461,10 +360,6 @@ public class Theme {
 			thirdTheme.foxPath.right[i] = new myImage("resource/monster/fox/right/" + (i + 1) + ".png");
 		}
 		// mouse:
-		thirdTheme.mousePath.front = new myImage[3];
-		thirdTheme.mousePath.behind = new myImage[3];
-		thirdTheme.mousePath.left = new myImage[3];
-		thirdTheme.mousePath.right = new myImage[3];
 		for (int i = 0; i < 3; i++) {
 			thirdTheme.mousePath.front[i] = new myImage("resource/monster/mouse/front/" + (i + 1) + ".png");
 			thirdTheme.mousePath.behind[i] = new myImage("resource/monster/mouse/behind/" + (i + 1) + ".png");
@@ -472,10 +367,6 @@ public class Theme {
 			thirdTheme.mousePath.right[i] = new myImage("resource/monster/mouse/right/" + (i + 1) + ".png");
 		}
 		// pig:
-		thirdTheme.pigPath.front = new myImage[3];
-		thirdTheme.pigPath.behind = new myImage[3];
-		thirdTheme.pigPath.left = new myImage[3];
-		thirdTheme.pigPath.right = new myImage[3];
 		for (int i = 0; i < 3; i++) {
 			thirdTheme.pigPath.front[i] = new myImage("resource/monster/pig/front/" + (i + 1) + ".png");
 			thirdTheme.pigPath.behind[i] = new myImage("resource/monster/pig/behind/" + (i + 1) + ".png");
@@ -483,10 +374,6 @@ public class Theme {
 			thirdTheme.pigPath.right[i] = new myImage("resource/monster/pig/right/" + (i + 1) + ".png");
 		}
 		// snake blue:
-		thirdTheme.snakePath.front = new myImage[3];
-		thirdTheme.snakePath.behind = new myImage[3];
-		thirdTheme.snakePath.left = new myImage[3];
-		thirdTheme.snakePath.right = new myImage[3];
 		for (int i = 0; i < 3; i++) {
 			thirdTheme.snakePath.front[i] = new myImage("resource/monster/snake/blue/front/" + (i + 1) + ".png");
 			thirdTheme.snakePath.behind[i] = new myImage("resource/monster/snake/blue/behind/" + (i + 1) + ".png");

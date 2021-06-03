@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 import system.Couple;
 import system.GameConfig;
 import system.Theme;
+import system.myAudio;
 import system.myGraphic;
 import system.myImage;
 
@@ -17,6 +18,9 @@ public class ParentMenu extends Application {
 	@Override
 	public void start(Stage primaryStage)
 	{
+		if (GameConfig.music){
+			GameConfig.menubgAudio.update();
+		}
 		this.initialize();
 		primaryStage = this.stage;
 		primaryStage.show();

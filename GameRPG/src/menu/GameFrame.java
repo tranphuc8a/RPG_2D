@@ -1,14 +1,11 @@
 package menu;
 
-import javax.swing.GroupLayout.Alignment;
-
 import gameObject.GameWorld;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -16,7 +13,6 @@ import system.Camera;
 import system.Couple;
 import system.EventDistributor;
 import system.GameConfig;
-import system.GameConfig.Player;
 import system.GameLoop;
 
 public class GameFrame extends Application {
@@ -31,6 +27,9 @@ public class GameFrame extends Application {
 		primaryStage = this.stage;
 		primaryStage.show();
 		
+		GameConfig.menubgAudio.stop();
+		if (GameConfig.music)
+			GameConfig.playbgAudio.play();
 		gameLoop.start();
 	}
 	public void run() {
@@ -81,7 +80,7 @@ public class GameFrame extends Application {
 		// make Graph of list GameObject
 		
 		gameWorld.initialize();
-		gameLoop.setFPS(10000);
+		gameLoop.setFPS(1000);
 		camera.initialize();
 		distributeEvent();
 	}
@@ -102,23 +101,25 @@ public class GameFrame extends Application {
 		});
 	}
 	public void pauseGame() {
+		GameConfig.playbgAudio.stop();
 		stage.hide();
 		gameLoop.stop();
+		if (GameConfig.music)
+			GameConfig.menubgAudio.play();
 		pauseMenu.run();
 	}
 	public void continueGame() {
 //		gameWorld.loadGraphic();
+		GameConfig.menubgAudio.stop();
 		stage.show();
+		if (GameConfig.music)
+			GameConfig.playbgAudio.resume();
 		gameLoop.start();
 	}
 	public void checkHighScore(int score) {
+		GameConfig.playbgAudio.mute();
 		if (score > GameConfig.highScore[5].score) {
 			(new MessageBox() {
-				GameFrame newParent = null;
-				public MessageBox setParent(GameFrame par) {
-					this.newParent = par;
-					return this;
-				}
 				@Override
 				public void initialization() {
 					super.initialization();
@@ -140,19 +141,23 @@ public class GameFrame extends Application {
 					okay.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {;
 						@Override public void handle(MouseEvent e) {
 							GameConfig.updateHighScore(inputName.getText(), score);
-							newParent.stage.hide();
+							GameFrame.this.stage.hide();
 							gameOverMenu.run();
 						}
 					});
+					GameConfig.breakrecordsAudio.play();
 				}
-			}).setParent(this).run();
+			}).run();
 		} else {
 			stage.hide();
 			gameOverMenu.run();
 		}
 	}
 	public void endGame(boolean isWin, int score) {
+		GameConfig.playbgAudio.mute();
+	//	stage.hide();
 		gameLoop.stop();
+		
 		String infor = "";
 		if (isWin) {
 			infor += "YOU WIN!\n";

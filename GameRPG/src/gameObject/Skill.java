@@ -1,8 +1,5 @@
 package gameObject;
 
-import java.util.ArrayList;
-
-import system.Animation;
 import system.Theme.ObjectPath;
 
 public class Skill extends GameObject {

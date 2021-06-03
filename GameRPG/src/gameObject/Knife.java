@@ -1,8 +1,6 @@
 package gameObject;
 
 import java.util.ArrayList;
-
-import system.Couple;
 import system.GameConfig;
 
 public class Knife extends Skill {
@@ -81,9 +79,6 @@ public class Knife extends Skill {
 	public boolean checkDamaged(Monster monster) {
 		MainCharacter character = (MainCharacter) parentObject;
 		this.state.direct = parentObject.getState().direct;
-		Couple under = new Couple(parentObject.getX() + parentObject.getFitWidth() * 0.5,
-								  parentObject.getY() + parentObject.getFitHeight() * 0.9);
-		Couple vector = new Couple();
 		switch (this.state.direct) {
 		case ObjectState.LEFT:
 			if (monster.getY() + 0.75 * monster.getFitHeight() < parentObject.getY()) return false;
